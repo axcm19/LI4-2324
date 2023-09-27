@@ -1,10 +1,13 @@
-# LI4-2324
+# Projeto de LI4 2023/2024
 
-  Afonso Xavier Cardoso Marques - A94940 
-  Ana Margarida Campos Pires - A96090 
-  Hugo Rafael Lima Pereira - A93752 
-  João Daniel da Silva Carvalho - A94015 
-  José Diogo Lopes Faria - A95255 
+- Afonso Xavier Cardoso Marques - a94940
+- Ana Margarida Campos Pires - a96090 
+- Hugo Rafael Lima Pereira - a93752 
+- João Daniel da Silva Carvalho - a94015 
+- José Diogo Lopes Faria - a95255 
+
+
+
 
 
 
