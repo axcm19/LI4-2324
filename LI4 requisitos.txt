@@ -22,7 +22,7 @@ Requisitos de utilizador:
 - os três inventários são: artigos comprados, artigos para leiloar, artigos vendidos;
 - o participante pode criar um artigo. Este artigo é depois adicionado pelo sistema à base de dados.
 - o participante faz proposta de leilão (escolhendo a categoria, artigos a leiloar e percentagem de diferença) para um determinado lote de artigos que queira leiloar;
-- o administrador aprova (ou não) as propostas de leilão feitas pelos participantes. Se aprovar um leilão, deve criá-lo e abri-lo ao público. Cada leilão que é criado deve ser guardado na base de dados do sistema.
+- o administrador aprova (ou não) as propostas de leilão feitas pelos participantes. Se aprovar um leilão, deve criá-lo e abri-lo ao público;
 - o administrador pode eliminar qualquer utilizador;
 - o administrador pode eliminar qualquer leilão que tenha sido criado previamente;
 
@@ -30,16 +30,17 @@ Requisitos de utilizador:
 
 Requisitos de leilão:
 
-- um leilão possui um lote de artigos que tem pelo menos um artigo.
-- um leilão tem uma categoria: 
-- leilão de livros (só são permitidos lotes de livros),  
-- leilão de carros (só são permitidos lotes de  carros),  
-- leilão de joias (só são permitidos lotes de joias),  
-- leilão de quadros (só são permitidos lotes de quadros),  
+- um leilão possui um lote de artigos que tem pelo menos um artigo;
+- um leilão tem uma categoria;
+- leilão de livros (só são permitidos lotes de livros);
+- leilão de carros (só são permitidos lotes de  carros);  
+- leilão de joias (só são permitidos lotes de joias);
+- leilão de quadros (só são permitidos lotes de quadros); 
 - leilão misto (são permitidos lotes com livros, carros,  joias e quadros em simultâneo);
 - um leilão permanece aberto durante o intervalo de tempo que é estabelecido pelo participante que o propôs;
 - um leilão termina quando o intervalo de tempo acabar sendo declarado  como vencedor do leilão o participante que fez a última licitação;
 - cada licitação feita deve ter uma diferença mínima de X% em relação à licitação anterior (X é definido pelo participante que propôs o leilão);
+- cada leilão que é criado deve ser guardado na base de dados do sistema;
 
 ----------------------------------------------------------------------------------------------------------------------------
 
