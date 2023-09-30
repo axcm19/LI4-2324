@@ -31,12 +31,14 @@ Requisitos de utilizador:
 Requisitos de leilão:
 
 - um leilão possui um lote de artigos que tem pelo menos um artigo;
+
 - um leilão tem uma categoria;
-- leilão de livros (só são permitidos lotes de livros);
-- leilão de carros (só são permitidos lotes de  carros);  
-- leilão de joias (só são permitidos lotes de joias);
-- leilão de quadros (só são permitidos lotes de quadros); 
-- leilão misto (são permitidos lotes com livros, carros,  joias e quadros em simultâneo);
+    - leilão de livros (só são permitidos lotes de livros);
+    - leilão de carros (só são permitidos lotes de  carros);  
+    - leilão de joias (só são permitidos lotes de joias);
+    - leilão de quadros (só são permitidos lotes de quadros); 
+    - leilão misto (são permitidos lotes com livros, carros,  joias e quadros em simultâneo);
+
 - um leilão permanece aberto durante o intervalo de tempo que é estabelecido pelo participante que o propôs;
 - um leilão termina quando o intervalo de tempo acabar sendo declarado  como vencedor do leilão o participante que fez a última licitação;
 - cada licitação feita deve ter uma diferença mínima de X% em relação à licitação anterior (X é definido pelo participante que propôs o leilão);
