@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Afonso Marques\\Desktop\\LI4-projeto\\LeiloesOnline\\LeiloesOnline.csproj",
+      "projectUniqueName": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\LeiloesOnline\\LeiloesOnline.csproj",
       "projectName": "LeiloesOnline",
-      "projectPath": "D:\\Users\\Afonso Marques\\Desktop\\LI4-projeto\\LeiloesOnline\\LeiloesOnline.csproj",
+      "projectPath": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\LeiloesOnline\\LeiloesOnline.csproj",
       "packagesPath": "C:\\Users\\Afonso Marques\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Afonso Marques\\Desktop\\LI4-projeto\\LeiloesOnline\\obj\\",
+      "outputPath": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\LeiloesOnline\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Afonso Marques\\AppData\\Roaming\\NuGet\\NuGet.Config",
