@@ -1,0 +1,58 @@
+﻿@page "/proposta"
+
+<PageTitle>Proposta de Leilão</PageTitle>
+
+<center><h1>Proposta de Leilão</h1></center>
+
+<p><b>Categoria: </b>
+    <select name="filtro" id="filtro">
+        <option value="Artigos">Categoria </option>
+        <option value=" "> </option>
+        <option value=" "> </option>
+        <option value=" "> </option>
+    </select>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="fname"><b>Nome do Leilão:</b></label>
+        <input type="text" id="fname" name="fname">
+    </form>
+</p>
+
+<p>
+    <b>Artigos: </b>
+    <select name="filtro" id="filtro">
+        <option value="Artigos">Artigos </option>
+        <option value=" "> </option>
+        <option value=" "> </option>
+        <option value=" "> </option>
+    </select>
+    <button>Criar Artigo</button>
+ </p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="fname"><b>Preço Base:</b></label>
+        <input type="text" id="fname" name="fname">
+    </form> 
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="fname"><b>Valor de diferença:</b></label>
+        <input type="text" id="fname" name="fname">
+    </form> 
+</p>
+
+<p>
+    <b>Duração:</b> 
+    <label for="fname">Data de Início: </label>
+    <input type="text" id="fname" name="fname">
+    <label for="fname">Data de Término:</label>
+    <input type="text" id="fname" name="fname">
+</p>
+
+<center><button>Propor</button></center>
+
+
