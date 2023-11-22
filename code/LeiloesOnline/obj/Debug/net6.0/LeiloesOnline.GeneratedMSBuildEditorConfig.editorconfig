@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Conta.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Proposta.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvcG9zdGEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Shared/SurveyPrompt.razor]
