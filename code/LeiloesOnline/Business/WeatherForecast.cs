@@ -1,4 +1,4 @@
-namespace LeiloesOnline.Data
+namespace LeiloesOnline.Business
 {
     public class WeatherForecast
     {

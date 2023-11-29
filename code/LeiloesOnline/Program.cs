@@ -1,3 +1,4 @@
+using LeiloesOnline.Business;
 using LeiloesOnline.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
