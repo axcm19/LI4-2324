@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: rgba(137, 193, 217, 0.5);
 }
 
 h1:focus {
@@ -62,3 +63,32 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.imagem-desfocada {
+    /* Defina o tamanho da imagem */
+    width: 500px;
+    height: 400px;
+    /* Aplica uma transição suave para o efeito de desfoque */
+    transition: filter 0.5s ease;
+}
+
+    /* Efeito de desfoque quando passar o mouse por cima */
+    .imagem-desfocada:hover {
+        filter: blur(3px); /* Altere o valor do blur conforme necessário */
+    }
+
+.foto-header {
+    margin-left: 25px;
+    width: 150px;
+    height: 102px;
+}
+
+.titulo {
+    margin-right: 800px;
+    font-family: sans-serif;
+}
+
+.navbar {
+    border: solid;
+    border-color: black;
+}

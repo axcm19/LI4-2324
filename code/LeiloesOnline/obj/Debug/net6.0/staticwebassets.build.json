@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1+2LLHFUmXHJk8bDz0p7rrIrRzrXVIrumVX2bNxpwv8=",
+  "Hash": "kvQg8E9ov+4EN/dCBbClslSfDrvGgnDd7FutubbHcbw=",
   "Source": "LeiloesOnline",
   "BasePath": "_content/LeiloesOnline",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "LeiloesOnline\\wwwroot",
       "Source": "LeiloesOnline",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\bundle\\LeiloesOnline.styles.css",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\bundle\\LeiloesOnline.styles.css",
       "SourceId": "LeiloesOnline",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "LeiloesOnline.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\bundle\\LeiloesOnline.styles.css"
+      "OriginalItemSpec": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\bundle\\LeiloesOnline.styles.css"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\LeiloesOnline.bundle.scp.css",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\LeiloesOnline.bundle.scp.css",
       "SourceId": "LeiloesOnline",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "LeiloesOnline.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\LeiloesOnline.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\LeiloesOnline.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\css\\site.css",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\favicon.ico",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -272,10 +272,44 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\joias.jpg",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\favicon.png",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "BasePath": "_content/LeiloesOnline",
+      "RelativePath": "favicon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\favicon.png",
+      "SourceId": "LeiloesOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "BasePath": "_content/LeiloesOnline",
+      "RelativePath": "images/favicon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\joias.jpg",
+      "SourceId": "LeiloesOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "images/joias.jpg",
       "AssetKind": "All",
@@ -289,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\images\\joias.jpg"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\livros.jpg",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\livros.jpg",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "images/livros.jpg",
       "AssetKind": "All",
@@ -306,27 +340,10 @@
       "OriginalItemSpec": "wwwroot\\images\\livros.jpg"
     },
     {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\logo_leiloes_online.png",
+      "Identity": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\quadro.png",
       "SourceId": "LeiloesOnline",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
-      "BasePath": "_content/LeiloesOnline",
-      "RelativePath": "images/logo_leiloes_online.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\logo_leiloes_online.png"
-    },
-    {
-      "Identity": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\quadro.png",
-      "SourceId": "LeiloesOnline",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\",
       "BasePath": "_content/LeiloesOnline",
       "RelativePath": "images/quadro.png",
       "AssetKind": "All",
