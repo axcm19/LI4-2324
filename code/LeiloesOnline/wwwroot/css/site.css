@@ -64,17 +64,32 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
-.imagem-desfocada {
+.imagem {
     /* Defina o tamanho da imagem */
     width: 500px;
     height: 400px;
-    /* Aplica uma transição suave para o efeito de desfoque */
-    transition: filter 0.5s ease;
+    /* Aplica uma transição suave*/
+    transition: filter 0.3s ease;
 }
 
     /* Efeito de desfoque quando passar o mouse por cima */
-    .imagem-desfocada:hover {
-        filter: blur(3px); /* Altere o valor do blur conforme necessário */
+    .imagem:hover {
+        filter: brightness(50%); 
+    }
+
+    /* Estilo do texto a ser exibido */
+    .texto-sobre-imagem {
+        position: absolute; /* Permite posicionar o texto em relação à imagem */
+        top: 50%; /* Posiciona o texto no centro verticalmente */
+        left: 50%; /* Posiciona o texto no centro horizontalmente */
+        transform: translate(-50%, -50%); /* Centraliza o texto */
+        opacity: 0; /* Inicialmente, o texto estará invisível */
+        transition: opacity 0.3s ease; /* Adiciona uma transição suave */
+    }
+
+    /* Exibe o texto quando o mouse passa sobre a imagem */
+    .imagem:hover .texto-sobre-imagem {
+        opacity: 1; /* Mostra o texto ao passar o mouse sobre a imagem */
     }
 
 .foto-header {
