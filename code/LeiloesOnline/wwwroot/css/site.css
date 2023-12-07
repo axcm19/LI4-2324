@@ -100,10 +100,26 @@ a, .btn-link {
 
 .titulo {
     margin-right: 800px;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar {
     border: solid;
     border-color: black;
+}
+
+.botao-dir {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.botao-esq {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.titulo-pag {
+    font-family: Verdana, sans-serif;
 }
