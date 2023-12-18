@@ -1,15 +1,51 @@
 ﻿@page "/"
 
 <PageTitle>Leiloeira Bracarense Lda</PageTitle>
-<header>
-<nav class="navbar navbar-light bg-light">
-        <a href="/">
-            <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
-        </a>
-        <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
+<head>
+  <!-- Inclua os links CSS do Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+  <PageTitle>Leiloeira Bracarense Lda</PageTitle>
+  <header>
+    <nav class="navbar navbar-light bg-light">
+      <a href="/">
+        <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
+      </a>
+      <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
 
-    <a style="margin-right: 25px;" class="btn btn-primary" href="/conta">A minha conta</a>
-</nav>
+      <!-- Botão de Iniciar Sessão que abrirá o modal -->
+      <button type="button" style="margin-right: 25px;" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Iniciar Sessão</button>
+    </nav>
+
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Aqui você pode adicionar o formulário de login -->
+            <form>
+              <div class="form-group">
+                <label for="username">Email:</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <hr>
 
@@ -21,41 +57,49 @@
     <option value="quadros">Quadros</option>
     <option value="misto">Misto</option>
     </select>
+
 </header>
 <body>
     <p><center>Pretende desfazer-se de algum artigo colecionável? Proponha o seu leilão.<a class="btn btn-primary btn-sm" href="/proposta">Propor Leilão</a></center></p>
-    <p><center>Alguma peça em falta? Selecione a imagem da sua categoria favorita ou <a href = "/todos">veja todos os leilões que se encontram disponíveis.</a></center></p>
+    <p><center>Alguma peça em falta? Selecione a sua categoria favorita ou <a href = "/todos">veja todos os leilões que se encontram disponíveis.</a></center></p>
 
     <table align="center">
         <tr>
             <td>
-                <a href="/livros">
+                <a href="/Livros">
                     <img class="imagem" src="images/livros.jpg" alt="livros.jpg"
                     width="400"
                          height="400" />
                     <div class="texto-sobre-imagem">Livros</div>
                 </a>
-                    <center><a class="btn btn-primary btn-sm" href="/livros">Livros</a></center>
+                <hr>
+                <center><a class="btn btn-primary btn-sm" href="/livros">Livros</a></center>
                 
             </td>
             <td>
-                <a href="/joias">
+                <a href="/Joias">
                     <img class="imagem" src="images/joias.jpg" alt="joias.jpg"
                     width="400"
                     height="400" />
                 </a>
+                <hr>
                 <center><a class="btn btn-primary btn-sm" href="/joias">Joias</a></center>
             </td>
             <td>
-                <a href="/quadros">
+                <a href="/Quadros">
                     <img class="imagem"  src="images/quadro.png" alt="quadro.png"
                     width="400"
                     height="400" />
                     </a>
+                <hr>
                 <center><a class="btn btn-primary btn-sm" href="/quadros">Quadros</a></center>
             </td>
         </tr>
     </table>
-</body>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <!-- Inclua os scripts JavaScript do Bootstrap no final do seu arquivo HTML -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
+</body>
