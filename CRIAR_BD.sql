@@ -44,14 +44,6 @@ CREATE TABLE Licitacao(
 );
 
 
-CREATE TABLE Lote_Artigos(
-	id_lote_artigos INTEGER NOT NULL,
-	fk_id_leilao INTEGER NOT NULL,
-	PRIMARY KEY(id_lote_artigos),
-	FOREIGN KEY (fk_id_leilao) REFERENCES Leilao(id_leilao),
-);
-
-
 CREATE TABLE Artigo(
 	id_artigo INTEGER NOT NULL,
 	nome VARCHAR(45),
@@ -60,11 +52,9 @@ CREATE TABLE Artigo(
 	is_livro BIT,
 	is_joia BIT,
 	is_quadro BIT,
-	fk_email_participante_dono VARCHAR(45) NOT NULL,
-	fk_id_lote_artigos INTEGER,
+	fk_email_participante_dono VARCHAR(45) NOT NULL
 	PRIMARY KEY(id_artigo),
 	FOREIGN KEY (fk_email_participante_dono) REFERENCES Participante(email_participante),
-	FOREIGN KEY (fk_id_lote_artigos) REFERENCES Lote_Artigos(id_lote_artigos)
 );
 
 CREATE TABLE Joia(
@@ -97,6 +87,13 @@ CREATE TABLE Livro(
 	numero_paginas INTEGER,
 	PRIMARY KEY (id_artigo),
 	FOREIGN KEY (id_artigo) REFERENCES Artigo(id_artigo),
+);
+
+CREATE TABLE Lote_Artigos(
+	fk_id_artigo INTEGER,
+	fk_id_leilao INTEGER,
+	FOREIGN KEY (fk_id_artigo) REFERENCES Artigo(id_artigo),
+	FOREIGN KEY (fk_id_leilao) REFERENCES Leilao(id_leilao),
 );
 
 

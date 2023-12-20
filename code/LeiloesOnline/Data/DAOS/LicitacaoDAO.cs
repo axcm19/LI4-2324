@@ -1,28 +1,28 @@
-﻿using LeiloesOnline.Business.Objects;
+using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
 
 namespace LeiloesOnline.Data.DAOS
 {
-    internal class AdministradorDAO
+    internal class LicitacaoDAO
     {
-        private static AdministradorDAO? singleton = null;
+        private static LicitacaoDAO? singleton = null;
 
-        private AdministradorDAO() { }
+        private LicitacaoDAO() { }
 
-        public static AdministradorDAO getInstance()
+        public static LicitacaoDAO getInstance()
         {
             if (singleton == null)
             {
-                singleton = new AdministradorDAO();
+                singleton = new LicitacaoDAO();
             }
             return singleton;
         }
 
-        public bool containsKey(string key)
+        public bool containsKeys(string keyParticipante, int keyLeilao)
         {
             bool result = false;
-            string s_cmd = "SELECT * FROM dbo.Administrador WHERE email_administrador = " + key;
+            string s_cmd = "SELECT * FROM dbo.Licitacao WHERE fk_email_participante = " + keyParticipante + "AND fk_id_leilao = " + keyLeilao;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -42,34 +42,36 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no containsKey do AdministradorDAO");
+                throw new DAOException("Erro no containsKey do LicitacaoDAO");
             }
             return result;
         }
-        
-        public bool containsValue(Administrador value)
-        {
-            return containsKey(value.get_email_administrador());
-        }
 
-        public Administrador get(string key)
+        
+        public bool containsValue(Licitacao value)
         {
-            Administrador? admi = null;
-            string s_cmd = $"SELECT * FROM dbo.Administrador where email_administrador = '{key}'";
+            return containsKeys(value.email_participante, value.id_leilao);
+        }
+        
+
+        public Licitacao get(string keyParticipante, int keyLeilao)
+        {
+            Licitacao? li = null;
+            string s_cmd = "SELECT * FROM dbo.Licitacao WHERE fk_email_participante = " + keyParticipante + "AND fk_id_leilao = " + keyLeilao;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Administrador aux = con.QueryFirst<Administrador>(s_cmd);
-                    admi = aux;
+                    Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
+                    li = aux;
                 }
             }
             catch (Exception e)
             {
                 throw new DAOException(e.Message);
             }
-            return admi;
+            return li;
         }
 
         public bool isEmpty()
@@ -78,11 +80,10 @@ namespace LeiloesOnline.Data.DAOS
         }
 
 
-        public void put(Administrador value)
+        public void put(Licitacao value)
         {
-            string s_cmd = "INSERT INTO dbo.Administrador (email_administrador, username, admi_password) VALUES" +
-                            "('" + value.get_email_administrador() + "','" + value.get_username() + "','" +
-                            value.get_admi_password() + "')";
+            string s_cmd = "INSERT INTO dbo.Licitacao (data_ocorreu, valor, fk_email_participante, fk_id_leilao) VALUES" +
+                            "('" + value.data_ocorreu + "','" + value.valor + "','" + value.email_participante + "','" + value.id_leilao + "')";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -96,14 +97,14 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no put do AdministradorDAO");
+                throw new DAOException("Erro no put do LicitacaoDAO");
             }
         }
 
-        public Administrador remove(string key)
+        public Licitacao remove(string keyParticipante, int keyLeilao)
         {
-            Administrador result = get(key);
-            string s_cmd = "DELETE FROM dbo.Administrador WHERE email_administrador = " + key;
+            Licitacao result = get(keyParticipante, keyLeilao);
+            string s_cmd = "DELETE FROM dbo.Licitacao WHERE fk_email_participante = " + keyParticipante + "AND fk_id_leilao = " + keyLeilao;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -117,7 +118,7 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no remove do AdministradorDAO");
+                throw new DAOException("Erro no remove do LicitacaoDAO");
             }
             return result;
         }
@@ -125,7 +126,7 @@ namespace LeiloesOnline.Data.DAOS
         public int size()
         {
             int result = 0;
-            string s_cmd = "SELECT COUNT(*) FROM dbo.Administrador";
+            string s_cmd = "SELECT COUNT(*) FROM dbo.Licitacao";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -145,22 +146,22 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no size do Administrador");
+                throw new DAOException("Erro no size do Licitacao");
             }
             return result;
         }
 
-        public ICollection<Administrador> values()
+        public ICollection<Licitacao> values()
         {
-            ICollection<Administrador> result = new HashSet<Administrador>();
-            string s_cmd = "SELECT * FROM dbo.Administrador";
+            ICollection<Licitacao> result = new HashSet<Licitacao>();
+            string s_cmd = "SELECT * FROM dbo.Licitacao";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    IEnumerable<Administrador> aux = con.Query<Administrador>(s_cmd);
-                    foreach (Administrador ad in aux)
+                    IEnumerable<Licitacao> aux = con.Query<Licitacao>(s_cmd);
+                    foreach (Licitacao ad in aux)
                     {
                         result.Add(ad);
                     }
@@ -173,7 +174,8 @@ namespace LeiloesOnline.Data.DAOS
             return result;
         }
 
-        
-        
+
+
     }
+
 }

@@ -5,26 +5,76 @@ namespace LeiloesOnline.Data
 {
     public class DatabaseFacade: IDatabaseFacade
     {
-        /*
-        private BancaDAO bancaDAO;
-        private CategoriaDAO categoriaDAO;
-        private CompraDAO compraDAO;
-        private FeiraDAO feiraDAO;
-        private ProdutoDAO produtoDAO;
-        private SubCategoriaDAO subcategoriaDAO;
-        private UtilizadorDAO utilizadorDAO;
+        
+        private AdministradorDAO administradorDAO;
+        private ParticipanteDAO participanteDAO;
+        private ArtigoDAO artigoDAO;
+        private LeilaoDAO leilaoDAO;
+        private LicitacaoDAO licitacaoDAO;
+        private LoteArtigosDAO loteArtigosDAO;
 
         public DatabaseFacade() 
         { 
-            this.bancaDAO = BancaDAO.getInstance();
-            this.categoriaDAO = CategoriaDAO.getInstance();
-            this.compraDAO = CompraDAO.getInstance();
-            this.feiraDAO = FeiraDAO.getInstance();
-            this.produtoDAO = ProdutoDAO.getInstance();
-            this.subcategoriaDAO = SubCategoriaDAO.getInstance();
-            this.utilizadorDAO = UtilizadorDAO.getInstance();
+            this.administradorDAO = AdministradorDAO.getInstance();
+            this.participanteDAO = ParticipanteDAO.getInstance();
+            this.artigoDAO = ArtigoDAO.getInstance();
+            this.leilaoDAO = LeilaoDAO.getInstance();
+            this.licitacaoDAO = LicitacaoDAO.getInstance();
+            this.loteArtigosDAO = LoteArtigosDAO.getInstance();
             
         }
+
+        // ---------------------------------------------------- Participantes / Administradores ----------------------------------------------------
+
+        public bool login(string email, string password)
+        {
+            bool result = false;
+
+            if (this.participanteDAO.containsKey(email))
+            {
+                if (participanteDAO.get(email).user_password == password)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif)
+        {
+            Console.WriteLine("...");
+            return true;
+        }
+
+        public Participante getParticipanteWithEmail(string email)
+        {
+            Console.WriteLine("...");
+            return new Participante();
+        }
+
+        public Administrador getAdministradorWithEmail(string email)
+        {
+            Console.WriteLine("...");
+            return new Administrador();
+        }
+
+        public bool adicionaContaParticipante(Participante participante)
+        {
+            Console.WriteLine("...");
+            return true;
+        }
+
+        public bool validarContaNovaParticipante(string email, string username, string morada, float carteira, string pass, int cc, int nif)
+        {
+            Console.WriteLine("...");
+            return true;
+        }
+
+
+       
+
+
+        /*
 
         // Bancas
         public bool existsBanca(int idfeira, int idvendedor)
@@ -228,59 +278,7 @@ namespace LeiloesOnline.Data
             return this.subcategoriaDAO.values();
         }
 
-        // Utilizadores
-        public bool existsUtilizador(int utilizadorid)
-        {
-            return this.utilizadorDAO.containsKey(utilizadorid);
-        }
-
-        public bool existsUtilizador(Utilizador utilizador)
-        {
-            return this.utilizadorDAO.containsValue(utilizador);
-        }
-
-        public Utilizador getUtilizador(int utilizadorid)
-        {
-            return this.utilizadorDAO.get(utilizadorid);
-        }
-
-        public void addUtilizador(Utilizador utilizador)
-        {
-            this.utilizadorDAO.put(utilizador.getID(), utilizador);
-        }
-
-        public void removeUtilizador(int utilizadorid)
-        {
-            this.utilizadorDAO.remove(utilizadorid);
-        }
-
-        public ICollection<Utilizador> getAllUtilizadores()
-        {
-            return this.utilizadorDAO.values();
-        }
-
-        public bool existsEmail(string email)
-        {
-            return this.utilizadorDAO.existsEmail(email);
-        }
-
-        public bool existsCC(string cc)
-        {
-            return this.utilizadorDAO.existsCC(cc);
-        }
-        public bool existsNIF(string nif)
-        {
-            return this.utilizadorDAO.existsNIF(nif);
-        }
-        public bool existsUsername(string username)
-        {
-            return this.utilizadorDAO.existsUsername(username);
-        }
-
-        public Utilizador getUtilizadorWithEmail(string email)
-        {
-            return this.utilizadorDAO.getUtilizadorByEmail(email);
-        }
+        
 
         // relação banca_has_produto
 
@@ -293,6 +291,9 @@ namespace LeiloesOnline.Data
         {
             DAOAuxiliar.addToBancaHasProduto(p,b);
         }
-        */
+
+
+       */
     }
+   
 }

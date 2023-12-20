@@ -1,20 +1,20 @@
-﻿using LeiloesOnline.Business.Objects;
+using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
 
 namespace LeiloesOnline.Data.DAOS
 {
-    internal class AdministradorDAO
+    internal class ParticipanteDAO
     {
-        private static AdministradorDAO? singleton = null;
+        private static ParticipanteDAO? singleton = null;
 
-        private AdministradorDAO() { }
+        private ParticipanteDAO() { }
 
-        public static AdministradorDAO getInstance()
+        public static ParticipanteDAO getInstance()
         {
             if (singleton == null)
             {
-                singleton = new AdministradorDAO();
+                singleton = new ParticipanteDAO();
             }
             return singleton;
         }
@@ -22,7 +22,7 @@ namespace LeiloesOnline.Data.DAOS
         public bool containsKey(string key)
         {
             bool result = false;
-            string s_cmd = "SELECT * FROM dbo.Administrador WHERE email_administrador = " + key;
+            string s_cmd = "SELECT * FROM dbo.Participante WHERE email_participante = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -42,34 +42,34 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no containsKey do AdministradorDAO");
+                throw new DAOException("Erro no containsKey do ParticipanteDAO");
             }
             return result;
         }
         
-        public bool containsValue(Administrador value)
+        public bool containsValue(Participante value)
         {
-            return containsKey(value.get_email_administrador());
+            return containsKey(value.email_participante);
         }
 
-        public Administrador get(string key)
+        public Participante get(string key)
         {
-            Administrador? admi = null;
-            string s_cmd = $"SELECT * FROM dbo.Administrador where email_administrador = '{key}'";
+            Participante? participante = null;
+            string s_cmd = $"SELECT * FROM dbo.Participante where email_participante = '{key}'";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Administrador aux = con.QueryFirst<Administrador>(s_cmd);
-                    admi = aux;
+                    Participante aux = con.QueryFirst<Participante>(s_cmd);
+                    participante = aux;
                 }
             }
             catch (Exception e)
             {
                 throw new DAOException(e.Message);
             }
-            return admi;
+            return participante;
         }
 
         public bool isEmpty()
@@ -78,11 +78,12 @@ namespace LeiloesOnline.Data.DAOS
         }
 
 
-        public void put(Administrador value)
+        public void put(Participante value)
         {
-            string s_cmd = "INSERT INTO dbo.Administrador (email_administrador, username, admi_password) VALUES" +
-                            "('" + value.get_email_administrador() + "','" + value.get_username() + "','" +
-                            value.get_admi_password() + "')";
+            string s_cmd = "INSERT INTO dbo.Participante (email_participante, username, morada, carteira, user_password, cc, nif) VALUES" +
+                            "('" + value.email_participante + "','" + value.username + "','" +
+                            value.morada + "','" + value.carteira + "','" + value.user_password + "','" +
+                            value.cc + "','" + value.nif + "')";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -96,14 +97,14 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no put do AdministradorDAO");
+                throw new DAOException("Erro no put do ParticipanteDAO");
             }
         }
 
-        public Administrador remove(string key)
+        public Participante remove(string key)
         {
-            Administrador result = get(key);
-            string s_cmd = "DELETE FROM dbo.Administrador WHERE email_administrador = " + key;
+            Participante result = get(key);
+            string s_cmd = "DELETE FROM dbo.Participante WHERE email_participante = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -117,7 +118,7 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no remove do AdministradorDAO");
+                throw new DAOException("Erro no remove do ParticipanteDAO");
             }
             return result;
         }
@@ -125,7 +126,7 @@ namespace LeiloesOnline.Data.DAOS
         public int size()
         {
             int result = 0;
-            string s_cmd = "SELECT COUNT(*) FROM dbo.Administrador";
+            string s_cmd = "SELECT COUNT(*) FROM dbo.Participante";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -145,24 +146,24 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no size do Administrador");
+                throw new DAOException("Erro no size do Participante");
             }
             return result;
         }
 
-        public ICollection<Administrador> values()
+        public ICollection<Participante> values()
         {
-            ICollection<Administrador> result = new HashSet<Administrador>();
-            string s_cmd = "SELECT * FROM dbo.Administrador";
+            ICollection<Participante> result = new HashSet<Participante>();
+            string s_cmd = "SELECT * FROM dbo.Participante";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    IEnumerable<Administrador> aux = con.Query<Administrador>(s_cmd);
-                    foreach (Administrador ad in aux)
+                    IEnumerable<Participante> aux = con.Query<Participante>(s_cmd);
+                    foreach (Participante par in aux)
                     {
-                        result.Add(ad);
+                        result.Add(par);
                     }
                 }
             }
@@ -172,8 +173,5 @@ namespace LeiloesOnline.Data.DAOS
             }
             return result;
         }
-
-        
-        
     }
 }

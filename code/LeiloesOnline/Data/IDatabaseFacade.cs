@@ -4,6 +4,21 @@ namespace LeiloesOnline.Data
 {
     public interface IDatabaseFacade
     {
+
+
+        public bool login(string email, string password);
+
+        public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif);
+
+        public Participante getParticipanteWithEmail(string email);
+
+        public Administrador getAdministradorWithEmail(string email);
+
+        public bool adicionaContaParticipante(Participante participante);
+
+        public bool validarContaNovaParticipante(string email, string username, string morada, float carteira, string pass, int cc, int nif);
+
+
         /*
         // Bancas
         public bool existsBanca(int idfeira, int idvendedor);

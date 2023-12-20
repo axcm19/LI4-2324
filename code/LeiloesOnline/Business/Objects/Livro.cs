@@ -9,7 +9,7 @@
         public string editora { get; set; }
         public int numero_paginas { get; set; }
 
-        public Livro() : base(0, "", "", "")
+        public Livro() : base(0, "", "", "","")
         {
             titulo = "";
             nome_autor = "";
@@ -18,7 +18,7 @@
             numero_paginas = 0;
         }
 
-        public Livro(int id, string nome, string descri, string comp, string titulo, string nomeautor, int ano, string editora, int numpag) : base(id, nome, descri, comp)
+        public Livro(int id, string nome, string descri, string comp,string email,int idLote, string titulo, string nomeautor, int ano, string editora, int numpag) : base(id, nome, descri, comp,email)
         {
             this.titulo = titulo;
             nome_autor = nomeautor;
@@ -27,7 +27,7 @@
             numero_paginas = numpag;
         }
 
-        public Livro(Livro q) : base(q.getIdArtigo(), q.getNome(), q.getDescricao(), q.getComprovativo())
+        public Livro(Livro q) : base(q.getIdArtigo(), q.getNome(), q.getDescricao(), q.getComprovativo(),q.getEmail())
         {
             titulo = q.titulo;
             nome_autor = q.nome_autor;

@@ -9,7 +9,7 @@ namespace LeiloesOnline.Data
     {
         public static string GetConnectionString()
         {
-            return "Server = LAPTOP-CTF72MOG; Initial Catalog = LI4; Integrated Security = True; Connect Timeout = 60; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
+            return "Server = LAPTOP-CTF72MOG; Initial Catalog = LI4-nova; Integrated Security = True; Connect Timeout = 60; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
         }
     }
 }

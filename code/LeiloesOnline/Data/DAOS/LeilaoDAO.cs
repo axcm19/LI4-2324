@@ -4,25 +4,25 @@ using Dapper;
 
 namespace LeiloesOnline.Data.DAOS
 {
-    internal class AdministradorDAO
+    internal class LeilaoDAO
     {
-        private static AdministradorDAO? singleton = null;
+        private static LeilaoDAO? singleton = null;
 
-        private AdministradorDAO() { }
+        private LeilaoDAO() { }
 
-        public static AdministradorDAO getInstance()
+        public static LeilaoDAO getInstance()
         {
             if (singleton == null)
             {
-                singleton = new AdministradorDAO();
+                singleton = new LeilaoDAO();
             }
             return singleton;
         }
 
-        public bool containsKey(string key)
+        public bool containsKey(int key)
         {
             bool result = false;
-            string s_cmd = "SELECT * FROM dbo.Administrador WHERE email_administrador = " + key;
+            string s_cmd = "SELECT * FROM dbo.Leilao WHERE id_leilao = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -42,34 +42,34 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no containsKey do AdministradorDAO");
+                throw new DAOException("Erro no containsKey do LeilaoDAO");
             }
             return result;
         }
         
-        public bool containsValue(Administrador value)
+        public bool containsValue(Leilao value)
         {
-            return containsKey(value.get_email_administrador());
+            return containsKey(value.id_leilao);
         }
 
-        public Administrador get(string key)
+        public Leilao get(int key)
         {
-            Administrador? admi = null;
-            string s_cmd = $"SELECT * FROM dbo.Administrador where email_administrador = '{key}'";
+            Leilao? leilao = null;
+            string s_cmd = $"SELECT * FROM dbo.Leilao where id_leilao = '{key}'";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Administrador aux = con.QueryFirst<Administrador>(s_cmd);
-                    admi = aux;
+                    Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                    leilao = aux;
                 }
             }
             catch (Exception e)
             {
                 throw new DAOException(e.Message);
             }
-            return admi;
+            return leilao;
         }
 
         public bool isEmpty()
@@ -78,11 +78,11 @@ namespace LeiloesOnline.Data.DAOS
         }
 
 
-        public void put(Administrador value)
+        public void put(Leilao value)
         {
-            string s_cmd = "INSERT INTO dbo.Administrador (email_administrador, username, admi_password) VALUES" +
-                            "('" + value.get_email_administrador() + "','" + value.get_username() + "','" +
-                            value.get_admi_password() + "')";
+            string s_cmd = "INSERT INTO dbo.Leilao (id_leilao, categoria, nome, data_inicio, data_fim, preco_base, valor_minimo_licitacao, licitacao_atual, aprovado, fk_email_participante_propos) VALUES" +
+                            "('" + value.id_leilao + "','" + value.categoria + "','" + value.nome + "','" + value.data_inicio + "','" + value.data_fim + "','" + value.preco_base
+                            + "','" + value.valor_minimo_licitacao + "','" + value.licitacao_atual + "','" + value.aprovado + "','" + value.email_quem_propos + "')";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -96,14 +96,14 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no put do AdministradorDAO");
+                throw new DAOException("Erro no put do LeilaoDAO");
             }
         }
 
-        public Administrador remove(string key)
+        public Leilao remove(int key)
         {
-            Administrador result = get(key);
-            string s_cmd = "DELETE FROM dbo.Administrador WHERE email_administrador = " + key;
+            Leilao result = get(key);
+            string s_cmd = "DELETE FROM dbo.Leilao WHERE id_leilao = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -117,7 +117,7 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no remove do AdministradorDAO");
+                throw new DAOException("Erro no remove do LeilaoDAO");
             }
             return result;
         }
@@ -125,7 +125,7 @@ namespace LeiloesOnline.Data.DAOS
         public int size()
         {
             int result = 0;
-            string s_cmd = "SELECT COUNT(*) FROM dbo.Administrador";
+            string s_cmd = "SELECT COUNT(*) FROM dbo.Leilao";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -145,22 +145,22 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no size do Administrador");
+                throw new DAOException("Erro no size do Leilao");
             }
             return result;
         }
 
-        public ICollection<Administrador> values()
+        public ICollection<Leilao> values()
         {
-            ICollection<Administrador> result = new HashSet<Administrador>();
-            string s_cmd = "SELECT * FROM dbo.Administrador";
+            ICollection<Leilao> result = new HashSet<Leilao>();
+            string s_cmd = "SELECT * FROM dbo.Leilao";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    IEnumerable<Administrador> aux = con.Query<Administrador>(s_cmd);
-                    foreach (Administrador ad in aux)
+                    IEnumerable<Leilao> aux = con.Query<Leilao>(s_cmd);
+                    foreach (Leilao ad in aux)
                     {
                         result.Add(ad);
                     }

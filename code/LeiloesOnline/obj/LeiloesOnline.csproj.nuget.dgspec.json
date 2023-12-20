@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj": {}
+    "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj": {
+    "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj",
+        "projectUniqueName": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj",
         "projectName": "LeiloesOnline",
-        "projectPath": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj",
-        "packagesPath": "C:\\Users\\shika\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shika\\Desktop\\universidade\\23-24\\1sem\\LI IV\\LI4-2324\\code\\LeiloesOnline\\obj\\",
+        "projectPath": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\LeiloesOnline.csproj",
+        "packagesPath": "C:\\Users\\Afonso Marques\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\shika\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Afonso Marques\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.24, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"
@@ -64,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

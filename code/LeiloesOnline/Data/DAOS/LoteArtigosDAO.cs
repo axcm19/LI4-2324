@@ -1,28 +1,29 @@
-ï»¿using LeiloesOnline.Business.Objects;
+using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
+using System.Runtime.Intrinsics.X86;
 
 namespace LeiloesOnline.Data.DAOS
 {
-    internal class AdministradorDAO
+    internal class LoteArtigosDAO
     {
-        private static AdministradorDAO? singleton = null;
+        private static LoteArtigosDAO? singleton = null;
 
-        private AdministradorDAO() { }
+        private LoteArtigosDAO() { }
 
-        public static AdministradorDAO getInstance()
+        public static LoteArtigosDAO getInstance()
         {
             if (singleton == null)
             {
-                singleton = new AdministradorDAO();
+                singleton = new LoteArtigosDAO();
             }
             return singleton;
         }
 
-        public bool containsKey(string key)
+        public bool containsKey(int keyLeilao)
         {
             bool result = false;
-            string s_cmd = "SELECT * FROM dbo.Administrador WHERE email_administrador = " + key;
+            string s_cmd = "SELECT * FROM dbo.Lote_Artigos WHERE fk_id_leilao = " + keyLeilao;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -42,68 +43,91 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no containsKey do AdministradorDAO");
+                throw new DAOException("Erro no containsKey do LoteArtigosDAO");
             }
             return result;
-        }
         
-        public bool containsValue(Administrador value)
-        {
-            return containsKey(value.get_email_administrador());
         }
 
-        public Administrador get(string key)
+        public bool containsValue(LoteArtigos value)
         {
-            Administrador? admi = null;
-            string s_cmd = $"SELECT * FROM dbo.Administrador where email_administrador = '{key}'";
+            return containsKey(value.id_leilao);
+        }
+
+        public LoteArtigos get(int key)
+        {
+            /*
+             tem de devolver a lista de todos os artigos do leilão
+             */
+
+            LoteArtigos? lote_art = new LoteArtigos();
+            string s_cmd = $"SELECT fk_id_artigo FROM dbo.Lote_Artigos where fk_id_leilao = '{key}'";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Administrador aux = con.QueryFirst<Administrador>(s_cmd);
-                    admi = aux;
+                    IEnumerable<int> lista_id_artigo = con.Query<int>(s_cmd);
+
+                    foreach (int ad in lista_id_artigo)
+                    {
+                        // buscar o artigo
+                        Artigo art = ArtigoDAO.getInstance().get(ad);
+                        lote_art.adicionaArtigoAoLote(art);
+                    }
                 }
+                
             }
             catch (Exception e)
             {
                 throw new DAOException(e.Message);
             }
-            return admi;
+            return lote_art;
         }
 
         public bool isEmpty()
         {
             return size() == 0;
         }
-
-
-        public void put(Administrador value)
+        
+        public void put(LoteArtigos value)
         {
-            string s_cmd = "INSERT INTO dbo.Administrador (email_administrador, username, admi_password) VALUES" +
-                            "('" + value.get_email_administrador() + "','" + value.get_username() + "','" +
-                            value.get_admi_password() + "')";
-            try
+
+            /*
+             para cada artigo na lista associa ao respetivo id do leilão
+             */
+
+            foreach(Artigo a in value.artigos)
             {
-                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                string s_cmd = "INSERT INTO dbo.Lote_Artigos (fk_id_artigo, fk_id_leilao) VALUES" +
+                                "('" + a.getIdArtigo() + "','" + value.id_leilao + "')";
+                try
                 {
-                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
-                        con.Open();
-                        cmd.ExecuteNonQuery();
+                        using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                        {
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                throw new DAOException("Erro no put do AdministradorDAO");
+                catch (Exception)
+                {
+                    throw new DAOException("Erro no put do LoteArtigosDAO");
+                }
+
             }
         }
 
-        public Administrador remove(string key)
-        {
-            Administrador result = get(key);
-            string s_cmd = "DELETE FROM dbo.Administrador WHERE email_administrador = " + key;
+        public LoteArtigos remove(int key)
+        {   
+            /*
+             remove todos os artigos associados à key de um leilão
+             */
+
+            LoteArtigos result = get(key);
+            string s_cmd = "DELETE FROM dbo.Lote_Artigos WHERE fk_id_artigo = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -117,7 +141,7 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no remove do AdministradorDAO");
+                throw new DAOException("Erro no remove do LicitacaoDAO");
             }
             return result;
         }
@@ -125,7 +149,7 @@ namespace LeiloesOnline.Data.DAOS
         public int size()
         {
             int result = 0;
-            string s_cmd = "SELECT COUNT(*) FROM dbo.Administrador";
+            string s_cmd = "SELECT COUNT(*) FROM dbo.Lote_Artigos";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -145,22 +169,26 @@ namespace LeiloesOnline.Data.DAOS
             }
             catch (Exception)
             {
-                throw new DAOException("Erro no size do Administrador");
+                throw new DAOException("Erro no size do LicitacaoDAO");
             }
             return result;
         }
 
-        public ICollection<Administrador> values()
+        /*
+         * Acho que não vale a pena implementar este metodo
+        */
+        /*
+        public ICollection<LoteArtigos> values()
         {
-            ICollection<Administrador> result = new HashSet<Administrador>();
-            string s_cmd = "SELECT * FROM dbo.Administrador";
+            ICollection<LoteArtigos> result = new HashSet<LoteArtigos>();
+            string s_cmd = "SELECT * FROM dbo.Lote_Artigos";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    IEnumerable<Administrador> aux = con.Query<Administrador>(s_cmd);
-                    foreach (Administrador ad in aux)
+                    IEnumerable<Artigo> aux = con.Query<Artigo>(s_cmd);
+                    foreach (Artigo ad in aux)
                     {
                         result.Add(ad);
                     }
@@ -171,9 +199,7 @@ namespace LeiloesOnline.Data.DAOS
                 throw new DAOException(e.Message);
             }
             return result;
-        }
+        }*/
 
-        
-        
     }
 }

@@ -7,21 +7,21 @@
         public string tipo { get; set; }
         public float pureza_material { get; set; }
 
-        public Joia() : base(0, "", "", "")
+        public Joia() : base(0, "", "", "","")
         {
             material = "";
             tipo = "";
             pureza_material = 0;
         }
 
-        public Joia(int id, string nome, string descri, string comp, string material, string tipo, float pureza) : base(id, nome, descri, comp)
+        public Joia(int id, string nome, string descri, string comp,string email, int idLote, string material, string tipo, float pureza) : base(id, nome, descri, comp,email)
         {
             this.material = material;
             this.tipo = tipo;
             pureza_material = pureza;
         }
 
-        public Joia(Joia q) : base(q.getIdArtigo(), q.getNome(), q.getDescricao(), q.getComprovativo())
+        public Joia(Joia q) : base(q.getIdArtigo(), q.getNome(), q.getDescricao(), q.getComprovativo(),q.getEmail())
         {
             material = q.material;
             tipo = q.tipo;

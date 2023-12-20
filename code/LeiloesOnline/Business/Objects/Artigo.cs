@@ -7,6 +7,7 @@
         private string nome;
         private string descricao;
         private string comprovativo;
+        private string fk_email_participante_dono;
 
 
         public Artigo()
@@ -15,14 +16,16 @@
             nome = "";
             descricao = "";
             comprovativo = "";
+            fk_email_participante_dono = "";
         }
 
-        public Artigo(int id, string nome, string descri, string comp)
+        public Artigo(int id, string nome, string descri, string comp,string email)
         {
             id_Artigo = id;
             this.nome = nome;
             descricao = descri;
             comprovativo = comp;
+            fk_email_participante_dono = email;
         }
 
         public Artigo(Artigo art)
@@ -31,6 +34,7 @@
             nome = art.getNome();
             descricao = art.getDescricao();
             comprovativo = art.getComprovativo();
+            fk_email_participante_dono = art.getEmail();
         }
 
         // metodos get e set dão jeito aqui para serem herdados nas subclasses
@@ -46,6 +50,9 @@
         public string getComprovativo()
         { return comprovativo; }
 
+        public string getEmail()
+        { return fk_email_participante_dono; }
+
         public void setIdArtigo(int newid)
         { id_Artigo = newid; }
 
@@ -57,6 +64,9 @@
 
         public void setComprovativo(string comp)
         { comprovativo = comp; }
+
+        public void setEmail(string email)
+        { fk_email_participante_dono = email; }
 
         public abstract Artigo Clone();
     }
