@@ -36,11 +36,12 @@
             <form>
               <div class="form-group">
                 <label for="username">Email:</label>
-                <input type="text" class="form-control" id="username" name="username">
+                <!--<input type="text" class="form-control" id="username" name="username">-->
+                <input type="text" class="form-control" id="e_mail" name="e_mail" @bind="@e_mail">
               </div>
               <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="password" name="password" @bind="@password">
               </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Login</button>
@@ -102,8 +103,8 @@
     </table>
 
     <!-- Inclua os scripts JavaScript do Bootstrap no final do seu arquivo HTML -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script suppress-error="BL9992" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script suppress-error="BL9992" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     
 </body>
@@ -117,17 +118,15 @@
 <InputText class="form-control" placeholder="Insira o seu e-mail"
                                     @bind-Value="@e_mail" />
 */
-
+    private Popup? popupRef;
     private string e_mail = "";
     private string password = "";
-
-    private Popup? popupRef;
 
     void Test()
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-        if (if_leiloes.login(e_mail, password)) // testar se as credencias existem na BD
+        if (if_leiloes.login    (e_mail, password)) // testar se as credencias existem na BD
         {
             Participante user = if_leiloes.getParticipanteWithEmail(e_mail);
             if (user.user_password.Equals(password)) // a palavra passe é correcta?
