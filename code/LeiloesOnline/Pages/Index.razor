@@ -44,7 +44,7 @@
                 <input type="password" class="form-control" id="password" name="password" @bind="@password">
               </div>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button @onclick=@Test type="submit" class="btn btn-primary">Login</button>
                         </div>
             </form>
           </div>
@@ -117,8 +117,8 @@
      * 
 <InputText class="form-control" placeholder="Insira o seu e-mail"
                                     @bind-Value="@e_mail" />
-*/
-    private Popup? popupRef;
+    */
+    private Popup popupRef;
     private string e_mail = "";
     private string password = "";
 
@@ -126,21 +126,27 @@
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-        if (if_leiloes.login    (e_mail, password)) // testar se as credencias existem na BD
+        string test_e_mail = "'" + e_mail + "'";
+
+        if (if_leiloes.login(test_e_mail, password)) // testar se as credencias existem na BD
         {
-            Participante user = if_leiloes.getParticipanteWithEmail(e_mail);
+            Participante user = if_leiloes.getParticipanteWithEmail(test_e_mail);
             if (user.user_password.Equals(password)) // a palavra passe é correcta?
             {
                 CurrentUser.setCurrentUser(user);
+                Console.WriteLine(CurrentUser.printCurrentUserInfo());
+                Console.WriteLine("Login concluido");
             }
             else
             {
-                popupRef.Show("A palavra passe é incorrecta.", "Password inválida", "35%", "35%");
+                //popupRef.Show("A palavra passe é incorrecta.", "Password inválida", "35%", "35%");
+                Console.WriteLine("Login concluido");
             }
         }
         else
         {
-            popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
+            //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
+            Console.WriteLine("Login concluido");
         }
 
     }

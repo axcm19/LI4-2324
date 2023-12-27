@@ -25,8 +25,7 @@ namespace LeiloesOnline.Business
 
         public Participante getParticipanteWithEmail(string email)
         {
-            Console.WriteLine("...");
-            return new Participante();
+            return this.db.getParticipanteWithEmail(email);
         }
 
         public Administrador getAdministradorWithEmail(string email)

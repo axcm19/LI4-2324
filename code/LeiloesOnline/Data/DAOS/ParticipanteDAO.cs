@@ -22,6 +22,7 @@ namespace LeiloesOnline.Data.DAOS
         public bool containsKey(string key)
         {
             bool result = false;
+
             string s_cmd = "SELECT * FROM dbo.Participante WHERE email_participante = " + key;
             try
             {
@@ -55,7 +56,7 @@ namespace LeiloesOnline.Data.DAOS
         public Participante get(string key)
         {
             Participante? participante = null;
-            string s_cmd = $"SELECT * FROM dbo.Participante where email_participante = '{key}'";
+            string s_cmd = "SELECT * FROM dbo.Participante where email_participante = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))

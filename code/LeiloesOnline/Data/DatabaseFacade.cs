@@ -37,6 +37,7 @@ namespace LeiloesOnline.Data
                     result = true;
                 }
             }
+
             return result;
         }
 
@@ -48,8 +49,8 @@ namespace LeiloesOnline.Data
 
         public Participante getParticipanteWithEmail(string email)
         {
-            Console.WriteLine("...");
-            return new Participante();
+            Participante result = this.participanteDAO.get(email);
+            return result;
         }
 
         public Administrador getAdministradorWithEmail(string email)
