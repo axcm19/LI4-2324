@@ -28,23 +28,37 @@ namespace LeiloesOnline.Data
 
         public bool login(string email, string password)
         {
-            bool result = false;
-
-            if (this.participanteDAO.containsKey(email))
+            if (!this.participanteDAO.containsKey(email))
             {
-                if (participanteDAO.get(email).user_password == password)
-                {
-                    result = true;
-                }
+                return false;
             }
 
-            return result;
+            Participante user = this.participanteDAO.get(email);
+
+            string hashedInputPassword = HashPassword(password);
+            
+            return hashedInputPassword == storedParticipant.Password;
         }
 
         public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif)
         {
-            Console.WriteLine("...");
-            return true;
+            if (!validarContaNovaParticipante(email, username, morada, carteira, pass, cc, nif)) {
+                return false;
+            }
+
+            string hashedPassword = HashPassword(pass);
+
+            Participante newParticipante = new Participante {
+                Email = email,
+                Username = username,
+                Morada = morada,
+                Carteira = carteira,
+                Password = hashedPassword,
+                CC = cc,
+                NIF = nif
+            };
+
+            return adicionaContaParticipante(newParticipante);
         }
 
         public Participante getParticipanteWithEmail(string email)
@@ -61,18 +75,61 @@ namespace LeiloesOnline.Data
 
         public bool adicionaContaParticipante(Participante participante)
         {
-            Console.WriteLine("...");
-            return true;
+            try {
+                if (participanteDAO.containsKey(participante.Email) ||
+                    participanteDAO.existsCC(participante.CC.ToString()) ||
+                    participanteDAO.existsNIF(participante.NIF.ToString())) {
+                    return false;
+                }
+                participanteDAO.put(participante);
+                return true;
+            } catch (Exception ex) {
+                Console.WriteLine("Error in adicionaContaParticipante: ");
+                return false;
+            }
         }
 
         public bool validarContaNovaParticipante(string email, string username, string morada, float carteira, string pass, int cc, int nif)
         {
-            Console.WriteLine("...");
+            if(!IsValidEmail(email) && !IsValidCC(cc) && !IsValidNIF(nif)) {
+                return false;
+            }
             return true;
         }
 
+        private bool IsValidEmail(string email) 
+        {
+            if (string.IsNullOrEmpty(email)) {
+                return false;
+            }
 
-       
+            int atSignPosition = email.IndexOf('@');
+            int dotPosition = email.LastIndexOf('.');
+
+            if (atSignPosition < 1 || dotPosition < atSignPosition + 2 || dotPosition + 2 >= email.Length) {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsValidCC(int cc) 
+        {
+        return cc.ToString().Length == 8;
+        }
+
+        private bool IsValidNIF(int nif) 
+        {
+            return nif.ToString().Length == 9;
+        }
+
+        private string HashPassword(string password) 
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create()) {
+                byte[] hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(hashedBytes);
+            }
+        }
 
 
         /*
@@ -296,5 +353,4 @@ namespace LeiloesOnline.Data
 
        */
     }
-   
 }

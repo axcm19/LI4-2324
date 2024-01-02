@@ -17,10 +17,8 @@ namespace LeiloesOnline.Business
             return this.db.login(email, password); 
         }
         
-        public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif)
-        {
-            Console.WriteLine("...");
-            return true;
+        public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif) {
+            return this.db.register(email, username, morada, carteira, pass, cc, nif);
         }
 
         public Participante getParticipanteWithEmail(string email)
@@ -32,18 +30,6 @@ namespace LeiloesOnline.Business
         {
             Console.WriteLine("...");
             return new Administrador();
-        }
-
-        public bool adicionaContaParticipante(Participante participante)
-        {
-            Console.WriteLine("...");
-            return true;
-        }
-
-        public bool validarContaNovaParticipante(string email, string username, string morada, float carteira, string pass, int cc, int nif)
-        {
-            Console.WriteLine("...");
-            return true;
         }
 
 

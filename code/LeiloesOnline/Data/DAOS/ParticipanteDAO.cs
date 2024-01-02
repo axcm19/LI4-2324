@@ -47,6 +47,66 @@ namespace LeiloesOnline.Data.DAOS
             }
             return result;
         }
+
+        public bool existsCC(string cc)
+    {
+        bool result = false;
+
+        string s_cmd = "SELECT * FROM dbo.Participante WHERE cc = @cc";
+        try
+        {
+            using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+            {
+                using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                {
+                    cmd.Parameters.AddWithValue("@cc", cc);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            throw new DAOException("Erro no existsCC do ParticipanteDAO");
+        }
+        return result;
+    }
+
+    public bool existsNIF(string nif)
+    {
+        bool result = false;
+
+        string s_cmd = "SELECT * FROM dbo.Participante WHERE nif = @nif";
+        try
+        {
+            using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+            {
+                using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                {
+                    cmd.Parameters.AddWithValue("@nif", nif);
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            throw new DAOException("Erro no existsNIF do ParticipanteDAO");
+        }
+        return result;
+    }
         
         public bool containsValue(Participante value)
         {

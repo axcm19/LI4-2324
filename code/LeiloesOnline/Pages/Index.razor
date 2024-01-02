@@ -19,6 +19,7 @@
 
       <!-- Botão de Iniciar Sessão que abrirá o modal -->
       <button type="button" style="margin-right: 25px;" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Iniciar Sessão</button>
+      <button type="button" style="margin-left: 25px;" class="btn btn-secondary" data-toggle="modal" data-target="#registerModal">Registrar</button>
     </nav>
 
     <!-- Modal de Login -->
@@ -44,14 +45,62 @@
                 <input type="password" class="form-control" id="password" name="password" @bind="@password">
               </div>
                         <div class="text-center">
-                            <button @onclick=@Test type="submit" class="btn btn-primary">Login</button>
+                            <button @onclick=@fazer_login type="submit" class="btn btn-primary">Login</button>
                         </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registerModalLabel">Registro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulário de Registro -->
+            <form>
+              <div class="form-group">
+                <label for="registerEmail">Email:</label>
+                <input type="email" class="form-control" id="registerEmail" placeholder="Insira o seu email" @bind="@registerEmail">
+              </div>
+              <div class="form-group">
+                <label for="registerUsername">Nome de Utilizador:</label>
+                <input type="text" class="form-control" id="registerUsername" placeholder="Insira o seu nome de utilizador" @bind="@registerUsername">
+              </div>
+              <div class="form-group">
+                <label for="registerMorada">Morada:</label>
+                <input type="text" class="form-control" id="registerMorada" placeholder="Insira a sua morada" @bind="@registerMorada">
+              </div>
+              <div class="form-group">
+                <label for="registerCarteira">Carteira (€):</label>
+                <input type="number" step="0.01" class="form-control" id="registerCarteira" placeholder="Insira o valor na carteira" @bind="@registerCarteira">
+              </div>
+              <div class="form-group">
+                <label for="registerCC">Cartão de Cidadão (CC):</label>
+                <input type="text" class="form-control" id="registerCC" placeholder="Insira o número do CC" @bind="@registerCC">
+              </div>
+              <div class="form-group">
+                <label for="registerNIF">Número de Identificação Fiscal (NIF):</label>
+                <input type="text" class="form-control" id="registerNIF" placeholder="Insira o seu NIF" @bind="@registerNIF">
+              </div>
+              <div class="form-group">
+                <label for="registerPassword">Password:</label>
+                <input type="password" class="form-control" id="registerPassword" placeholder="Insira a sua password" @bind="@registerPassword">
+              </div>
+              <div class="text-center">
+                <button @onclick=@fazer_registo type="button" class="btn btn-secondary">Registrar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 <hr>
 
 <label for="filtro">Filtrar: </label>
@@ -121,8 +170,16 @@
     private Popup popupRef;
     private string e_mail = "";
     private string password = "";
+    private string registerEmail = "";
+    private string registerUsername = "";
+    private string registerMorada = "";
+    private float registerCarteira = 0.0f;
+    private string registerCC = "";
+    private string registerNIF = "";
+    private string registerPassword = "";
 
-    void Test()
+
+    void fazer_login()
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
@@ -149,6 +206,17 @@
             Console.WriteLine("Login concluido");
         }
 
+    }
+
+    void fazer_registo(){
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+        if(if_leiloes.register(registerEmail, registerUsername, registerMorada, registerCarteira, registerCC, registerNIF, registerPassword)){
+            Console.WriteLine("Registo concluido");
+        }
+        else{
+            Console.WriteLine("Registo falhou");
+        }
     }
 
         /*
