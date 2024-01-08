@@ -1,6 +1,7 @@
 using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -49,17 +50,16 @@ namespace LeiloesOnline.Data.DAOS
         }
 
         public bool existsCC(string cc)
-    {
-        bool result = false;
+        {
+            bool result = false;
 
-        string s_cmd = "SELECT * FROM dbo.Participante WHERE cc = @cc";
+        string s_cmd = "SELECT * FROM dbo.Participante WHERE cc = " + cc;
         try
         {
             using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
             {
                 using (SqlCommand cmd = new SqlCommand(s_cmd, con))
                 {
-                    cmd.Parameters.AddWithValue("@cc", cc);
                     con.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -82,14 +82,13 @@ namespace LeiloesOnline.Data.DAOS
     {
         bool result = false;
 
-        string s_cmd = "SELECT * FROM dbo.Participante WHERE nif = @nif";
+        string s_cmd = "SELECT * FROM dbo.Participante WHERE nif = " + nif;
         try
         {
             using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
             {
                 using (SqlCommand cmd = new SqlCommand(s_cmd, con))
                 {
-                    cmd.Parameters.AddWithValue("@nif", nif);
                     con.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

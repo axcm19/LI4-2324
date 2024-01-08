@@ -36,8 +36,9 @@ namespace LeiloesOnline.Data
             Participante user = this.participanteDAO.get(email);
 
             string hashedInputPassword = HashPassword(password);
-            
-            return hashedInputPassword == storedParticipant.Password;
+
+            //comparar hash calculada com a do user 
+            return hashedInputPassword == user.user_password;
         }
 
         public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif)
@@ -48,15 +49,7 @@ namespace LeiloesOnline.Data
 
             string hashedPassword = HashPassword(pass);
 
-            Participante newParticipante = new Participante {
-                Email = email,
-                Username = username,
-                Morada = morada,
-                Carteira = carteira,
-                Password = hashedPassword,
-                CC = cc,
-                NIF = nif
-            };
+            Participante newParticipante = new Participante(email, username, morada, carteira, hashedPassword, cc, nif, null);
 
             return adicionaContaParticipante(newParticipante);
         }
@@ -75,18 +68,30 @@ namespace LeiloesOnline.Data
 
         public bool adicionaContaParticipante(Participante participante)
         {
-            try {
-                if (participanteDAO.containsKey(participante.Email) ||
-                    participanteDAO.existsCC(participante.CC.ToString()) ||
-                    participanteDAO.existsNIF(participante.NIF.ToString())) {
-                    return false;
+            bool result;
+            try
+            {
+
+                string test_e_mail = "'" + participante.email_participante + "'";
+                string test_cc = "'" + participante.cc.ToString() + "'";
+                string test_nif = "'" + participante.nif.ToString() + "'";
+
+                if (participanteDAO.containsKey(test_e_mail) || 
+                    participanteDAO.existsCC(test_cc) ||
+                    participanteDAO.existsNIF(test_nif))
+                {
+                    result = false;
                 }
-                participanteDAO.put(participante);
-                return true;
-            } catch (Exception ex) {
+                else { 
+                    participanteDAO.put(participante);
+                    result = true;
+                }
+            
+            } catch (Exception) {
                 Console.WriteLine("Error in adicionaContaParticipante: ");
-                return false;
+                result = false;
             }
+            return result;
         }
 
         public bool validarContaNovaParticipante(string email, string username, string morada, float carteira, string pass, int cc, int nif)
@@ -115,7 +120,7 @@ namespace LeiloesOnline.Data
 
         private bool IsValidCC(int cc) 
         {
-        return cc.ToString().Length == 8;
+            return cc.ToString().Length == 8;
         }
 
         private bool IsValidNIF(int nif) 

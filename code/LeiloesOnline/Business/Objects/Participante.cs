@@ -56,5 +56,20 @@ namespace LeiloesOnline.Business.Objects
             return result;
         }
 
+        public string printUserInfo()
+        {
+            string res = "";
+            res = "--------------------\n" +
+                this.email_participante + "\n" +
+                this.username + "\n" +
+                this.morada + "\n" +
+                this.carteira + "\n" +
+                this.user_password + "\n" +
+                this.cc + "\n" +
+                this.nif + "\n" +
+                "--------------------\n";
+            return res;
+        }
+
     }
 }

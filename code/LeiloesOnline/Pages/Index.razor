@@ -161,11 +161,11 @@
 
 @code {
 
-     /*
-     * exemplo input
-     * 
-<InputText class="form-control" placeholder="Insira o seu e-mail"
-                                    @bind-Value="@e_mail" />
+         /*
+    * exemplo input
+    * 
+    <InputText class="form-control" placeholder="Insira o seu e-mail"
+                                        @bind-Value="@e_mail" />
     */
     private Popup popupRef;
     private string e_mail = "";
@@ -188,6 +188,11 @@
         if (if_leiloes.login(test_e_mail, password)) // testar se as credencias existem na BD
         {
             Participante user = if_leiloes.getParticipanteWithEmail(test_e_mail);
+            CurrentUser.setCurrentUser(user);
+            Console.WriteLine(CurrentUser.printCurrentUserInfo());
+            Console.WriteLine("Login concluido");
+            /*
+            Participante user = if_leiloes.getParticipanteWithEmail(test_e_mail);
             if (user.user_password.Equals(password)) // a palavra passe é correcta?
             {
                 CurrentUser.setCurrentUser(user);
@@ -197,13 +202,14 @@
             else
             {
                 //popupRef.Show("A palavra passe é incorrecta.", "Password inválida", "35%", "35%");
-                Console.WriteLine("Login concluido");
+                Console.WriteLine("A palavra passe é incorrecta");
             }
+            */
         }
         else
         {
             //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
-            Console.WriteLine("Login concluido");
+            Console.WriteLine("Esta conta não existe");
         }
 
     }
@@ -211,7 +217,8 @@
     void fazer_registo(){
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-        if(if_leiloes.register(registerEmail, registerUsername, registerMorada, registerCarteira, registerCC, registerNIF, registerPassword)){
+        if (if_leiloes.register(registerEmail, registerUsername, registerMorada, registerCarteira, registerPassword, int.Parse(registerCC), int.Parse(registerNIF)))
+        {
             Console.WriteLine("Registo concluido");
         }
         else{
@@ -219,24 +226,5 @@
         }
     }
 
-        /*
-    void ToCreateAccount()
-    {
-        NavigationManager.NavigateTo("createaccount");
-    }
-   
-     * Para guardar o ficheiro dado pelo utilizador noutra diretoria
-    private string SelectedFileName { get; set; }
-    private async Task HandleFileSelected(InputFileChangeEventArgs args)
-        {
-        var file = args.File;
-        SelectedFileName = file.Name;
-        MemoryStream ms = new MemoryStream();
-        await file.OpenReadStream().CopyToAsync(ms);
-        byte[] bytes = ms.ToArray();
-        String path = Directory.GetCurrentDirectory().Replace('\\','/') + "/wwwroot/Media/uploads/test.png"; // para usar isto temos de fazer o using System.IO
-        using var stream = File.Create(path);
-        stream.Write(bytes, 0, bytes.Length);
-        popupRef.Show(SelectedFileName , "Imagem", "35%", "35%");
-    }*/
+        
 }
