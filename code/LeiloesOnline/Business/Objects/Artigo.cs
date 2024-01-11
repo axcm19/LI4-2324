@@ -69,6 +69,13 @@
         { fk_email_participante_dono = email; }
 
         public abstract Artigo Clone();
+
+        public static int geraIDArtigoAleatorio()
+        {
+            Random rnd = new Random();
+            int new_id = rnd.Next(10000);
+            return new_id;
+        }
     }
 }
 

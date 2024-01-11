@@ -19,7 +19,7 @@ namespace LeiloesOnline.Business.Objects
             dimensoes = "";
         }
 
-        public Quadro(int id, string nome, string descri, string comp, string fk_email_participante_dono, int fk_id_lote_artigos,string titulo, string nomeautor, int ano, string dim) : base(id, nome, descri, comp, fk_email_participante_dono)
+        public Quadro(int id, string nome, string descri, string comp, string fk_email_participante_dono, string titulo, string nomeautor, int ano, string dim) : base(id, nome, descri, comp, fk_email_participante_dono)
         {
 
             this.titulo = titulo;

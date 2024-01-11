@@ -1,5 +1,6 @@
 ﻿using LeiloesOnline.Business.Objects;
 using LeiloesOnline.Data.DAOS;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace LeiloesOnline.Data
 {
@@ -134,6 +135,72 @@ namespace LeiloesOnline.Data
                 byte[] hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return Convert.ToBase64String(hashedBytes);
             }
+        }
+
+        public bool criaLivro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string editora, int numpag)
+        {
+            bool result = false;
+            int id = Artigo.geraIDArtigoAleatorio();
+            Artigo artigo = new Livro(id, nome, descri, comp, CurrentUser.getCurrentUser().email_participante, titulo, nomeautor, ano, editora, numpag);
+
+            if (artigoDAO.containsKey(id) && artigoDAO.containsKeyLivro(id))
+            {
+                result = false;
+            }
+            else
+            {
+                artigoDAO.put(artigo);
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool criaJoia(string nome, string descri, string comp, string material, string tipo, float pureza)
+        {
+
+            bool result = false;
+            int id = Artigo.geraIDArtigoAleatorio();
+            Artigo artigo = new Joia(id, nome, descri, comp, CurrentUser.getCurrentUser().email_participante, material, tipo, pureza);
+
+            if (artigoDAO.containsKey(id) && artigoDAO.containsKeyJoia(id))
+            {
+                result = false;
+            }
+            else
+            {
+                artigoDAO.put(artigo);
+                result = true;
+            }
+
+            return result;
+
+        }
+
+        public bool criaQuadro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string dim)
+        {
+
+            bool result = false;
+            int id = Artigo.geraIDArtigoAleatorio();
+            Artigo artigo = new Quadro(id, nome, descri, comp, CurrentUser.getCurrentUser().email_participante, titulo, nomeautor, ano, dim);
+
+            if (artigoDAO.containsKey(id) && artigoDAO.containsKeyQuadro(id))
+            {
+                result = false;
+            }
+            else
+            {
+                artigoDAO.put(artigo);
+                result = true;
+            }
+
+            return result;
+
+        }
+
+        public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir)
+        {
+            return false;    
         }
 
 

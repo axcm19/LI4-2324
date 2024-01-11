@@ -40,13 +40,13 @@ namespace LeiloesOnline.Business
 
         public Artigo getArtigo(int artigoID);
 
-        public void criaLivro(int id, string nome, string descri, string comp, string titulo, string nomeautor, int ano, string editora, int numpag);
+        public bool criaLivro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string editora, int numpag);
 
-        public void criaJoia(int id, string nome, string descri, string comp, string material, string tipo, float pureza);
+        public bool criaJoia(string nome, string descri, string comp, string material, string tipo, float pureza);
 
-        public void criaQuadro(int id, string nome, string descri, string comp, string titulo, string nomeautor, int ano, string dim);
+        public bool criaQuadro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string dim);
 
-        public void transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir);
+        public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir);
        
     }
 }

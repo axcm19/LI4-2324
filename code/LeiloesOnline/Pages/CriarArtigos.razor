@@ -1,0 +1,41 @@
+@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/criarartigo"
+
+<PageTitle>Criar Artigo</PageTitle>
+
+<center><h1>Criar Artigo</h1></center>
+
+<p><b>Categoria: </b>
+    <a class="btn btn-primary" href="/criarjoia">Joia</a>
+    <a class="btn btn-primary" href="/criarlivro">Livro</a>
+    <a class="btn btn-primary" href="/criarquadro">Quadro</a>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="aname"><b>Nome do Artigo:</b></label>
+        <input type="text" id="aname" name="aname">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="desc"><b>Descrição do Artigo:</b></label>
+        <input type="text" id="desc" name="desc">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="comp"><b>Comprovativo:</b></label>
+        <input type="text" id="comp" name="comp">
+    </form>
+</p>
+
+<center><button>Submeter</button></center>
+
+
+

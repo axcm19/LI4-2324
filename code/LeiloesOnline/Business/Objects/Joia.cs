@@ -14,7 +14,7 @@
             pureza_material = 0;
         }
 
-        public Joia(int id, string nome, string descri, string comp,string email, int idLote, string material, string tipo, float pureza) : base(id, nome, descri, comp,email)
+        public Joia(int id, string nome, string descri, string comp,string email, string material, string tipo, float pureza) : base(id, nome, descri, comp,email)
         {
             this.material = material;
             this.tipo = tipo;

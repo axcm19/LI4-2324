@@ -18,6 +18,14 @@ namespace LeiloesOnline.Data
 
         public bool validarContaNovaParticipante(string email, string username, string morada, float carteira, string pass, int cc, int nif);
 
+        public bool criaLivro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string editora, int numpag);
+
+        public bool criaJoia(string nome, string descri, string comp, string material, string tipo, float pureza);
+
+        public bool criaQuadro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string dim);
+
+        public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir);
+
 
         /*
         // Bancas

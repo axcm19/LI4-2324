@@ -18,7 +18,7 @@
             numero_paginas = 0;
         }
 
-        public Livro(int id, string nome, string descri, string comp,string email,int idLote, string titulo, string nomeautor, int ano, string editora, int numpag) : base(id, nome, descri, comp,email)
+        public Livro(int id, string nome, string descri, string comp,string email, string titulo, string nomeautor, int ano, string editora, int numpag) : base(id, nome, descri, comp,email)
         {
             this.titulo = titulo;
             nome_autor = nomeautor;

@@ -1,4 +1,8 @@
-﻿@page "/HomepageLogged"
+﻿@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/HomepageLogged"
 
 <PageTitle>Homepage Logged</PageTitle>
 <header>
@@ -8,7 +12,9 @@
         </a>
         <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
 
-        <a style="margin-right: 25px;" class="btn btn-primary" href="/conta">A minha conta</a>
+        <p><b>Carteira: </b> @carteira €</p>
+
+        <a style="margin-right: 25px;" class="btn btn-primary" href="/conta">Olá @username</a>
     </nav>
 
     <hr>
@@ -61,3 +67,14 @@
     </table>
 </body>
 
+
+@code {
+
+    private string e_mail = CurrentUser.getCurrentUser().email_participante;
+    private string username = CurrentUser.getCurrentUser().username;
+    private int NIF = CurrentUser.getCurrentUser().nif;
+    private int CC = CurrentUser.getCurrentUser().cc;
+    private string morada = CurrentUser.getCurrentUser().morada;
+    private float carteira = CurrentUser.getCurrentUser().carteira;
+
+}

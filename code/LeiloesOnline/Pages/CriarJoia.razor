@@ -1,0 +1,86 @@
+@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/criarjoia"
+
+<PageTitle>Criar Artigo</PageTitle>
+
+<center><h1>Criar Artigo</h1></center>
+
+<p><b>Categoria: Joia </b>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="aname"><b>Nome do Artigo:</b></label>
+        <input type="text" id="aname" name="aname" @bind="aname">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="desc"><b>Descrição do Artigo:</b></label>
+        <input type="text" id="desc" name="desc" @bind="desc">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="comp"><b>Comprovativo:</b></label>
+        <input type="text" id="comp" name="comp" @bind="comp">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="mat"><b>Material:</b></label>
+        <input type="text" id="mat" name="mat" @bind="mat">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="tipo"><b>Tipo:</b></label>
+        <input type="text" id="tipo" name="tipo" @bind="tipo">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="pureza"><b>Pureza do Material:</b></label>
+        <input type="number" id="pureza" name="pureza" @bind="pureza">
+    </form>
+</p>
+
+
+<center><button @onclick=@criar_artigo>Submeter</button></center>
+
+
+
+
+@code {
+
+    private string aname;
+    private string desc;
+    private string comp;
+    private string mat;
+    private string tipo;
+    private float pureza;
+
+    void criar_artigo()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+
+        if (if_leiloes.criaJoia(aname, desc, comp, mat, tipo, pureza))
+        {
+            Console.WriteLine("Joia criada com sucesso");
+        }
+        else
+        {
+            Console.WriteLine("Erro a criar joia");
+        }
+    }
+
+}

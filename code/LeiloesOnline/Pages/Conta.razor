@@ -1,9 +1,13 @@
-﻿@page "/conta"
+﻿@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/conta"
 
 <PageTitle>Conta</PageTitle>
 <header>
 <nav class="navbar navbar-light bg-light">
-        <a href="/">
+        <a href="/HomepageLogged">
             <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
         </a>
         <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
@@ -16,15 +20,17 @@
 
 <center><h1 class="titulo-pag"><b>Conta de Utilizador</b></h1></center>
 
-<p><b>Nome: </b> nome apelido</p>
+<p><b>Email: </b> @e_mail </p>
 
-<p><b>Nif: </b> nif </p>
+<p><b>Nome: </b> @username </p>
 
-<p><b>CC: </b> cc </p>
+<p><b>Nif: </b> @NIF </p>
 
-<p><b>Morada: </b> morada </p>
+<p><b>CC: </b> @CC </p>
 
-<p><b>Saldo: </b> saldo <button>Carregar Saldo</button> </p>
+<p><b>Morada: </b> @morada </p>
+
+<p><b>Saldo: </b> @carteira <button>Carregar Saldo</button> </p>
 
 <p>
     <b>Lista de artigos: </b>
@@ -34,7 +40,7 @@
         <option value=" "> </option>
         <option value=" "> </option>
     </select>
-    <button>Criar Artigo</button>
+    <a class="btn btn-primary btn-sm" href="/criarartigo">Criar Artigo</a>
  </p>
 
 <p>
@@ -57,7 +63,29 @@
     </select>
 </p>
 
-<a class="botao-dir btn btn-primary" href="/">Encerrar Sessão</a>
+<a class="botao-dir btn btn-primary" @onclick=@setCurrentUserToNull href ="/">Encerrar Sessão</a>
 
-<a class="botao-esq btn btn-primary" href="/">Voltar</a>
+<a class="botao-esq btn btn-primary" href="/HomepageLogged">Voltar</a>
 
+
+@code {
+
+    private string e_mail = CurrentUser.getCurrentUser().email_participante;
+    private string username = CurrentUser.getCurrentUser().username;
+    private int NIF = CurrentUser.getCurrentUser().nif;
+    private int CC = CurrentUser.getCurrentUser().cc;
+    private string morada = CurrentUser.getCurrentUser().morada;
+    private float carteira = CurrentUser.getCurrentUser().carteira;
+
+    void setCurrentUserToNull()
+    {
+        Participante vazio = new Participante();
+        CurrentUser.setCurrentUser(vazio);
+    }
+
+    void carregaSaldo(float dinheiro)
+    {
+        CurrentUser.getCurrentUser().carteira += dinheiro;
+    }
+
+}

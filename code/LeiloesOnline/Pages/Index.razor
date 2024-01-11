@@ -1,5 +1,7 @@
 ﻿@using LeiloesOnline.Business;
 @using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
 
 
 @page "/"
@@ -45,7 +47,7 @@
                 <input type="password" class="form-control" id="password" name="password" @bind="@password">
               </div>
                         <div class="text-center">
-                            <button @onclick=@fazer_login type="submit" class="btn btn-primary">Login</button>
+                            <button @onclick="fazer_login" type="button" class="btn btn-primary">Login</button>
                         </div>
             </form>
           </div>
@@ -161,12 +163,7 @@
 
 @code {
 
-         /*
-    * exemplo input
-    * 
-    <InputText class="form-control" placeholder="Insira o seu e-mail"
-                                        @bind-Value="@e_mail" />
-    */
+
     private Popup popupRef;
     private string e_mail = "";
     private string password = "";
@@ -191,20 +188,9 @@
             CurrentUser.setCurrentUser(user);
             Console.WriteLine(CurrentUser.printCurrentUserInfo());
             Console.WriteLine("Login concluido");
-            /*
-            Participante user = if_leiloes.getParticipanteWithEmail(test_e_mail);
-            if (user.user_password.Equals(password)) // a palavra passe é correcta?
-            {
-                CurrentUser.setCurrentUser(user);
-                Console.WriteLine(CurrentUser.printCurrentUserInfo());
-                Console.WriteLine("Login concluido");
-            }
-            else
-            {
-                //popupRef.Show("A palavra passe é incorrecta.", "Password inválida", "35%", "35%");
-                Console.WriteLine("A palavra passe é incorrecta");
-            }
-            */
+            
+            NavigationManager.NavigateTo("/HomepageLogged", forceLoad: true);
+
         }
         else
         {
@@ -212,7 +198,8 @@
             Console.WriteLine("Esta conta não existe");
         }
 
-    }
+    } 
+
 
     void fazer_registo(){
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();

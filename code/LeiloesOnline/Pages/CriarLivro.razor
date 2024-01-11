@@ -1,0 +1,98 @@
+@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/criarlivro"
+
+<PageTitle>Criar Artigo</PageTitle>
+
+<center><h1>Criar Artigo</h1></center>
+
+<p><b>Categoria: Livro</b>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="aname"><b>Nome do Artigo:</b></label>
+        <input type="text" id="aname" name="aname" @bind="aname">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="desc"><b>Descrição do Artigo:</b></label>
+        <input type="text" id="desc" name="desc" @bind="desc">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="comp"><b>Comprovativo:</b></label>
+        <input type="text" id="comp" name="comp" @bind="comp">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="titulo"><b>Titulo:</b></label>
+        <input type="text" id="titulo" name="titulo" @bind="titulo">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="nome_autor"><b>Nome do autor:</b></label>
+        <input type="text" id="nome_autor" name="nome_autor" @bind="nome_autor">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="ano_edicao"><b>Ano de edição:</b></label>
+        <input type="number" id="ano_edicao" name="ano_edicao" @bind="ano_edicao">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="editora"><b>Editora:</b></label>
+        <input type="text" id="editora" name="editora" @bind="editora">
+    </form>
+</p>
+
+<p>
+    <form action="/action_page.php">
+        <label for="nr_paginas"><b>Numero de paginas:</b></label>
+        <input type="number" id="nr_paginas" name="nr_paginas" @bind="nr_paginas">
+    </form>
+</p>
+
+
+<center><button @onclick=@criar_artigo>Submeter</button></center>
+
+@code {
+
+    private string aname;
+    private string desc;
+    private string comp;
+    private string titulo;
+    private string nome_autor;
+    private int ano_edicao;
+    private string editora;
+    private int nr_paginas;
+
+    void criar_artigo()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+        if (if_leiloes.criaLivro(aname, desc, comp, titulo, nome_autor, ano_edicao, editora, nr_paginas))
+        {
+            Console.WriteLine("Livro criado com sucesso");
+        }
+        else
+        {
+            Console.WriteLine("Erro a criar livro");
+        }
+    }
+
+}

@@ -247,7 +247,7 @@ namespace LeiloesOnline.Data.DAOS
                 string s_cmd = "INSERT INTO dbo.Artigo (id_artigo, nome, descricao, comprovativo, is_livro, is_joia, is_quadro, fk_email_participante_dono) VALUES" +
                                 "('" + value_aux.getIdArtigo() + "','" + value_aux.getNome() + "','" +
                                 value_aux.getDescricao() + "','" + value_aux.getComprovativo() + "','"
-                                + 0 + 0 + 1 +
+                                + 0 + "','" + 0 + "','" + 1 +
                                 "','" + value_aux.getEmail() + "')";
 
                 // inserir na tabela de quadros
@@ -255,25 +255,29 @@ namespace LeiloesOnline.Data.DAOS
                                 "('" + value_aux.getIdArtigo() + "','" + value_aux.titulo + "','" +
                                 value_aux.nome_autor + "','" + value_aux.ano +
                                 "','" + value_aux.dimensoes + "')";
+
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
+                        
                         using (SqlCommand cmd = new SqlCommand(s_cmd, con))
                         {
                             con.Open();
                             cmd.ExecuteNonQuery();
+                            con.Close();
                         }
-                        using (SqlCommand cmd = new SqlCommand(s_cmd_aux, con))
+                        using (SqlCommand cmd2 = new SqlCommand(s_cmd_aux, con))
                         {
                             con.Open();
-                            cmd.ExecuteNonQuery();
+                            cmd2.ExecuteNonQuery();
+                            con.Close();
                         }
                     }
                 }
                 catch (Exception)
                 {
-                    throw new DAOException("Erro no put do ArtigoDAO");
+                    throw new DAOException("Erro no put do ArtigoDAO - Quadro");
                 }
 
             }
@@ -287,7 +291,7 @@ namespace LeiloesOnline.Data.DAOS
                 string s_cmd = "INSERT INTO dbo.Artigo (id_artigo, nome, descricao, comprovativo, is_livro, is_joia, is_quadro, fk_email_participante_dono) VALUES" +
                                 "('" + value_aux.getIdArtigo() + "','" + value_aux.getNome() + "','" +
                                 value_aux.getDescricao() + "','" + value_aux.getComprovativo() + "','"
-                                + 0 + 1 + 0 +
+                                + 0 + "','" + 1 + "','" + 0 +
                                 "','" + value_aux.getEmail() + "')";
 
                 // inserir na tabela de joias
@@ -303,17 +307,19 @@ namespace LeiloesOnline.Data.DAOS
                         {
                             con.Open();
                             cmd.ExecuteNonQuery();
+                            con.Close();
                         }
-                        using (SqlCommand cmd = new SqlCommand(s_cmd_aux, con))
+                        using (SqlCommand cmd2 = new SqlCommand(s_cmd_aux, con))
                         {
                             con.Open();
-                            cmd.ExecuteNonQuery();
+                            cmd2.ExecuteNonQuery();
+                            con.Close();    
                         }
                     }
                 }
                 catch (Exception)
                 {
-                    throw new DAOException("Erro no put do ArtigoDAO");
+                    throw new DAOException("Erro no put do ArtigoDAO - Joia");
                 }
 
             }
@@ -327,7 +333,7 @@ namespace LeiloesOnline.Data.DAOS
                 string s_cmd = "INSERT INTO dbo.Artigo (id_artigo, nome, descricao, comprovativo, is_livro, is_joia, is_quadro, fk_email_participante_dono) VALUES" +
                                 "('" + value_aux.getIdArtigo() + "','" + value_aux.getNome() + "','" +
                                 value_aux.getDescricao() + "','" + value_aux.getComprovativo() + "','"
-                                + 1 + 0 + 0 +
+                                + 1 + "','" + 0 + "','" + 0 +
                                 "','" + value_aux.getEmail() + "')";
 
                 // inserir na tabela de livros
@@ -342,17 +348,19 @@ namespace LeiloesOnline.Data.DAOS
                         {
                             con.Open();
                             cmd.ExecuteNonQuery();
+                            con.Close();
                         }
-                        using (SqlCommand cmd = new SqlCommand(s_cmd_aux, con))
+                        using (SqlCommand cmd2 = new SqlCommand(s_cmd_aux, con))
                         {
                             con.Open();
-                            cmd.ExecuteNonQuery();
+                            cmd2.ExecuteNonQuery();
+                            con.Close();    
                         }
                     }
                 }
                 catch (Exception)
                 {
-                    throw new DAOException("Erro no put do ArtigoDAO");
+                    throw new DAOException("Erro no put do ArtigoDAO - Livro");
                 }
 
             }
