@@ -1,9 +1,14 @@
-﻿@page "/proposta"
+﻿@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/proposta"
 
 <PageTitle>Proposta de Leilão</PageTitle>
 
 <center><h1>Proposta de Leilão</h1></center>
 
+<!--
 <p><b>Categoria: </b>
     <select name="filtro" id="filtro">
         <option value="Misto">Misto</option>
@@ -12,11 +17,20 @@
         <option value="Joias">Joias</option>
     </select>
 </p>
+-->
+
+<p>
+    <b>Categoria: </b>
+    <button @onclick=mudaCategoriaMisto type="button" class="btn btn-secondary">Misto</button>
+    <button @onclick=mudaCategoriaLivros type="button" class="btn btn-secondary">Livros</button>
+    <button @onclick=mudaCategoriaQuadros type="button" class="btn btn-secondary">Quadros</button>
+    <button @onclick=mudaCategoriaJoias type="button" class="btn btn-secondary">Joias</button>
+</p>
 
 <p>
     <form action="/action_page.php">
         <label for="fname"><b>Nome do Leilão:</b></label>
-        <input type="text" id="fname" name="fname">
+        <input type="text" id="fname" name="fname" @bind="nome_leilao">
     </form>
 </p>
 
@@ -35,26 +49,27 @@
 <p>
     <form action="/action_page.php">
         <label for="fname"><b>Preço Base:</b></label>
-        <input type="text" id="fname" name="fname">
+        <input type="text" id="fname" name="fname" @bind="preco_base">
     </form> 
 </p>
 
 <p>
     <form action="/action_page.php">
         <label for="fname"><b>Valor de diferença:</b></label>
-        <input type="text" id="fname" name="fname">
+        <input type="text" id="fname" name="fname" @bind="valor_diferenca">
     </form> 
 </p>
 
 <p>
     <b>Duração:</b> 
-    <label for="fname">Data de Início: </label>
-    <input type="text" id="fname" name="fname">
-    <label for="fname">Data de Término:</label>
-    <input type="text" id="fname" name="fname">
+    <label for="fname">Data de Início (AA-MM-DD): </label>
+    <input type="text" id="fname" name="fname" @bind="data_inicio">
+    <label for="fname">Data de Término (AA-MM-DD):</label>
+    <input type="text" id="fname" name="fname" @bind="data_fim">
 </p>
 
-<center><button>Propor</button></center>
+<center> <a class="botao-esq btn btn-primary" href="/HomepageLogged">Voltar</a> </center>
+<center><button @onclick=@proporLeilao>Propor</button></center>
 
 
 <script>
@@ -72,3 +87,67 @@
 </script>
 
 
+@code {
+
+    private string categoria;
+    private string nome_leilao;
+    private float preco_base;
+    private float valor_diferenca;
+    private string data_inicio;
+    private string data_fim;
+    private List<Artigo> artigosParaLeiloar = new List<Artigo>();
+
+    void mudaCategoriaMisto()
+    {
+        categoria = "Misto";
+    }
+    void mudaCategoriaLivros()
+    {
+        categoria = "Livros";
+    }
+    void mudaCategoriaQuadros()
+    {
+        categoria = "Quadros";
+    }
+    void mudaCategoriaJoias()
+    {
+        categoria = "Joias";
+    }
+
+
+    void proporLeilao()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+        Dictionary<string, Licitacao> licitacoes = new Dictionary<string, Licitacao>();
+        LoteArtigos loteartigos = new LoteArtigos();
+
+        DateTime data_i = new DateTime();
+        DateTime data_f = new DateTime();
+
+        // se o formato inserido de data for válido prosegue com a proposta
+        if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _) == true && 
+            DateTime.TryParseExact(data_fim, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _) == true)
+        {
+            //converter datas de string para Datetime
+            data_i = DateTime.Parse(data_inicio);
+            data_f = DateTime.Parse(data_fim);
+
+            Console.WriteLine(data_i.ToString());
+        }
+        else
+        {
+            Console.WriteLine("O formato inserido numa das datas não é válido!");
+        }
+
+
+        if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, true, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
+        {
+            Console.WriteLine("Leilão proposto com sucesso");
+        }
+        else
+        {
+            Console.WriteLine("Erro a propor leilão");
+        }
+    }
+
+}

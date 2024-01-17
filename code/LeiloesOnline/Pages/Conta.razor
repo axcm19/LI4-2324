@@ -32,14 +32,6 @@
 
 <p><b>Saldo: </b> @carteira <button>Carregar Saldo</button> </p>
 
-<!-- <p>
-    <b>Lista de artigos: </b>
-    <select name="filtro" id="filtro">
-    </select>
-    <a class="btn btn-primary btn-sm" href="/criarartigo">Criar Artigo</a>
- </p>
- -->
-
 <style>
     table, th, td {
         border: 1px solid black;
@@ -60,26 +52,46 @@
     <a class="btn btn-primary btn-sm" href="/criarartigo">Criar Artigo</a>
 </table>
 
+<p>       </p>
 
-<p>
-    <b>Histórico de licitações: </b>
-    <select name="filtro" id="filtro">
-        <option value="Licitações">Licitações</option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-    </select>    
-</p>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
 
-<p>
-    <b>Histórico de leilões: </b>
-    <select name="filtro" id="filtro">
-        <option value="Leilões">Leilões</option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-    </select>
-</p>
+<table style="width:40%">
+    <tr>
+        <th>Histórico de licitações:</th>
+    </tr>
+    @foreach (var item in licitacoes)
+    {
+        <tr>
+            <td>ID: @item.id_leilao | DATA: @item.data_ocorreu | VALOR: @item.valor </td>
+        </tr>
+    }
+</table>
+
+<p>       </p>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<table style="width:40%">
+    <tr>
+        <th>Histórico de leilões:</th>
+    </tr>
+    @foreach (var item in leiloes)
+    {
+        <tr>
+            <td>ID: @item.id_leilao | NOME: @item.nome | CATEGORIA: @item.categoria | STATUS: @item.aprovado </td>
+        </tr>
+    }
+</table>
+
 
 <a class="botao-dir btn btn-primary" @onclick=@setCurrentUserToNull href ="/">Encerrar Sessão</a>
 
@@ -96,6 +108,9 @@
     private float carteira = CurrentUser.getCurrentUser().carteira;
     private Dictionary<int, Artigo> artigosCurrent = CurrentUser.getCurrentUser().meusArtigos;
 
+    private List<Licitacao> licitacoes = new List<Licitacao>();
+    private List<Leilao> leiloes = new List<Leilao>();
+
     void setCurrentUserToNull()
     {
         Participante vazio = new Participante();
@@ -105,6 +120,18 @@
     void carregaSaldo(float dinheiro)
     {
         CurrentUser.getCurrentUser().carteira += dinheiro;
+    }
+
+    void licitacoesCurrent()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+        licitacoes = if_leiloes.getParticipanteLicitacoes(CurrentUser.getCurrentUser().email_participante);
+    }
+
+    void leiloesCurrent()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+        leiloes = if_leiloes.getParticipanteLeiloes(CurrentUser.getCurrentUser().email_participante);
     }
 
 }

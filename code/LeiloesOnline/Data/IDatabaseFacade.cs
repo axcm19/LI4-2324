@@ -26,6 +26,12 @@ namespace LeiloesOnline.Data
 
         public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir);
 
+        public List<Licitacao> getParticipanteLicitacoes(string email);
+
+        public List<Leilao> getParticipanteLeiloes(string email);
+
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos);
+
 
         /*
         // Bancas

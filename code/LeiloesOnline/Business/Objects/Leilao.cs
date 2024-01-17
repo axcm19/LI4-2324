@@ -31,12 +31,12 @@ namespace LeiloesOnline.Business.Objects
             valor_minimo_licitacao = 0;
             licitacao_atual = 0;
             aprovado = false;
+            email_quem_propos = "";
             licitacoes = new Dictionary<string, Licitacao>();
             lote_artigos = new LoteArtigos();
-            email_quem_propos = "";
         }
 
-        public Leilao(int id, string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos, string email_quem_propos)
+        public Leilao(int id, string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos)
         {
             id_leilao = id;
             this.categoria = categoria;
@@ -68,11 +68,17 @@ namespace LeiloesOnline.Business.Objects
             email_quem_propos = l.email_quem_propos;
         }
 
-
         public Leilao Clone()
         {
             Leilao result = new Leilao(this);
             return result;
+        }
+
+        public static int geraIDLeilaoAleatorio()
+        {
+            Random rnd = new Random();
+            int new_id = rnd.Next(10001, 15001); // Gera um número entre 10001 (inclusive) e 15000 (exclusivo)
+            return new_id;
         }
 
     }

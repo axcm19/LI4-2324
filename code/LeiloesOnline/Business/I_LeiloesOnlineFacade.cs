@@ -26,13 +26,18 @@ namespace LeiloesOnline.Business
 
         // ---------------------------------------------------- Leiloes ----------------------------------------------------
 
+
+        public List<Licitacao> getParticipanteLicitacoes(string email);
+
+        public List<Leilao> getParticipanteLeiloes(string email);
+
         public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria); // criterio e categoria podem ser opcionais
 
         public Leilao getLeilao(int leilaoID);
 
         public bool adicionaNovoLeilao(Leilao newLeilao);
 
-        public Leilao proporLeilao(int id, string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos);
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos);
 
         public void addLicitacao(int leilaoID, Licitacao newLicitacao); // adiciona uma licitação a uma leilao
 

@@ -72,6 +72,29 @@ namespace LeiloesOnline.Data.DAOS
             return leilao;
         }
 
+
+        public List<Leilao> getAllLeiloes(string keyParticipante)
+        {
+            List<Leilao> leiloes = new List<Leilao>();
+
+            string s_cmd = "SELECT * FROM dbo.Leilao WHERE fk_email_participante_propos = " + keyParticipante;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    con.Open();
+                    Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                    leiloes.Add(aux);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DAOException(e.Message);
+            }
+            return leiloes;
+        }
+
+
         public bool isEmpty()
         {
             return size() == 0;

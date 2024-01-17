@@ -1,5 +1,6 @@
 ﻿using LeiloesOnline.Business.Objects;
 using LeiloesOnline.Data;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace LeiloesOnline.Business
 {
@@ -35,6 +36,17 @@ namespace LeiloesOnline.Business
 
         // ---------------------------------------------------- Leiloes ----------------------------------------------------
 
+
+        public List<Licitacao> getParticipanteLicitacoes(string email)
+        {
+            return this.db.getParticipanteLicitacoes(email);
+        }
+
+        public List<Leilao> getParticipanteLeiloes(string email)
+        {
+            return this.db.getParticipanteLeiloes(email);
+        }
+
         public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
         {  // criterio e categoria podem ser opcionais
             Console.WriteLine("...");
@@ -53,10 +65,9 @@ namespace LeiloesOnline.Business
             return true;
         }
 
-        public Leilao proporLeilao(int id, string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos)
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos)
         {
-            Console.WriteLine("...");
-            return new Leilao();
+            return this.db.proporLeilao(categoria, nome, di, df, preco_base, min_lic, lic_atual, apro, email_quem_propos_,licitacoes, lote_artigos);
         }
 
         public void addLicitacao(int leilaoID, Licitacao newLicitacao)

@@ -62,6 +62,16 @@ namespace LeiloesOnline.Data
             return result;
         }
 
+        public List<Licitacao> getParticipanteLicitacoes(string email)
+        {
+            return this.licitacaoDAO.getAllLicitacoes(email);
+        }
+
+        public List<Leilao> getParticipanteLeiloes(string email)
+        {
+            return this.leilaoDAO.getAllLeiloes(email);
+        }
+
         public Administrador getAdministradorWithEmail(string email)
         {
             Console.WriteLine("...");
@@ -202,6 +212,28 @@ namespace LeiloesOnline.Data
         public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir)
         {
             return false;    
+        }
+
+
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos)
+        {
+
+            bool result = false;
+            int id = Leilao.geraIDLeilaoAleatorio();
+            Leilao leilao = new Leilao(id, categoria, nome, di, df, preco_base, min_lic, lic_atual, apro, email_quem_propos_,licitacoes, lote_artigos);
+
+            if (leilaoDAO.containsKey(id))
+            {
+                result = false;
+            }
+            else
+            {
+                leilaoDAO.put(leilao);
+                result = true;
+            }
+
+            return result;
+
         }
 
 

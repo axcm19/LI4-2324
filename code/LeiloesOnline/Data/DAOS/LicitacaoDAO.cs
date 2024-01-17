@@ -74,6 +74,27 @@ namespace LeiloesOnline.Data.DAOS
             return li;
         }
 
+        public List<Licitacao> getAllLicitacoes(string keyParticipante)
+        {
+            List<Licitacao> licitacoes = new List<Licitacao>();
+
+            string s_cmd = "SELECT * FROM dbo.Licitacao WHERE fk_email_participante = " + keyParticipante;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    con.Open();
+                    Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
+                    licitacoes.Add(aux);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new DAOException(e.Message);
+            }
+            return licitacoes;
+        }
+
         public bool isEmpty()
         {
             return size() == 0;
