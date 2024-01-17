@@ -1,0 +1,128 @@
+﻿@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/HomepageAdmi"
+
+<PageTitle>Homepage Administrador</PageTitle>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <a href="/HomepageLogged">
+            <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
+        </a>
+        <h3 class="titulo"><b>Leiloaria Bracarense Lda. (MODO ADMINISTRADOR)</b></h3>
+
+        <a @onclick=@setCurrentAdmiToNull style="margin-right: 25px;" class="btn btn-primary" href="/">Encerrar Sessão</a>
+    </nav>
+</header>
+
+<body>
+
+    <p>
+        <label for="fname"> Indicar email do participante a eliminar: </label>
+        <input type="text" id="fname" name="fname" @bind="email_escolhido">
+        <a @onclick=@eliminar_participante class="btn btn-primary btn-sm">Eliminar Utilizador/Participante</a>
+    </p>
+
+    <p>
+        <label for="fname"> Indicar ID do leilão a eliminar: </label>
+        <input type="text" id="fname" name="fname" @bind="id_leilao_escolhido">
+        <a @onclick=@eliminar_leilao class="btn btn-primary btn-sm">Eliminar Leilão</a>
+    </p>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <table style="width:40%">
+        <tr>
+            <th>Histórico de leilões:</th>
+        </tr>
+        @foreach (var item in todosLeiloes)
+        {
+            <tr>
+                <td>ID: @item.id_leilao | NOME: @item.nome | CATEGORIA: @item.categoria | STATUS: @item.aprovado </td>
+            </tr>
+        }
+    </table>
+
+    <p>
+        <label for="fname"> Indicar ID do leilão a aprovar: </label>
+        <input type="text" id="fname" name="fname" @bind="id_leilao_escolhido_aprovar">
+        <a @onclick=@aprovarLeilao class="btn btn-primary btn-sm">Aprovar</a>
+    </p>
+
+</body>
+
+
+@code {
+
+    private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+    private string e_mail = CurrentAdmi.getCurrentAdmi().email_administrador;
+    private string nome = CurrentAdmi.getCurrentAdmi().username;
+
+    private string email_escolhido = "";
+    private int id_leilao_escolhido;
+    private int id_leilao_escolhido_aprovar;
+
+    //private List<Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "");
+    private List<Leilao> todosLeiloes = new List<Leilao>();
+
+    void eliminar_leilao()
+    {
+        Leilao l = if_leiloes.getLeilao(id_leilao_escolhido);
+
+        // se o leilao não existir na lista
+        if (todosLeiloes.Contains(l))
+        {
+            if_leiloes.eliminarLeilao(id_leilao_escolhido);
+            Console.WriteLine("Leilao eliminado");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao eliminar leilao");
+        }
+    }
+
+    void eliminar_participante()
+    {
+        Participante p = if_leiloes.getParticipanteWithEmail(email_escolhido);
+
+        // se o leilao não existir na lista
+        if (if_leiloes.eliminarParticipante(email_escolhido) == true)
+        {
+            Console.WriteLine("Participante eliminado");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao eliminar participante");
+        }
+    }
+
+    void aprovarLeilao()
+    {
+        Leilao l = if_leiloes.getLeilao(id_leilao_escolhido);
+
+        // se o leilao não existir na lista
+        if (todosLeiloes.Contains(l))
+        {
+            if_leiloes.aprovarLeilao(id_leilao_escolhido);
+            Console.WriteLine("Leilao aprovado");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao aprovar leilao");
+        }
+    }
+
+    void setCurrentAdmiToNull()
+    {
+        Administrador vazio = new Administrador();
+        CurrentAdmi.setCurrentAdmi(vazio);
+    }
+
+    
+}

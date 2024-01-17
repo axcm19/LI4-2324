@@ -1,4 +1,6 @@
-﻿@using LeiloesOnline.Business;
+﻿@using System;
+@using System.Globalization;
+@using LeiloesOnline.Business;
 @using LeiloesOnline.Business.Objects;
 @inject NavigationManager NavigationManager
 
@@ -34,6 +36,7 @@
     </form>
 </p>
 
+<!--
 <p>
     <b>Artigos: </b>
     <select name="filtro" id="filtro">
@@ -44,7 +47,37 @@
     </select>
     <a class="btn btn-primary btn-sm" >Adicionar artigo ao lote</a> 
     <a class="btn btn-primary btn-sm" >Remover artigo do lote</a>
+</p> 
+-->
+
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<table style="width:40%">
+    <tr>
+        <th>Lista de artigos:</th>
+    </tr>
+    @foreach (var item in artigosCurrent)
+    {
+        <tr>
+            <td>ID: @item.Value.getIdArtigo() | TIPO: @item.Value.GetType().Name | NOME: @item.Value.getNome() | DESCRIÇÃO: @item.Value.getDescricao() </td>
+        </tr>
+    }
+</table>
+
+<p>
+    <label for="fname"> Indicar ID do artigo: </label>
+    <input type="text" id="fname" name="fname" @bind="id_artigo_escolhido">
+    <a @onclick=@adicionaArtigoAoLote class="btn btn-primary btn-sm">Adicionar artigo ao lote</a>
+    <a @onclick=@removeArtigoDoLote class="btn btn-primary btn-sm">Remover artigo do lote</a>
 </p>
+
+<p>       </p>
+
 
 <p>
     <form action="/action_page.php">
@@ -62,9 +95,9 @@
 
 <p>
     <b>Duração:</b> 
-    <label for="fname">Data de Início (AA-MM-DD): </label>
+    <label for="fname">Data de Início (AAAA-MM-DD): </label>
     <input type="text" id="fname" name="fname" @bind="data_inicio">
-    <label for="fname">Data de Término (AA-MM-DD):</label>
+    <label for="fname">Data de Término (AAAA-MM-DD):</label>
     <input type="text" id="fname" name="fname" @bind="data_fim">
 </p>
 
@@ -97,6 +130,9 @@
     private string data_fim;
     private List<Artigo> artigosParaLeiloar = new List<Artigo>();
 
+    private Dictionary<int, Artigo> artigosCurrent = CurrentUser.getCurrentUser().meusArtigos;
+    int id_artigo_escolhido = 0;
+
     void mudaCategoriaMisto()
     {
         categoria = "Misto";
@@ -115,6 +151,42 @@
     }
 
 
+
+    void adicionaArtigoAoLote()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+        Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
+
+        // se o artigo ainda não existir na lista 
+        if (!artigosParaLeiloar.Contains(a))
+        {
+            artigosParaLeiloar.Add(a.Clone());
+            Console.WriteLine("Adicionado artigo para leiloar");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao adicionar artigo para leiloar");
+        }
+    }
+
+    void removeArtigoDoLote()
+    {
+        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+        Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
+
+        // se o artigo existe na lista pode ser removido
+        if (artigosParaLeiloar.Contains(a))
+        {
+            artigosParaLeiloar.Remove(a);
+            Console.WriteLine("Removido artigo para leiloar");
+        }
+        else
+        {
+            Console.WriteLine("Erro ao remover artigo para leiloar");
+        }
+    }
+
+
     void proporLeilao()
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
@@ -125,22 +197,38 @@
         DateTime data_f = new DateTime();
 
         // se o formato inserido de data for válido prosegue com a proposta
-        if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _) == true && 
-            DateTime.TryParseExact(data_fim, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out _) == true)
+        DateTime dateValue;
+        CultureInfo pt = new CultureInfo("pt-PT");
+
+        if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd", pt, DateTimeStyles.None, out dateValue) == true && 
+            DateTime.TryParseExact(data_fim, "yyyy-MM-dd", pt, DateTimeStyles.None, out dateValue) == true)
         {
             //converter datas de string para Datetime
             data_i = DateTime.Parse(data_inicio);
             data_f = DateTime.Parse(data_fim);
-
-            Console.WriteLine(data_i.ToString());
         }
         else
         {
             Console.WriteLine("O formato inserido numa das datas não é válido!");
+            return;
         }
 
 
-        if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, true, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
+        // adicionar o lote de artigos
+        foreach(Artigo a in artigosParaLeiloar){
+            loteartigos.adicionaArtigoAoLote(a.Clone());
+            Console.WriteLine(a.getNome());
+        }
+        
+
+
+        
+        // o valor de aprovado deverá ser false
+        if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, false, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
+        
+
+        // por enquanto o valor de aprovado será true enquanto o Administrador não está 100% funcional
+        //if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, true, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
         {
             Console.WriteLine("Leilão proposto com sucesso");
         }

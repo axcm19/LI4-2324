@@ -42,6 +42,21 @@ namespace LeiloesOnline.Data
             return hashedInputPassword == user.user_password;
         }
 
+        public bool loginAdmi(string email, string password)
+        {
+            if (!this.administradorDAO.containsKey(email))
+            {
+                return false;
+            }
+
+            Administrador admi = this.administradorDAO.get(email);
+
+            string hashedInputPassword = HashPassword(password);
+
+            //comparar hash calculada com a do admi 
+            return hashedInputPassword == admi.admi_password;
+        }
+
         public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif)
         {
             if (!validarContaNovaParticipante(email, username, morada, carteira, pass, cc, nif)) {
@@ -69,13 +84,13 @@ namespace LeiloesOnline.Data
 
         public List<Leilao> getParticipanteLeiloes(string email)
         {
-            return this.leilaoDAO.getAllLeiloes(email);
+            return this.leilaoDAO.getAllLeiloesParticipante(email);
         }
 
         public Administrador getAdministradorWithEmail(string email)
         {
-            Console.WriteLine("...");
-            return new Administrador();
+            Administrador result = this.administradorDAO.get(email);
+            return result;
         }
 
         public bool adicionaContaParticipante(Participante participante)
@@ -236,226 +251,76 @@ namespace LeiloesOnline.Data
 
         }
 
-
-        /*
-
-        // Bancas
-        public bool existsBanca(int idfeira, int idvendedor)
+        public bool eliminarLeilao(int id_leilao)
         {
-            return bancaDAO.containsKey(new Pair<int, int>(idfeira,idvendedor));
-        }
-        
-        public bool existsBanca(Banca banca)
-        {
-            return this.existsBanca(banca.getFeiraId(), banca.getVendedorId());
-        }
 
-        public Banca getBanca(int idfeira, int idvendedor)
-        {
-            return this.bancaDAO.get(new Pair<int, int>(idfeira, idvendedor));
-        }
+            bool result = false;
 
-        public void addBanca(Banca banca)
-        {
-            this.bancaDAO.put(new Pair<int, int>(banca.getFeiraId(), banca.getVendedorId()), banca);
+            if (leilaoDAO.containsKey(id_leilao))
+            {
+                leilaoDAO.remove(id_leilao);
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
 
-        public void removeBanca(int idfeira, int idvendedor)
+        public bool eliminarParticipante(string email)
         {
-            this.bancaDAO.remove(new Pair<int, int>(idfeira, idvendedor));
+
+            bool result = false;
+
+            if (participanteDAO.containsKey(email))
+            {
+                participanteDAO.remove(email);
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
 
-        public ICollection<Banca> getAllBancas()
+        public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
         {
-            return this.bancaDAO.values();
+            List<Leilao> result = new List<Leilao>();
+
+            // criterio e categoria podem ser opcionais
+            if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
+            {
+                result = leilaoDAO.getAllLeiloes(criterioDeOrdenacao, categoria);
+                return result;
+            }
+            else
+            {
+                Console.WriteLine("ainda não está implementado");
+                return result;
+            }
+            
         }
 
-        // Categorias
-        public bool existsCategoria(int categoriaid)
+        public bool aprovarLeilao(int leilaoID)
         {
-            return this.categoriaDAO.containsKey(categoriaid);
+            bool result = false;
+
+            if (leilaoDAO.containsKey(leilaoID))
+            {
+                leilaoDAO.aprovar(leilaoID);
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
 
-        public bool existsCategoria(Categoria categoria)
-        {
-            return this.categoriaDAO.containsValue(categoria);
-        }
-
-        public Categoria getCategoria(int categoriaid)
-        {
-            return this.categoriaDAO.get(categoriaid);
-        }
-
-        public void addCategoria(Categoria categoria)
-        {
-            this.categoriaDAO.put(categoria.getID(),categoria);
-        }
-
-        public void removeCategoria(int categoriaid)
-        {
-            this.categoriaDAO.remove(categoriaid);
-        }
-
-        public ICollection<Categoria> getAllCategorias()
-        {
-            return this.categoriaDAO.values();
-        }
-
-        // Compras
-
-        public bool existsCompra(int compraid)
-        {
-            return this.compraDAO.containsKey(compraid);
-        }
-
-        public bool existsCompra(Compra compra)
-        {
-            return this.compraDAO.containsValue(compra);
-        }
-
-        public Compra getCompra(int compraid)
-        {
-            return this.compraDAO.get(compraid);
-        }
-
-        public void addCompra(Compra compra)
-        {
-            this.compraDAO.put(compra.getID(), compra);
-        }
-
-        public void removeCompra(int compraid)
-        {
-            this.compraDAO.remove(compraid);
-        }
-
-        public ICollection<Compra> getAllCompras()
-        {
-            return this.compraDAO.values();
-        }
-
-        // Feiras
-        public bool existsFeira(int feiraid)
-        {
-            return this.feiraDAO.containsKey(feiraid);
-        }
-
-        public bool existsFeira(Feira feira)
-        {
-            return this.feiraDAO.containsValue(feira);
-        }
-
-        public Feira getFeira(int feiraid)
-        {
-            return this.feiraDAO.get(feiraid);
-        }
-
-        public void addFeira(Feira feira)
-        {
-            this.feiraDAO.put(feira.getId(), feira);
-        }
-
-        public void removeFeira(int feiraid)
-        {
-            this.feiraDAO.remove(feiraid);
-        }
-
-        public ICollection<Feira> getAllFeiras()
-        {
-            return this.feiraDAO.values();
-        }
-
-        public ICollection<Feira> getAllFeirasEmCurso()
-        {
-            return this.feiraDAO.getFeirasEmCurso();
-        }
-
-        // Produtos
-
-        public bool existsProduto(int produtoid)
-        {
-            return this.produtoDAO.containsKey(produtoid);
-        }
-
-        public bool existsProduto(Produto produto)
-        {
-            return this.produtoDAO.containsValue(produto);
-        }
-
-        public Produto getProduto(int produtoid)
-        {
-            return this.produtoDAO.get(produtoid);
-        }
-
-        public void addProduto(Produto produto)
-        {
-            this.produtoDAO.put(produto.getID(), produto);
-        }
-
-        public void removeProduto(int produtoid)
-        {
-            this.produtoDAO.remove(produtoid);
-        }
-
-        public ICollection<Produto> getAllProdutos()
-        {
-            return this.produtoDAO.values();
-        }
-
-        public int getQuantidadeDisponivelProduto(int produtoid)
-        {
-            return this.produtoDAO.getQuantidadeDisponivelProduto(produtoid);
-        }
-        public int getQuantidadeDisponivelProduto(Produto produto)
-        {
-            return this.getQuantidadeDisponivelProduto(produto.getID());
-        }
-
-        // Subcategorias
-        public bool existsSubCategoria(int subcategoriaid)
-        {
-            return this.subcategoriaDAO.containsKey(subcategoriaid);
-        }
-
-        public bool existsSubCategoria(SubCategoria subcategoria)
-        {
-            return this.subcategoriaDAO.containsValue(subcategoria);
-        }
-
-        public SubCategoria getSubCategoria(int subcategoriaid)
-        {
-            return this.subcategoriaDAO.get(subcategoriaid);
-        }
-
-        public void addSubCategoria(SubCategoria subcategoria)
-        {
-            this.subcategoriaDAO.put(subcategoria.getId(), subcategoria);
-        }
-
-        public void removeSubCategoria(int subcategoriaid)
-        {
-            this.subcategoriaDAO.remove(subcategoriaid);
-        }
-
-        public ICollection<SubCategoria> getAllSubCategorias()
-        {
-            return this.subcategoriaDAO.values();
-        }
-
-        
-
-        // relação banca_has_produto
-
-        public void removeProdutoFromBanca(Produto p, Banca b)
-        {
-            DAOAuxiliar.removeProdutoFromBanca(p,b);
-        }
-
-        public void addToBancaHasProduto(Produto p, Banca b)
-        {
-            DAOAuxiliar.addToBancaHasProduto(p,b);
-        }
-
-
-       */
     }
 }

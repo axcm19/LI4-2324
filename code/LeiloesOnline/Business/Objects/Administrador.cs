@@ -4,9 +4,9 @@
     public class Administrador
     {
         // Atributos do administrador
-        private string email_administrador;
-        private string username;
-        private string admi_password;
+        public string email_administrador { get; set; }
+        public string username { get; set; }
+        public string admi_password { get; set; }
 
         public Administrador()
         {
@@ -33,21 +33,6 @@
         {
             Administrador result = new Administrador(this);
             return result;
-        }
-
-        public string get_email_administrador()
-        {
-            return this.email_administrador;
-        }
-
-        public string get_username()
-        {
-            return this.username;
-        }
-
-        public string get_admi_password()
-        {
-            return this.admi_password;
         }
     }
 }

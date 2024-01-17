@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using LeiloesOnline.Business.Objects;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace LeiloesOnline.Business.Objects
 
@@ -81,8 +83,28 @@ namespace LeiloesOnline.Business.Objects
             return new_id;
         }
 
+        public string printLeilao()
+        {
+            string res = "";
+
+            res = "--------------------\n" +
+                this.id_leilao + "\n" +
+                this.categoria + "\n" +
+                this.nome + "\n" +
+                this.data_inicio + "\n" +
+                this.data_fim + "\n" +
+                this.preco_base + "\n" +
+                this.valor_minimo_licitacao + "\n" +
+                this.licitacao_atual + "\n" +
+                this.aprovado + "\n" +
+                this.email_quem_propos + "\n" +
+                "--------------------\n";
+            return res;
+        }
+
     }
 }
+
 
 
 

@@ -49,13 +49,14 @@ namespace LeiloesOnline.Data.DAOS
         
         public bool containsValue(Administrador value)
         {
-            return containsKey(value.get_email_administrador());
+            return containsKey(value.email_administrador);
         }
 
         public Administrador get(string key)
         {
             Administrador? admi = null;
-            string s_cmd = $"SELECT * FROM dbo.Administrador where email_administrador = '{key}'";
+            string s_cmd = "SELECT * FROM dbo.Administrador where email_administrador = " + key;
+
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -81,8 +82,8 @@ namespace LeiloesOnline.Data.DAOS
         public void put(Administrador value)
         {
             string s_cmd = "INSERT INTO dbo.Administrador (email_administrador, username, admi_password) VALUES" +
-                            "('" + value.get_email_administrador() + "','" + value.get_username() + "','" +
-                            value.get_admi_password() + "')";
+                            "('" + value.email_administrador + "','" + value.email_administrador + "','" +
+                            value.email_administrador + "')";
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))

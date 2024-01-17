@@ -9,61 +9,85 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = LeiloesOnline
 build_property.RootNamespace = LeiloesOnline
-build_property.ProjectDir = C:\Users\shika\Desktop\universidade\23-24\1sem\LI IV\LI4-2324\code\LeiloesOnline\
+build_property.ProjectDir = d:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\shika\Desktop\universidade\23-24\1sem\LI IV\LI4-2324\code\LeiloesOnline
+build_property.MSBuildProjectDirectory = d:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/App.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/Conta.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Conta.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/Counter.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/FetchData.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/CriarArtigos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJBcnRpZ29zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/CriarJoia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJKb2lhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/CriarLivro.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJMaXZyby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/CriarQuadro.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJRdWFkcm8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/Index.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Homepage-Logged.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZXBhZ2UtTG9nZ2VkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/Proposta.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Popup.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9wdXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Proposta.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvcG9zdGEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Shared/SurveyPrompt.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/_Imports.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Shared/MainLayout.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-hsc2eu4qya
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Shared/NavMenu.razor]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-eszbg40xkh
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/Error.cshtml]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/_Host.cshtml]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/shika/Desktop/universidade/23-24/1sem/LI IV/LI4-2324/code/LeiloesOnline/Pages/_Layout.cshtml]
+[d:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -17,6 +17,8 @@ namespace LeiloesOnline.Business
 
         public bool login(string email, string password);
 
+        public bool loginAdmi(string email, string password);
+
         public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif);
 
         public Participante getParticipanteWithEmail(string email);
@@ -35,9 +37,9 @@ namespace LeiloesOnline.Business
 
         public Leilao getLeilao(int leilaoID);
 
-        public bool adicionaNovoLeilao(Leilao newLeilao);
-
         public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos);
+
+        public bool aprovarLeilao(int leilaoID);
 
         public void addLicitacao(int leilaoID, Licitacao newLicitacao); // adiciona uma licitação a uma leilao
 
@@ -52,6 +54,10 @@ namespace LeiloesOnline.Business
         public bool criaQuadro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string dim);
 
         public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir);
-       
+
+        public bool eliminarLeilao(int id_leilao);
+
+        public bool eliminarParticipante(string email);
+
     }
 }

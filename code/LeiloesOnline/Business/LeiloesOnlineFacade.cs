@@ -1,6 +1,7 @@
 ﻿using LeiloesOnline.Business.Objects;
 using LeiloesOnline.Data;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Collections.Generic;
 
 namespace LeiloesOnline.Business
 {
@@ -17,7 +18,13 @@ namespace LeiloesOnline.Business
         {
             return this.db.login(email, password); 
         }
-        
+
+        public bool loginAdmi(string email, string password)
+        {
+            return this.db.loginAdmi(email, password);
+        }
+
+
         public bool register(string email, string username, string morada, float carteira, string pass, int cc, int nif) {
             return this.db.register(email, username, morada, carteira, pass, cc, nif);
         }
@@ -48,9 +55,20 @@ namespace LeiloesOnline.Business
         }
 
         public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
-        {  // criterio e categoria podem ser opcionais
-            Console.WriteLine("...");
-            return null;
+        {
+            List<Leilao> result = new List<Leilao>();
+
+            // criterio e categoria podem ser opcionais
+            if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
+            {
+                result = this.db.getTodosLeiloes(criterioDeOrdenacao, categoria);
+                return result;
+            }
+            else
+            {
+                Console.WriteLine("ainda não está implementado");
+                return result;
+            }
         }
 
         public Leilao getLeilao(int leilaoID)
@@ -59,11 +77,6 @@ namespace LeiloesOnline.Business
             return new Leilao();
         }
 
-        public bool adicionaNovoLeilao(Leilao newLeilao)
-        {
-            Console.WriteLine("...");
-            return true;
-        }
 
         public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos)
         {
@@ -73,6 +86,21 @@ namespace LeiloesOnline.Business
         public void addLicitacao(int leilaoID, Licitacao newLicitacao)
         { // adiciona uma licitação a uma leilao
             Console.WriteLine("...");
+        }
+
+        public bool eliminarLeilao(int id_leilao)
+        {
+            return this.db.eliminarLeilao(id_leilao);
+        }
+
+        public bool eliminarParticipante(string email)
+        {
+            return this.db.eliminarParticipante(email);
+        }
+
+        public bool aprovarLeilao(int leilaoID)
+        {
+            return this.db.aprovarLeilao(leilaoID);
         }
 
         // ---------------------------------------------------- Artigos ----------------------------------------------------

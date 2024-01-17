@@ -180,24 +180,46 @@
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-        string test_e_mail = "'" + e_mail + "'";
-
-        if (if_leiloes.login(test_e_mail, password)) // testar se as credencias existem na BD
+        // caso seja o administrador
+        if (e_mail.Equals("alcino@mail.com"))
         {
-            Participante user = if_leiloes.getParticipanteWithEmail(test_e_mail);
-            CurrentUser.setCurrentUser(user);
-            Console.WriteLine(CurrentUser.printCurrentUserInfo());
-            Console.WriteLine("Login concluido");
-            
-            NavigationManager.NavigateTo("/HomepageLogged", forceLoad: true);
+            string test_e_mail = "'" + e_mail + "'";
+            if (if_leiloes.loginAdmi(test_e_mail, password)) // testar se as credencias existem na BD do Administrador
+            {
+                Administrador admi = if_leiloes.getAdministradorWithEmail(test_e_mail);
+                CurrentAdmi.setCurrentAdmi(admi);
+                Console.WriteLine(CurrentAdmi.printCurrentAdmiInfo());
+                Console.WriteLine("Login concluido");
 
-        }
-        else
-        {
-            //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
-            Console.WriteLine("Esta conta não existe");
-        }
+                NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
 
+            }
+            else
+            {
+                //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
+                Console.WriteLine("Esta conta não existe");
+            }
+        }
+        // caso seja um participante
+        else { 
+            string test_e_mail = "'" + e_mail + "'";
+
+            if (if_leiloes.login(test_e_mail, password)) // testar se as credencias existem na BD
+            {
+                Participante user = if_leiloes.getParticipanteWithEmail(test_e_mail);
+                CurrentUser.setCurrentUser(user);
+                Console.WriteLine(CurrentUser.printCurrentUserInfo());
+                Console.WriteLine("Login concluido");
+
+                NavigationManager.NavigateTo("/HomepageLogged", forceLoad: true);
+
+            }
+            else
+            {
+                //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
+                Console.WriteLine("Esta conta não existe");
+            }
+        }
     } 
 
 

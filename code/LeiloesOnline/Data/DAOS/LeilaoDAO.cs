@@ -1,6 +1,7 @@
 ﻿using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
+using System.Globalization;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -73,7 +74,7 @@ namespace LeiloesOnline.Data.DAOS
         }
 
 
-        public List<Leilao> getAllLeiloes(string keyParticipante)
+        public List<Leilao> getAllLeiloesParticipante(string keyParticipante)
         {
             List<Leilao> leiloes = new List<Leilao>();
 
@@ -94,6 +95,42 @@ namespace LeiloesOnline.Data.DAOS
             return leiloes;
         }
 
+        public List<Leilao> getAllLeiloes(string criterioDeOrdenacao, string categoria)
+        {
+            List<Leilao> result = new List<Leilao>();
+
+            // criterio e categoria podem ser opcionais
+            if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
+            {
+                string s_cmd = "SELECT * FROM dbo.Leilao WHERE aprovado = 0";
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                        result.Add(aux);
+
+                        if(result.Count == 0)
+                        {
+                            return new List<Leilao>();
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
+                }
+                return result;
+            }
+            else
+            {
+                Console.WriteLine("ainda não está implementado");
+                return result;
+            }
+            
+        }
+
 
         public bool isEmpty()
         {
@@ -103,9 +140,16 @@ namespace LeiloesOnline.Data.DAOS
 
         public void put(Leilao value)
         {
+
+            //inverter formato das datas porque o SQL é esquisito para caralho!
+            string inverted_data_inicio = value.data_inicio.ToString("yyyy/MM/dd HH:mm:ss");
+            string inverted_data_fim = value.data_fim.ToString("yyyy/MM/dd HH:mm:ss");
+
+
             string s_cmd = "INSERT INTO dbo.Leilao (id_leilao, categoria, nome, data_inicio, data_fim, preco_base, valor_minimo_licitacao, licitacao_atual, aprovado, fk_email_participante_propos) VALUES" +
-                            "('" + value.id_leilao + "','" + value.categoria + "','" + value.nome + "','" + value.data_inicio + "','" + value.data_fim + "','" + value.preco_base
+                            "('" + value.id_leilao + "','" + value.categoria + "','" + value.nome + "','" + inverted_data_inicio + "','" + inverted_data_fim + "','" + value.preco_base
                             + "','" + value.valor_minimo_licitacao + "','" + value.licitacao_atual + "','" + value.aprovado + "','" + value.email_quem_propos + "')";
+
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -114,7 +158,26 @@ namespace LeiloesOnline.Data.DAOS
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
+                        con.Close();
                     }
+
+                    foreach(Artigo a in value.lote_artigos.artigos)
+                    {
+                        Console.WriteLine(a.getIdArtigo());
+                        Console.WriteLine(value.id_leilao);
+
+                        string s_cmd_2 = "INSERT INTO dbo.LoteLote_Artigos(fk_id_artigo, fk_id_leilao) VALUES" +
+                           "('" + a.getIdArtigo() + "','" + value.id_leilao + "')";
+
+
+                        using (SqlCommand cmd = new SqlCommand(s_cmd_2, con))
+                        {
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            con.Close();
+                        }
+                    }
+
                 }
             }
             catch (Exception)
@@ -196,7 +259,35 @@ namespace LeiloesOnline.Data.DAOS
             return result;
         }
 
-        
-        
+        public bool aprovar(int key)
+        {
+            bool result = false;
+            string s_cmd = "UPDATE dbo.Leilao SET aprovado = '1' WHERE id_leilao = " + key;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new DAOException("Erro no aprovar do LeilaoDAO");
+            }
+            return result;
+        }
+
+
+
     }
 }
