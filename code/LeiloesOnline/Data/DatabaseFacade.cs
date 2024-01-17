@@ -58,6 +58,7 @@ namespace LeiloesOnline.Data
         public Participante getParticipanteWithEmail(string email)
         {
             Participante result = this.participanteDAO.get(email);
+            result.meusArtigos = this.participanteDAO.getArtigos(email);
             return result;
         }
 

@@ -132,6 +132,42 @@ namespace LeiloesOnline.Data.DAOS
             return participante;
         }
 
+        public Dictionary<int, Artigo> getArtigos(string key)
+        {
+            Dictionary<int, Artigo> artigos = new Dictionary<int, Artigo>();
+
+            string s_cmd = "SELECT * FROM dbo.Artigo where fk_email_participante_dono =" + key;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            int id_artigo = 0;
+
+                            while (reader.Read())
+                            {
+                                id_artigo = reader.GetInt32(reader.GetOrdinal("id_artigo"));
+                                Artigo a = ArtigoDAO.getInstance().get(id_artigo);
+                                artigos.Add(id_artigo, a);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                throw new DAOException(e.Message);
+            }
+            return artigos;
+        }
+
         public bool isEmpty()
         {
             return size() == 0;

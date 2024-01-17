@@ -6,10 +6,10 @@
 
 <p><b>Categoria: </b>
     <select name="filtro" id="filtro">
-        <option value="Artigos">Categoria </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
+        <option value="Misto">Misto</option>
+        <option value="Livros">Livros</option>
+        <option value="Quadros">Quadros</option>
+        <option value="Joias">Joias</option>
     </select>
 </p>
 
@@ -28,8 +28,9 @@
         <option value=" "> </option>
         <option value=" "> </option>
     </select>
-    <a class="btn btn-primary btn-sm" href="/criarartigo">Criar Artigo</a>
- </p>
+    <a class="btn btn-primary btn-sm" >Adicionar artigo ao lote</a> 
+    <a class="btn btn-primary btn-sm" >Remover artigo do lote</a>
+</p>
 
 <p>
     <form action="/action_page.php">
@@ -54,5 +55,20 @@
 </p>
 
 <center><button>Propor</button></center>
+
+
+<script>
+    function selecionarJoias() {
+        // Obtenha o elemento select
+        var selectElement = document.getElementById("filtro");
+
+        // Defina a opção "Joias" como selecionada
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value === "Joias") {
+                selectElement.options[i].selected = true;
+            }
+        }
+    }
+</script>
 
 

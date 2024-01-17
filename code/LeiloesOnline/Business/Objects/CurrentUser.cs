@@ -23,9 +23,26 @@ namespace LeiloesOnline.Business.Objects
             return CurrentUser.current;
         }
 
+        public static string printArtigos()
+        {
+            string result = "";
+
+            foreach (var parChaveValor in CurrentUser.current.meusArtigos)
+            {
+                int chave = parChaveValor.Key;
+                Artigo valor = parChaveValor.Value;
+
+                result += chave + " -> " + valor.GetType().Name + ", " + valor.getNome() + " \n ";
+            }
+
+            return result;
+        }
+
         public static string printCurrentUserInfo()
         {
             string res = "";
+            string ar = printArtigos();
+
             res = "--------------------\n" +
                 CurrentUser.current.email_participante + "\n" +
                 CurrentUser.current.username + "\n" +
@@ -34,6 +51,8 @@ namespace LeiloesOnline.Business.Objects
                 CurrentUser.current.user_password + "\n" +
                 CurrentUser.current.cc + "\n" +
                 CurrentUser.current.nif + "\n" +
+                "Artigos:" + "\n" +
+                ar + "\n" +
                 "--------------------\n"; 
             return res;
         }

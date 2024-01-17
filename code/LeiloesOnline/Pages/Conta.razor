@@ -32,16 +32,34 @@
 
 <p><b>Saldo: </b> @carteira <button>Carregar Saldo</button> </p>
 
-<p>
+<!-- <p>
     <b>Lista de artigos: </b>
     <select name="filtro" id="filtro">
-        <option value="Artigos">Artigos </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
     </select>
     <a class="btn btn-primary btn-sm" href="/criarartigo">Criar Artigo</a>
  </p>
+ -->
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<table style="width:40%">
+    <tr>
+        <th>Lista de artigos:</th>
+    </tr>
+    @foreach (var item in artigosCurrent)
+    {
+        <tr>
+            <td>ID: @item.Value.getIdArtigo() | TIPO: @item.Value.GetType().Name | NOME: @item.Value.getNome() | DESCRIÇÃO: @item.Value.getDescricao() </td>
+        </tr>
+    }
+
+    <a class="btn btn-primary btn-sm" href="/criarartigo">Criar Artigo</a>
+</table>
+
 
 <p>
     <b>Histórico de licitações: </b>
@@ -76,6 +94,7 @@
     private int CC = CurrentUser.getCurrentUser().cc;
     private string morada = CurrentUser.getCurrentUser().morada;
     private float carteira = CurrentUser.getCurrentUser().carteira;
+    private Dictionary<int, Artigo> artigosCurrent = CurrentUser.getCurrentUser().meusArtigos;
 
     void setCurrentUserToNull()
     {

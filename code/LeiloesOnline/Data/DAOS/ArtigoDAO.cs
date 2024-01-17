@@ -1,6 +1,7 @@
 using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -169,14 +170,44 @@ namespace LeiloesOnline.Data.DAOS
 
             if(containsKeyQuadro(key) == true)
             {
-                string s_cmd = $"SELECT Artigo.id_artigo, nome, descricao, comprovativo,fk_email_participante_dono,titulo,nome_autor,ano,dimensoes  FROM Artigo, Quadro WHERE Artigo.id_artigo = '{key}'";
+                string s_cmd = "SELECT Artigo.id_artigo, nome, descricao, comprovativo,fk_email_participante_dono,titulo,nome_autor,ano,dimensoes  FROM Artigo, Quadro WHERE Artigo.id_artigo = " + key;
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Quadro aux = con.QueryFirst<Quadro>(s_cmd);
-                        art = aux;
+
+                        using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                int id_artigo = 0;
+                                string nome;
+                                string descricao;
+                                string comprovativo;
+                                string fk_email_participante_dono;
+                                string titulo;
+                                string nome_autor;
+                                int ano = 0;
+                                string dimensoes;
+
+                                while (reader.Read())
+                                {
+                                    id_artigo = reader.GetInt32(reader.GetOrdinal("id_artigo"));
+                                    nome = reader.GetString(reader.GetOrdinal("nome"));
+                                    descricao = reader.GetString(reader.GetOrdinal("descricao"));
+                                    comprovativo = reader.GetString(reader.GetOrdinal("comprovativo"));
+                                    fk_email_participante_dono = reader.GetString(reader.GetOrdinal("fk_email_participante_dono"));
+                                    titulo = reader.GetString(reader.GetOrdinal("titulo"));
+                                    nome_autor = reader.GetString(reader.GetOrdinal("nome_autor"));
+                                    ano = reader.GetInt32(reader.GetOrdinal("ano"));
+                                    dimensoes = reader.GetString(reader.GetOrdinal("dimensoes"));
+
+                                    Quadro aux = new Quadro(id_artigo, nome, descricao, comprovativo, fk_email_participante_dono, titulo, nome_autor, ano, dimensoes);
+                                    art = aux;
+                                }
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
@@ -193,8 +224,40 @@ namespace LeiloesOnline.Data.DAOS
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Livro aux = con.QueryFirst<Livro>(s_cmd);
-                        art = aux;
+
+                        using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                int id_artigo = 0;
+                                string nome;
+                                string descricao;
+                                string comprovativo;
+                                string fk_email_participante_dono;
+                                string titulo;
+                                string nome_autor;
+                                int ano_edicao = 0;
+                                string editora;
+                                int numero_paginas = 0;
+
+                                while (reader.Read())
+                                {
+                                    id_artigo = reader.GetInt32(reader.GetOrdinal("id_artigo"));
+                                    nome = reader.GetString(reader.GetOrdinal("nome"));
+                                    descricao = reader.GetString(reader.GetOrdinal("descricao"));
+                                    comprovativo = reader.GetString(reader.GetOrdinal("comprovativo"));
+                                    fk_email_participante_dono = reader.GetString(reader.GetOrdinal("fk_email_participante_dono"));
+                                    titulo = reader.GetString(reader.GetOrdinal("titulo"));
+                                    nome_autor = reader.GetString(reader.GetOrdinal("nome_autor"));
+                                    ano_edicao = reader.GetInt32(reader.GetOrdinal("ano_edicao"));
+                                    editora = reader.GetString(reader.GetOrdinal("editora"));
+                                    numero_paginas = reader.GetInt32(reader.GetOrdinal("numero_paginas"));
+
+                                    Livro aux = new Livro(id_artigo, nome, descricao, comprovativo, fk_email_participante_dono, titulo, nome_autor, ano_edicao, editora, numero_paginas);
+                                    art = aux;
+                                }
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
@@ -211,8 +274,37 @@ namespace LeiloesOnline.Data.DAOS
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Joia aux = con.QueryFirst<Joia>(s_cmd);
-                        art = aux;
+
+                        using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                int id_artigo = 0;
+                                string nome;
+                                string descricao;
+                                string comprovativo;
+                                string fk_email_participante_dono;
+                                string material;
+                                string tipo;
+                                float pureza_material = 0;
+
+
+                                while (reader.Read())
+                                {
+                                    id_artigo = reader.GetInt32(reader.GetOrdinal("id_artigo"));
+                                    nome = reader.GetString(reader.GetOrdinal("nome"));
+                                    descricao = reader.GetString(reader.GetOrdinal("descricao"));
+                                    comprovativo = reader.GetString(reader.GetOrdinal("comprovativo"));
+                                    fk_email_participante_dono = reader.GetString(reader.GetOrdinal("fk_email_participante_dono"));
+                                    material = reader.GetString(reader.GetOrdinal("material"));
+                                    tipo = reader.GetString(reader.GetOrdinal("tipo"));
+                                    pureza_material = reader.GetInt32(reader.GetOrdinal("pureza_material"));
+
+                                    Joia aux = new Joia(id_artigo, nome, descricao, comprovativo, fk_email_participante_dono, material, tipo, pureza_material);
+                                    art = aux;
+                                }
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
