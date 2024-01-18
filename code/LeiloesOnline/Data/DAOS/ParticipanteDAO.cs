@@ -269,5 +269,34 @@ namespace LeiloesOnline.Data.DAOS
             }
             return result;
         }
+
+
+        public bool carregaSaldo(string key, float valor)
+        {
+            bool result = false;
+            string s_cmd = "UPDATE dbo.Participante SET carteira = " +valor+ " WHERE email_participante = " + key;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new DAOException("Erro ao carregar saldo do ParticipanteDAO");
+            }
+            return result;
+        }
     }
 }

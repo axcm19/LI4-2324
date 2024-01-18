@@ -56,5 +56,27 @@ namespace LeiloesOnline.Business.Objects
                 "--------------------\n"; 
             return res;
         }
+
+        public static Dictionary<int, Leilao> getMyLeiloes()
+        {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            string test_e_mail = "'" + current.email_participante + "'";
+            return if_leiloes.getParticipanteLeiloes(test_e_mail);
+        }
+
+        public static Dictionary<int, Licitacao> getMyLicitacoes()
+        {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            string test_e_mail = "'" + current.email_participante + "'";
+            return if_leiloes.getLicitacoes(0, test_e_mail);
+        }
+
+        public static bool carregaSaldo(float valor)
+        {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            string test_e_mail = "'" + current.email_participante + "'";
+            current.carteira = valor;
+            return if_leiloes.carregaSaldo(test_e_mail, valor);
+        }
     }
 }

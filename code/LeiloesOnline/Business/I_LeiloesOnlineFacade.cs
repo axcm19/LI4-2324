@@ -1,4 +1,5 @@
 ﻿using LeiloesOnline.Business.Objects;
+using System.Drawing;
 
 namespace LeiloesOnline.Business
 {
@@ -25,15 +26,18 @@ namespace LeiloesOnline.Business
 
         public Administrador getAdministradorWithEmail(string email);
 
+        public bool carregaSaldo(string e_mail, float valor);
+
 
         // ---------------------------------------------------- Leiloes ----------------------------------------------------
 
 
-        public List<Licitacao> getParticipanteLicitacoes(string email);
+        public Dictionary<int, Leilao> getParticipanteLeiloes(string email);
 
-        public List<Leilao> getParticipanteLeiloes(string email);
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria); // criterio e categoria podem ser opcionais
 
-        public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria); // criterio e categoria podem ser opcionais
+        public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email);
+
 
         public Leilao getLeilao(int leilaoID);
 

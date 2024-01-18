@@ -77,12 +77,12 @@ namespace LeiloesOnline.Data
             return result;
         }
 
-        public List<Licitacao> getParticipanteLicitacoes(string email)
+        public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email)
         {
-            return this.licitacaoDAO.getAllLicitacoes(email);
+            return this.licitacaoDAO.getAllLicitacoes(id_leilao, email);
         }
 
-        public List<Leilao> getParticipanteLeiloes(string email)
+        public Dictionary<int, Leilao> getParticipanteLeiloes(string email)
         {
             return this.leilaoDAO.getAllLeiloesParticipante(email);
         }
@@ -168,6 +168,7 @@ namespace LeiloesOnline.Data
             bool result = false;
             int id = Artigo.geraIDArtigoAleatorio();
             Artigo artigo = new Livro(id, nome, descri, comp, CurrentUser.getCurrentUser().email_participante, titulo, nomeautor, ano, editora, numpag);
+           
 
             if (artigoDAO.containsKey(id) && artigoDAO.containsKeyLivro(id))
             {
@@ -176,6 +177,7 @@ namespace LeiloesOnline.Data
             else
             {
                 artigoDAO.put(artigo);
+                CurrentUser.getCurrentUser().meusArtigos.Add(artigo.getIdArtigo(),artigo);
                 result = true;
             }
 
@@ -196,6 +198,7 @@ namespace LeiloesOnline.Data
             else
             {
                 artigoDAO.put(artigo);
+                CurrentUser.getCurrentUser().meusArtigos.Add(artigo.getIdArtigo(), artigo);
                 result = true;
             }
 
@@ -217,6 +220,7 @@ namespace LeiloesOnline.Data
             else
             {
                 artigoDAO.put(artigo);
+                CurrentUser.getCurrentUser().meusArtigos.Add(artigo.getIdArtigo(), artigo);
                 result = true;
             }
 
@@ -287,9 +291,9 @@ namespace LeiloesOnline.Data
             return result;
         }
 
-        public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
         {
-            List<Leilao> result = new List<Leilao>();
+            Dictionary<int, Leilao> result = new Dictionary<int, Leilao>();
 
             // criterio e categoria podem ser opcionais
             if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
@@ -312,6 +316,30 @@ namespace LeiloesOnline.Data
             if (leilaoDAO.containsKey(leilaoID))
             {
                 leilaoDAO.aprovar(leilaoID);
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+
+        public Artigo getArtigo(int artigoID)
+        {
+            Artigo result = this.artigoDAO.get(artigoID);
+            return result;
+        }
+
+        public bool carregaSaldo(string e_mail, float valor)
+        {
+            bool result = false;
+
+            if (participanteDAO.containsKey(e_mail))
+            {
+                participanteDAO.carregaSaldo(e_mail, valor);
                 result = true;
             }
             else

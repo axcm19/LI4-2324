@@ -30,7 +30,34 @@
 
 <p><b>Morada: </b> @morada </p>
 
-<p><b>Saldo: </b> @carteira <button>Carregar Saldo</button> </p>
+<p><b>Saldo: </b> @carteira <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupModal">Carregar Saldo</button> </p>
+
+<!-- Popup Modal para Carregar Saldo-->
+<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="popupModalLabel">Carregar Saldo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulário dentro do modal -->
+        <form>
+          <div class="form-group">
+            <label for="saldoInput">Valor a Carregar:</label>
+            <input type="text" class="form-control" id="saldoInput" placeholder="Insira o valor" @bind="@saldo_acrescentar">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button @onclick="carregaSaldo" type="button" class="btn btn-primary">Carregar Saldo</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
     table, th, td {
@@ -67,7 +94,7 @@
     @foreach (var item in licitacoes)
     {
         <tr>
-            <td>ID: @item.id_leilao | DATA: @item.data_ocorreu | VALOR: @item.valor </td>
+            <td>ID: @item.Value.id_leilao | DATA: @item.Value.data_ocorreu | VALOR: @item.Value.valor </td>
         </tr>
     }
 </table>
@@ -87,7 +114,7 @@
     @foreach (var item in leiloes)
     {
         <tr>
-            <td>ID: @item.id_leilao | NOME: @item.nome | CATEGORIA: @item.categoria | STATUS: @item.aprovado </td>
+            <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS: @item.Value.aprovado </td>
         </tr>
     }
 </table>
@@ -96,6 +123,10 @@
 <a class="botao-dir btn btn-primary" @onclick=@setCurrentUserToNull href ="/">Encerrar Sessão</a>
 
 <a class="botao-esq btn btn-primary" href="/HomepageLogged">Voltar</a>
+
+<!-- Scripts Bootstrap e jQuery (certifique-se de incluir o jQuery antes do Bootstrap.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 @code {
@@ -108,8 +139,10 @@
     private float carteira = CurrentUser.getCurrentUser().carteira;
     private Dictionary<int, Artigo> artigosCurrent = CurrentUser.getCurrentUser().meusArtigos;
 
-    private List<Licitacao> licitacoes = new List<Licitacao>();
-    private List<Leilao> leiloes = new List<Leilao>();
+    private Dictionary<int, Licitacao> licitacoes = CurrentUser.getMyLicitacoes();
+    private Dictionary<int, Leilao> leiloes = CurrentUser.getMyLeiloes();
+
+    private float saldo_acrescentar;
 
     void setCurrentUserToNull()
     {
@@ -117,21 +150,29 @@
         CurrentUser.setCurrentUser(vazio);
     }
 
-    void carregaSaldo(float dinheiro)
+    void carregaSaldo()
     {
-        CurrentUser.getCurrentUser().carteira += dinheiro;
+        if (CurrentUser.carregaSaldo(carteira + saldo_acrescentar) == true)
+        {
+            Console.WriteLine("Carregamento concluido");
+            NavigationManager.NavigateTo("/conta", forceLoad: true);
+        }
+        else
+        {
+            Console.WriteLine("Carregamento falhou");
+        }
     }
 
     void licitacoesCurrent()
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-        licitacoes = if_leiloes.getParticipanteLicitacoes(CurrentUser.getCurrentUser().email_participante);
+        licitacoes = if_leiloes.getLicitacoes(0, CurrentUser.getCurrentUser().email_participante);
     }
 
-    void leiloesCurrent()
+    Dictionary<int, Leilao> leiloesCurrent()
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-        leiloes = if_leiloes.getParticipanteLeiloes(CurrentUser.getCurrentUser().email_participante);
+        return if_leiloes.getParticipanteLeiloes(CurrentUser.getCurrentUser().email_participante);
     }
 
 }

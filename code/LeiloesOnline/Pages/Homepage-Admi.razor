@@ -7,7 +7,7 @@
 <PageTitle>Homepage Administrador</PageTitle>
 <header>
     <nav class="navbar navbar-light bg-light">
-        <a href="/HomepageLogged">
+        <a href="/HomepageAdmi">
             <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
         </a>
         <h3 class="titulo"><b>Leiloaria Bracarense Lda. (MODO ADMINISTRADOR)</b></h3>
@@ -43,7 +43,7 @@
         @foreach (var item in todosLeiloes)
         {
             <tr>
-                <td>ID: @item.id_leilao | NOME: @item.nome | CATEGORIA: @item.categoria | STATUS: @item.aprovado </td>
+                <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS: @item.Value.aprovado </td>
             </tr>
         }
     </table>
@@ -68,15 +68,12 @@
     private int id_leilao_escolhido;
     private int id_leilao_escolhido_aprovar;
 
-    //private List<Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "");
-    private List<Leilao> todosLeiloes = new List<Leilao>();
+    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "");
 
     void eliminar_leilao()
     {
-        Leilao l = if_leiloes.getLeilao(id_leilao_escolhido);
-
         // se o leilao não existir na lista
-        if (todosLeiloes.Contains(l))
+        if (todosLeiloes.ContainsKey(id_leilao_escolhido))
         {
             if_leiloes.eliminarLeilao(id_leilao_escolhido);
             Console.WriteLine("Leilao eliminado");
@@ -89,10 +86,8 @@
 
     void eliminar_participante()
     {
-        Participante p = if_leiloes.getParticipanteWithEmail(email_escolhido);
-
-        // se o leilao não existir na lista
-        if (if_leiloes.eliminarParticipante(email_escolhido) == true)
+        string test_e_mail = "'" + email_escolhido + "'";
+        if (if_leiloes.eliminarParticipante(test_e_mail) == true)
         {
             Console.WriteLine("Participante eliminado");
         }
@@ -104,12 +99,10 @@
 
     void aprovarLeilao()
     {
-        Leilao l = if_leiloes.getLeilao(id_leilao_escolhido);
-
         // se o leilao não existir na lista
-        if (todosLeiloes.Contains(l))
+        if (todosLeiloes.ContainsKey(id_leilao_escolhido_aprovar))
         {
-            if_leiloes.aprovarLeilao(id_leilao_escolhido);
+            if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar);
             Console.WriteLine("Leilao aprovado");
         }
         else

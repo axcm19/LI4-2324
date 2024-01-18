@@ -48,6 +48,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FiltroJoias.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsdHJvSm9pYXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FiltroLivros.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsdHJvTGl2cm9zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FiltroMisto.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsdHJvTWlzdG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FiltroQuadros.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsdHJvUXVhZHJvcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Homepage-Admi.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZXBhZ2UtQWRtaS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,12 +76,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/LeilaoPagina.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVpbGFvUGFnaW5hLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Popup.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9wdXAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/Proposta.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvcG9zdGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/ShowAllLeiloes.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvd0FsbExlaWxvZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Shared/SurveyPrompt.razor]

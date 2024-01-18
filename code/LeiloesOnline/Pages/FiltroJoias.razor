@@ -1,0 +1,68 @@
+﻿@using System;
+@using System.Globalization;
+@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/filtrojoias"
+
+<PageTitle>Joias</PageTitle>
+<nav class="navbar navbar-light bg-light">
+    <a href="/HomepageLogged">
+        <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
+    </a>
+    <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
+
+    <a style="margin-right: 25px;" class="btn btn-primary" href="/conta">A minha conta</a>
+</nav>
+
+<body>
+
+    <p>
+        <b>Filtro: </b>
+        <a class="btn btn-secondary" href="/filtromisto">Misto</a>
+        <a class="btn btn-secondary" href="/filtrolivros">Livros</a>
+        <a class="btn btn-secondary" href="/filtroquadros">Quadros</a>
+        <a class="btn btn-secondary" href="/filtrojoias">Joias</a>
+    </p>
+
+    <p> </p>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <table style="width:40%">
+        <tr>
+            <th>Histórico de leilões:</th>
+        </tr>
+        @foreach (var item in todosLeiloes)
+        {
+            <tr>
+                <td> 
+                    NOME: @item.Value.nome
+                    <p></p>
+                    CATEGORIA: @item.Value.categoria <br>
+                    LICITAÇÃO ATUAL: @item.Value.licitacao_atual         <a class="botao-esq btn btn-primary" href="/leilaopagina">Entrar</a> <br>
+                    DATA DE TÉRMINO: @item.Value.data_fim.ToString() 
+                </td>
+            </tr>
+        }
+    </table>
+
+    <a class="botao-esq btn btn-primary" href="/HomepageLogged">Voltar</a>
+
+</body>
+
+
+@code {
+
+    private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+    private string filtro_escolhido = "";
+
+    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "joias");
+
+}

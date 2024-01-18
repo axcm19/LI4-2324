@@ -74,23 +74,58 @@ namespace LeiloesOnline.Data.DAOS
             return li;
         }
 
-        public List<Licitacao> getAllLicitacoes(string keyParticipante)
+        public Dictionary<int, Licitacao> getAllLicitacoes(int id_leilao, string keyParticipante)
         {
-            List<Licitacao> licitacoes = new List<Licitacao>();
 
-            string s_cmd = "SELECT * FROM dbo.Licitacao WHERE fk_email_participante = " + keyParticipante;
-            try
+            Dictionary<int, Licitacao> licitacoes = new Dictionary<int, Licitacao>();
+
+            if (id_leilao == 0 && !keyParticipante.Equals(""))
             {
-                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+
+                string s_cmd = "SELECT * FROM dbo.Licitacao WHERE fk_email_participante = " + keyParticipante;
+                try
                 {
-                    con.Open();
-                    Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
-                    licitacoes.Add(aux);
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
+                        licitacoes.Add(aux.id_leilao, aux); // usa o id do leilao para guardar a licitacao no dicionario devolvido
+                    }
+
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Licitacao>();
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
                 }
             }
-            catch (Exception e)
+            if (id_leilao != 0 && keyParticipante.Equals(""))
             {
-                throw new DAOException(e.Message);
+
+                string s_cmd = "SELECT * FROM dbo.Licitacao WHERE fk_id_leilao = " + id_leilao;
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
+                        licitacoes.Add(aux.id_leilao, aux); // usa o id do leilao para guardar a licitacao no dicionario devolvido
+                    }
+
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Licitacao>();
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
+                }
             }
             return licitacoes;
         }

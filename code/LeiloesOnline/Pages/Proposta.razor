@@ -10,16 +10,6 @@
 
 <center><h1>Proposta de Leilão</h1></center>
 
-<!--
-<p><b>Categoria: </b>
-    <select name="filtro" id="filtro">
-        <option value="Misto">Misto</option>
-        <option value="Livros">Livros</option>
-        <option value="Quadros">Quadros</option>
-        <option value="Joias">Joias</option>
-    </select>
-</p>
--->
 
 <p>
     <b>Categoria: </b>
@@ -35,20 +25,6 @@
         <input type="text" id="fname" name="fname" @bind="nome_leilao">
     </form>
 </p>
-
-<!--
-<p>
-    <b>Artigos: </b>
-    <select name="filtro" id="filtro">
-        <option value="Artigos">Artigos </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-        <option value=" "> </option>
-    </select>
-    <a class="btn btn-primary btn-sm" >Adicionar artigo ao lote</a> 
-    <a class="btn btn-primary btn-sm" >Remover artigo do lote</a>
-</p> 
--->
 
 
 <style>
@@ -128,7 +104,8 @@
     private float valor_diferenca;
     private string data_inicio;
     private string data_fim;
-    private List<Artigo> artigosParaLeiloar = new List<Artigo>();
+
+    private Dictionary<int, Artigo> artigosParaLeiloar = new Dictionary<int, Artigo>();
 
     private Dictionary<int, Artigo> artigosCurrent = CurrentUser.getCurrentUser().meusArtigos;
     int id_artigo_escolhido = 0;
@@ -154,35 +131,38 @@
 
     void adicionaArtigoAoLote()
     {
-        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-        Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
 
-        // se o artigo ainda não existir na lista 
-        if (!artigosParaLeiloar.Contains(a))
+        // se o artigo ainda não existir no dicionario 
+        if (!artigosParaLeiloar.ContainsKey(id_artigo_escolhido))
         {
-            artigosParaLeiloar.Add(a.Clone());
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
+
+            artigosParaLeiloar.Add(id_artigo_escolhido, a);
             Console.WriteLine("Adicionado artigo para leiloar");
+            Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
+
         }
         else
         {
             Console.WriteLine("Erro ao adicionar artigo para leiloar");
+            Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
     }
 
     void removeArtigoDoLote()
     {
-        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-        Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
-
-        // se o artigo existe na lista pode ser removido
-        if (artigosParaLeiloar.Contains(a))
+        // se o artigo existe no dicionario pode ser removido
+        if (artigosParaLeiloar.ContainsKey(id_artigo_escolhido))
         {
-            artigosParaLeiloar.Remove(a);
+            artigosParaLeiloar.Remove(id_artigo_escolhido);
             Console.WriteLine("Removido artigo para leiloar");
+            Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
         else
         {
             Console.WriteLine("Erro ao remover artigo para leiloar");
+            Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
     }
 
@@ -215,20 +195,16 @@
 
 
         // adicionar o lote de artigos
-        foreach(Artigo a in artigosParaLeiloar){
-            loteartigos.adicionaArtigoAoLote(a.Clone());
-            Console.WriteLine(a.getNome());
+        foreach(Artigo a in artigosParaLeiloar.Values){
+            loteartigos.adicionaArtigoAoLote(a);
+            Console.WriteLine("Adicionado " +a.getNome()+ " ao lote de artigos");
         }
-        
 
 
-        
-        // o valor de aprovado deverá ser false
+
+
+        // o valor de aprovado deverá ser false pra depois ser mudado para true pelo administrador
         if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, false, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
-        
-
-        // por enquanto o valor de aprovado será true enquanto o Administrador não está 100% funcional
-        //if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, true, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
         {
             Console.WriteLine("Leilão proposto com sucesso");
         }
@@ -236,6 +212,16 @@
         {
             Console.WriteLine("Erro a propor leilão");
         }
+    }
+
+    public string listaArtigosParaLeiloar(Dictionary<int, Artigo> artigosParaLeiloar_copy)
+    {
+        string res = "";
+        foreach (var item in artigosParaLeiloar_copy)
+        {
+            res += "ID:" + item.Value.getIdArtigo() + "| TIPO:" + item.Value.GetType().Name + "| NOME:" + item.Value.getNome() + "| DESCRIÇÃO:" + item.Value.getDescricao();
+        }
+        return res;
     }
 
 }

@@ -36,39 +36,31 @@ namespace LeiloesOnline.Business
 
         public Administrador getAdministradorWithEmail(string email)
         {
-            Console.WriteLine("...");
-            return new Administrador();
+            return this.db.getAdministradorWithEmail(email);
+        }
+
+        public bool carregaSaldo(string e_mail, float valor)
+        {
+            return this.db.carregaSaldo(e_mail, valor);
         }
 
 
         // ---------------------------------------------------- Leiloes ----------------------------------------------------
 
 
-        public List<Licitacao> getParticipanteLicitacoes(string email)
+        public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email)
         {
-            return this.db.getParticipanteLicitacoes(email);
+            return this.db.getLicitacoes(id_leilao, email);
         }
 
-        public List<Leilao> getParticipanteLeiloes(string email)
+        public Dictionary<int, Leilao> getParticipanteLeiloes(string email)
         {
             return this.db.getParticipanteLeiloes(email);
         }
 
-        public List<Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
         {
-            List<Leilao> result = new List<Leilao>();
-
-            // criterio e categoria podem ser opcionais
-            if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
-            {
-                result = this.db.getTodosLeiloes(criterioDeOrdenacao, categoria);
-                return result;
-            }
-            else
-            {
-                Console.WriteLine("ainda não está implementado");
-                return result;
-            }
+            return this.db.getTodosLeiloes(criterioDeOrdenacao, categoria);
         }
 
         public Leilao getLeilao(int leilaoID)
@@ -107,8 +99,7 @@ namespace LeiloesOnline.Business
 
         public Artigo getArtigo(int artigoID)
         {
-            Console.WriteLine("...");
-            return new Livro();
+            return this.db.getArtigo(artigoID);
         }
 
         public bool criaLivro(string nome, string descri, string comp, string titulo, string nomeautor, int ano, string editora, int numpag)

@@ -1,0 +1,81 @@
+@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/leilaopagina"
+
+<PageTitle>Leilão</PageTitle>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <a href="/HomepageLogged">
+            <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
+        </a>
+        <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
+
+        <p><b>Carteira: </b> @carteira €</p>
+
+        <a style="margin-right: 25px;" class="btn btn-primary" href="/conta">Olá @username</a>
+    </nav>
+
+    <hr>
+</header>
+
+
+<body>
+    Nome do leilão
+
+    <table align="center" style="width: 300px; height: 400px; padding: 10px; border: 5px solid gray; margin: 0; background-color: powderblue;">
+        <tr>
+            <td>
+                <div>
+                    <p><center><b>Informações</b></center></p>
+                    <p>Leiloeiro:</p>
+                    <p>Categoria:</p>
+                    <p>Preço Base:</p>
+                    <p>Data Início:</p>
+                    <p>Data Fim:</p>
+
+                </div>
+            </td>
+            <td>
+                <img class="imagem"  src="images/quadro.png" alt="quadro.png"
+                    width="400"
+                    height="400" />
+            </td>
+            <td>
+
+                <div>
+                    @foreach (var item in licitacoes)
+                {
+                <tr>
+                    <td>UTILIZADOR: @item.Value.email_participante | VALOR: @item.Value.valor </td>
+                </tr>
+                }
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <a class="botao-dir btn btn-primary" href="/HomepageLogged">Voltar</a>
+
+
+    <form action="/action_page.php">
+        <input align="right" type="number" id="licitacao" name="licitacao" @bind="valor_licitacao">
+    </form>
+    <a class="botao-dir btn btn-primary" href="/licitar">Licitar</a>
+</body>
+
+@code {
+
+    private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+    private string username = CurrentUser.getCurrentUser().username;
+    private float carteira = CurrentUser.getCurrentUser().carteira;
+
+    private float valor_licitacao = 0;
+    private static int id_leilao_a_decorrer;
+    private Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(id_leilao_a_decorrer, "");
+
+}
+

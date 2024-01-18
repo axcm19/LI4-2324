@@ -74,9 +74,9 @@ namespace LeiloesOnline.Data.DAOS
         }
 
 
-        public List<Leilao> getAllLeiloesParticipante(string keyParticipante)
+        public Dictionary<int, Leilao> getAllLeiloesParticipante(string keyParticipante)
         {
-            List<Leilao> leiloes = new List<Leilao>();
+            Dictionary<int, Leilao> leiloes = new Dictionary<int, Leilao>();
 
             string s_cmd = "SELECT * FROM dbo.Leilao WHERE fk_email_participante_propos = " + keyParticipante;
             try
@@ -85,8 +85,15 @@ namespace LeiloesOnline.Data.DAOS
                 {
                     con.Open();
                     Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                    leiloes.Add(aux);
+                    leiloes.Add(aux.id_leilao, aux);
+                    
                 }
+                
+            }
+            catch (InvalidOperationException)
+            {
+                // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                return new Dictionary<int, Leilao>();
             }
             catch (Exception e)
             {
@@ -95,27 +102,28 @@ namespace LeiloesOnline.Data.DAOS
             return leiloes;
         }
 
-        public List<Leilao> getAllLeiloes(string criterioDeOrdenacao, string categoria)
+        public Dictionary<int, Leilao> getAllLeiloes(string criterioDeOrdenacao, string categoria)
         {
-            List<Leilao> result = new List<Leilao>();
+            Dictionary<int, Leilao> result = new Dictionary<int, Leilao>();
 
             // criterio e categoria podem ser opcionais
-            if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
+            if (categoria.Equals("") && criterioDeOrdenacao.Equals(""))
             {
-                string s_cmd = "SELECT * FROM dbo.Leilao WHERE aprovado = 0";
+                // ir buscar todos os leiloes
+                string s_cmd = "SELECT * FROM dbo.Leilao";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
                         Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                        result.Add(aux);
-
-                        if(result.Count == 0)
-                        {
-                            return new List<Leilao>();
-                        }
+                        result.Add(aux.id_leilao, aux);
                     }
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Leilao>();
                 }
                 catch (Exception e)
                 {
@@ -123,12 +131,103 @@ namespace LeiloesOnline.Data.DAOS
                 }
                 return result;
             }
-            else
+            if(categoria.Equals("joias") && criterioDeOrdenacao.Equals(""))
             {
-                Console.WriteLine("ainda não está implementado");
+                // ir buscar todos os leiloes de joias
+                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Joias'";
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                        result.Add(aux.id_leilao, aux);
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Leilao>();
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
+                }
                 return result;
             }
-            
+            if (categoria.Equals("quadros") && criterioDeOrdenacao.Equals(""))
+            {
+                // ir buscar todos os leiloes de quadros
+                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Quadros'";
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                        result.Add(aux.id_leilao, aux);
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Leilao>();
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
+                }
+                return result;
+            }
+            if (categoria.Equals("livros") && criterioDeOrdenacao.Equals(""))
+            {
+                // ir buscar todos os leiloes de livros
+                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Livros'";
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                        result.Add(aux.id_leilao, aux);
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Leilao>();
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
+                }
+                return result;
+            }
+            if (categoria.Equals("misto") && criterioDeOrdenacao.Equals(""))
+            {
+                // ir buscar todos os leiloes de livros mistos
+                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Misto'";
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                    {
+                        con.Open();
+                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
+                        result.Add(aux.id_leilao, aux);
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                    return new Dictionary<int, Leilao>();
+                }
+                catch (Exception e)
+                {
+                    throw new DAOException(e.Message);
+                }
+                return result;
+            }
+            return result;
         }
 
 
@@ -166,8 +265,10 @@ namespace LeiloesOnline.Data.DAOS
                         Console.WriteLine(a.getIdArtigo());
                         Console.WriteLine(value.id_leilao);
 
-                        string s_cmd_2 = "INSERT INTO dbo.LoteLote_Artigos(fk_id_artigo, fk_id_leilao) VALUES" +
+                        string s_cmd_2 = "INSERT INTO dbo.LLote_Artigos(fk_id_artigo, fk_id_leilao) VALUES" +
                            "('" + a.getIdArtigo() + "','" + value.id_leilao + "')";
+
+                        Console.WriteLine(s_cmd_2);
 
 
                         using (SqlCommand cmd = new SqlCommand(s_cmd_2, con))
