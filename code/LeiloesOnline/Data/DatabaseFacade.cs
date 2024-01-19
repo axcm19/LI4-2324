@@ -293,20 +293,7 @@ namespace LeiloesOnline.Data
 
         public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
         {
-            Dictionary<int, Leilao> result = new Dictionary<int, Leilao>();
-
-            // criterio e categoria podem ser opcionais
-            if (criterioDeOrdenacao.Equals("") && categoria.Equals(""))
-            {
-                result = leilaoDAO.getAllLeiloes(criterioDeOrdenacao, categoria);
-                return result;
-            }
-            else
-            {
-                Console.WriteLine("ainda não está implementado");
-                return result;
-            }
-            
+            return leilaoDAO.getAllLeiloes(criterioDeOrdenacao, categoria);
         }
 
         public bool aprovarLeilao(int leilaoID)

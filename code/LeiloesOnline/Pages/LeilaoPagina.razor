@@ -93,16 +93,24 @@
 
     void fazLicitacao()
     {
-        Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, id_leilao_a_decorrer);
-
-        if (if_leiloes.addLicitacao(l) == true)
+        if (valor_licitacao >= leilao.licitacao_atual + leilao.valor_minimo_licitacao)
         {
-            Console.WriteLine("Licitação concluida");
-            NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+
+            Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, id_leilao_a_decorrer);
+
+            if (if_leiloes.addLicitacao(l) == true)
+            {
+                Console.WriteLine("Licitação concluida");
+                NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+            }
+            else
+            {
+                Console.WriteLine("Licitação falhou");
+            }
         }
         else
         {
-            Console.WriteLine("Licitação falhou");
+            Console.WriteLine("Valor de licitação demasiado baixo");
         }
     }
 }
