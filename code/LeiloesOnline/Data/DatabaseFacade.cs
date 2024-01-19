@@ -350,5 +350,25 @@ namespace LeiloesOnline.Data
             return result;
         }
 
+        public bool addLicitacao(Licitacao newLicitacao)
+        {
+            bool result = false;
+            Licitacao copy_l = newLicitacao.Clone();
+
+            string test_e_mail = "'" + copy_l.email_participante + "'";
+
+            if (licitacaoDAO.containsKeys(test_e_mail, copy_l.id_leilao))
+            {
+                result = false;
+            }
+            else
+            {
+                licitacaoDAO.put(copy_l);
+                result = true;
+            }
+
+            return result;
+        }
+
     }
 }

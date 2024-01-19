@@ -47,5 +47,7 @@ namespace LeiloesOnline.Data
 
         public Dictionary<int, Licitacao> getLicitacoes(int leilaoID, string email);
 
+        public bool addLicitacao(Licitacao newLicitacao);
+
     }
 }

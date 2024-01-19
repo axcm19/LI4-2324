@@ -22,48 +22,60 @@
 
 
 <body>
-    Nome do leilão
+    <p><b> Nome do leilão: </b> @leilao.nome </p>
 
-    <table align="center" style="width: 300px; height: 400px; padding: 10px; border: 5px solid gray; margin: 0; background-color: powderblue;">
+    <p></p>
+
+    <table align="center">
+
+
         <tr>
-            <td>
+            <td style="width: 320px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
                 <div>
                     <p><center><b>Informações</b></center></p>
-                    <p>Leiloeiro:</p>
-                    <p>Categoria:</p>
-                    <p>Preço Base:</p>
-                    <p>Data Início:</p>
-                    <p>Data Fim:</p>
+                    <p>Leiloeiro: @leilao.email_quem_propos</p>
+                    <p>Categoria: @leilao.categoria</p>
+                    <p>Preço Base: @leilao.preco_base</p>
+                    <p>Diferença Minima: @leilao.valor_minimo_licitacao</p>
+                    <p>Data Início: @leilao.data_inicio.ToShortDateString()</p>
+                    <p>Data Fim: @leilao.data_fim.ToShortDateString()</p>
 
                 </div>
+                
             </td>
-            <td>
-                <img class="imagem"  src="images/quadro.png" alt="quadro.png"
-                    width="400"
-                    height="400" />
+            <td style="width: 500px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
+                <div>
+                    <img align="middle" class="imagem" src="images/quadro.png" alt="quadro.png"
+                         width="500"
+                         height="500" />
+                </div>
             </td>
-            <td>
+            <td style="width: 320px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
 
                 <div>
+                    <p><center><b>Histórico de licitações:</b></center></p>
                     @foreach (var item in licitacoes)
-                {
-                <tr>
-                    <td>UTILIZADOR: @item.Value.email_participante | VALOR: @item.Value.valor </td>
-                </tr>
-                }
+                    {
+                        <p> UTILIZADOR: @item.Value.email_participante | VALOR: @item.Value.valor</p>
+
+                    }
+                    <p></p>
                 </div>
             </td>
         </tr>
     </table>
 
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px;">
+        <a class="btn btn-primary" style="margin-right: 1px;"  href="/HomepageLogged">Sair</a>
 
-    <a class="botao-dir btn btn-primary" href="/HomepageLogged">Voltar</a>
+        <div style="margin-left: 1px;">
+            <p>
+                <input type="number" id="fname" name="fname" @bind="valor_licitacao">
+                <a @onclick=@fazLicitacao class="btn btn-primary">Licitar</a>
+            </p>
+        </div>
+    </div>
 
-
-    <form action="/action_page.php">
-        <input align="right" type="number" id="licitacao" name="licitacao" @bind="valor_licitacao">
-    </form>
-    <a class="botao-dir btn btn-primary" href="/licitar">Licitar</a>
 </body>
 
 @code {
@@ -77,5 +89,21 @@
     private static int id_leilao_a_decorrer;
     private Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(id_leilao_a_decorrer, "");
 
+    private Leilao leilao = if_leiloes.getLeilao(id_leilao_a_decorrer);
+
+    void fazLicitacao()
+    {
+        Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, id_leilao_a_decorrer);
+
+        if (if_leiloes.addLicitacao(l) == true)
+        {
+            Console.WriteLine("Licitação concluida");
+            NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+        }
+        else
+        {
+            Console.WriteLine("Licitação falhou");
+        }
+    }
 }
 

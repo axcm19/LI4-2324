@@ -45,7 +45,7 @@ namespace LeiloesOnline.Business
 
         public bool aprovarLeilao(int leilaoID);
 
-        public void addLicitacao(int leilaoID, Licitacao newLicitacao); // adiciona uma licitação a uma leilao
+        public bool addLicitacao(Licitacao newLicitacao); // adiciona uma licitação a uma leilao
 
         // ---------------------------------------------------- Artigos ----------------------------------------------------
 

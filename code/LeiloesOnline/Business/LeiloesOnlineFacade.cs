@@ -2,6 +2,7 @@
 using LeiloesOnline.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace LeiloesOnline.Business
 {
@@ -75,9 +76,9 @@ namespace LeiloesOnline.Business
             return this.db.proporLeilao(categoria, nome, di, df, preco_base, min_lic, lic_atual, apro, email_quem_propos_,licitacoes, lote_artigos);
         }
 
-        public void addLicitacao(int leilaoID, Licitacao newLicitacao)
+        public bool addLicitacao(Licitacao newLicitacao)
         { // adiciona uma licitação a uma leilao
-            Console.WriteLine("...");
+            return this.db.addLicitacao(newLicitacao);
         }
 
         public bool eliminarLeilao(int id_leilao)

@@ -32,20 +32,24 @@
         }
     </style>
 
-    <table style="width:40%">
+    <table>
         <tr>
             <th>Histórico de leilões:</th>
         </tr>
         @foreach (var item in todosLeiloes)
         {
             <tr>
-                <td>
-                    NOME: @item.Value.nome      <br>
-                    <p></p>
-                    CATEGORIA: @item.Value.categoria            <br>
-                    LICITAÇÃO ATUAL: @item.Value.licitacao_atual          <br>
-                    DATA DE TÉRMINO: @item.Value.data_fim.ToString()        <br>
-                    <a class="botao-esq btn btn-primary" href="/leilaopagina">Entrar</a> <br>
+                <td style="width: 500px; height: 100px; padding: 10px; margin: 10px;">
+                    <p>
+                        NOME: @item.Value.nome      <br>
+                        CATEGORIA: @item.Value.categoria            <br>
+                        LICITAÇÃO ATUAL: @item.Value.licitacao_atual   <br>
+                        DATA DE TÉRMINO: @item.Value.data_fim.ToString()        <br>
+                    </p>
+
+                </td>
+                <td style="width: 20px; height: 20px; padding: 10px; margin: 10px;">
+                    <a align="center" class="btn btn-primary" href="/leilaopagina">Entrar</a>
                 </td>
             </tr>
         }
