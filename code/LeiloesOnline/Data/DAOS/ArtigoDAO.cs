@@ -298,7 +298,7 @@ namespace LeiloesOnline.Data.DAOS
                                     fk_email_participante_dono = reader.GetString(reader.GetOrdinal("fk_email_participante_dono"));
                                     material = reader.GetString(reader.GetOrdinal("material"));
                                     tipo = reader.GetString(reader.GetOrdinal("tipo"));
-                                    pureza_material = reader.GetInt32(reader.GetOrdinal("pureza_material"));
+                                    pureza_material = (float)reader.GetDouble(reader.GetOrdinal("pureza_material"));
 
                                     Joia aux = new Joia(id_artigo, nome, descricao, comprovativo, fk_email_participante_dono, material, tipo, pureza_material);
                                     art = aux;

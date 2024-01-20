@@ -34,7 +34,7 @@ namespace LeiloesOnline.Business
 
         public Dictionary<int, Leilao> getParticipanteLeiloes(string email);
 
-        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria); // criterio e categoria podem ser opcionais
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria, int quais); // criterio e categoria podem ser opcionais
 
         public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email);
 
@@ -45,7 +45,7 @@ namespace LeiloesOnline.Business
 
         public bool aprovarLeilao(int leilaoID);
 
-        public bool addLicitacao(Licitacao newLicitacao); // adiciona uma licitação a uma leilao
+        public bool addLicitacao(Licitacao newLicitacao); // adiciona uma licitação a uma leilao 
 
         // ---------------------------------------------------- Artigos ----------------------------------------------------
 

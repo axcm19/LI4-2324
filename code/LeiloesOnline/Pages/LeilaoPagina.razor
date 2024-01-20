@@ -30,15 +30,23 @@
 
 
         <tr>
-            <td style="width: 320px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
+            <td style="width: 700px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
                 <div>
                     <p><center><b>Informações</b></center></p>
-                    <p>Leiloeiro: @leilao.email_quem_propos</p>
-                    <p>Categoria: @leilao.categoria</p>
-                    <p>Preço Base: @leilao.preco_base</p>
-                    <p>Diferença Minima: @leilao.valor_minimo_licitacao</p>
-                    <p>Data Início: @leilao.data_inicio.ToShortDateString()</p>
-                    <p>Data Fim: @leilao.data_fim.ToShortDateString()</p>
+                    <p>Leiloeiro: @email </p>
+                    <p>Categoria: @leilao.categoria </p>
+                    <p>Preço Base: @leilao.preco_base </p>
+                    <p>Diferença Minima: @leilao.valor_minimo_licitacao </p>
+                    <p>Data Início: @leilao.data_inicio.ToString() </p>
+                    <p>Data Fim: @leilao.data_fim.ToString() </p>
+
+                    <p><center><b>Artigos no lote:</b></center></p>
+                    @foreach (var item in @leilao.lote_artigos.artigos)
+                    {
+                        <p> NOME: @item.getNome() | TIPO: @item.GetType().Name | DESCRIÇÃO: @item.getDescricao()</p>
+
+                    }
+                    <p></p>
 
                 </div>
                 
@@ -50,7 +58,7 @@
                          height="500" />
                 </div>
             </td>
-            <td style="width: 320px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
+            <td style="width: 700px; height: 500px; padding: 10px; border: 5px solid gray; margin: 10px;">
 
                 <div>
                     <p><center><b>Histórico de licitações:</b></center></p>
@@ -66,7 +74,7 @@
     </table>
 
     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px;">
-        <a class="btn btn-primary" style="margin-right: 1px;"  href="/HomepageLogged">Sair</a>
+        <a @onclick=@setCurrentLeilaoToNull class="btn btn-primary" style="margin-right: 1px;" href="/HomepageLogged">Sair</a>
 
         <div style="margin-left: 1px;">
             <p>
@@ -82,36 +90,78 @@
 
     private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
+    private Leilao leilao = CurrentLeilao.getCurrentLeilao();
+    private string email = CurrentLeilao.getCurrentLeilao().email_quem_propos;
+
     private string username = CurrentUser.getCurrentUser().username;
     private float carteira = CurrentUser.getCurrentUser().carteira;
 
     private float valor_licitacao = 0;
-    private static int id_leilao_a_decorrer;
-    private Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(id_leilao_a_decorrer, "");
+    private Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(CurrentLeilao.getCurrentLeilao().id_leilao, "");
 
-    private Leilao leilao = if_leiloes.getLeilao(id_leilao_a_decorrer);
 
     void fazLicitacao()
     {
-        if (valor_licitacao >= leilao.licitacao_atual + leilao.valor_minimo_licitacao)
+        DateTime dataAtual = DateTime.Now;
+
+        // Definir uma data específica para comparação (por exemplo, 1 de janeiro de 2023)
+        DateTime dataInferior = leilao.data_inicio;
+        DateTime dataSuperior = leilao.data_fim;
+
+        // verifica se a data atual está dentro do limite de datas do leilão
+        if (dataAtual >= dataInferior && dataAtual <= dataSuperior)
         {
+            Console.WriteLine("A data atual está dentro do intervalo.");
 
-            Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, id_leilao_a_decorrer);
-
-            if (if_leiloes.addLicitacao(l) == true)
+            // verifica se tem dinheiro suficiente para licitar
+            if (valor_licitacao > carteira)
             {
-                Console.WriteLine("Licitação concluida");
-                NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+                Console.WriteLine("Valor de licitação ultrapassa o seu saldo atual!");
             }
             else
             {
-                Console.WriteLine("Licitação falhou");
+                // verifica se a licitação pelo menos igual ao preço base 
+                if (valor_licitacao < leilao.preco_base)
+                {
+                    Console.WriteLine("Valor de licitação abaixo do preço base");
+                }
+                else
+                {
+                    // verifica se a licitação respeita a regra da diferença minima
+                    if (valor_licitacao >= leilao.licitacao_atual + leilao.valor_minimo_licitacao)
+                    {
+
+                        Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, leilao.id_leilao);
+
+                        Console.WriteLine(l.imprimeLicitacao());
+
+                        if (if_leiloes.addLicitacao(l) == true)
+                        {
+                            Console.WriteLine("Licitação concluida");
+                            NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Licitação falhou");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Valor de licitação demasiado baixo");
+                    }
+                }
             }
         }
         else
         {
-            Console.WriteLine("Valor de licitação demasiado baixo");
+            Console.WriteLine("A data atual está fora do intervalo.");
         }
+    }
+
+    void setCurrentLeilaoToNull()
+    {
+        Leilao vazio = new Leilao();
+        CurrentLeilao.setCurrentLeilao(vazio);
     }
 }
 

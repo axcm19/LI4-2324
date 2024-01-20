@@ -1,6 +1,8 @@
 using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.Drawing;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -63,8 +65,27 @@ namespace LeiloesOnline.Data.DAOS
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
-                    li = aux;
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            DateTime data_ocorreu;
+                            float valor = 0;
+                            string fk_email_participante;
+                            int fk_id_leilao = 0;
+
+                            while (reader.Read())
+                            {
+                                data_ocorreu = reader.GetDateTime(reader.GetOrdinal("data_ocorreu"));
+                                valor = (float)reader.GetDouble(reader.GetOrdinal("valor"));
+                                fk_email_participante = reader.GetString(reader.GetOrdinal("fk_email_participante"));
+                                fk_id_leilao = reader.GetInt32(reader.GetOrdinal("fk_id_leilao"));
+
+                                Licitacao aux = new Licitacao(data_ocorreu, valor, fk_email_participante, fk_id_leilao);
+                                li = aux;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -88,8 +109,27 @@ namespace LeiloesOnline.Data.DAOS
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
-                        licitacoes.Add(aux.id_leilao, aux); // usa o id do leilao para guardar a licitacao no dicionario devolvido
+                        using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                DateTime data_ocorreu;
+                                float valor = 0;
+                                string fk_email_participante;
+                                int fk_id_leilao = 0;
+
+                                while (reader.Read())
+                                {
+                                    data_ocorreu = reader.GetDateTime(reader.GetOrdinal("data_ocorreu"));
+                                    valor = (float)reader.GetDouble(reader.GetOrdinal("valor"));
+                                    fk_email_participante = reader.GetString(reader.GetOrdinal("fk_email_participante"));
+                                    fk_id_leilao = reader.GetInt32(reader.GetOrdinal("fk_id_leilao"));
+
+                                    Licitacao aux = new Licitacao(data_ocorreu, valor, fk_email_participante, fk_id_leilao);
+                                    licitacoes.Add(aux.id_leilao, aux);
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -112,8 +152,27 @@ namespace LeiloesOnline.Data.DAOS
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Licitacao aux = con.QueryFirst<Licitacao>(s_cmd);
-                        licitacoes.Add(aux.id_leilao, aux); // usa o id do leilao para guardar a licitacao no dicionario devolvido
+                        using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                DateTime data_ocorreu;
+                                float valor = 0;
+                                string fk_email_participante;
+                                int fk_id_leilao = 0;
+
+                                while (reader.Read())
+                                {
+                                    data_ocorreu = reader.GetDateTime(reader.GetOrdinal("data_ocorreu"));
+                                    valor = (float)reader.GetDouble(reader.GetOrdinal("valor"));
+                                    fk_email_participante = reader.GetString(reader.GetOrdinal("fk_email_participante"));
+                                    fk_id_leilao = reader.GetInt32(reader.GetOrdinal("fk_id_leilao"));
+
+                                    Licitacao aux = new Licitacao(data_ocorreu, valor, fk_email_participante, fk_id_leilao);
+                                    licitacoes.Add(aux.id_leilao, aux);
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -138,8 +197,15 @@ namespace LeiloesOnline.Data.DAOS
 
         public void put(Licitacao value)
         {
+
+            //inverter formato das datas porque o SQL é esquisito para caralho!
+            string inverted_data_ocorreu = value.data_ocorreu.ToString("yyyy/MM/dd HH:mm:ss");
+
             string s_cmd = "INSERT INTO dbo.Licitacao (data_ocorreu, valor, fk_email_participante, fk_id_leilao) VALUES" +
-                            "('" + value.data_ocorreu + "','" + value.valor + "','" + value.email_participante + "','" + value.id_leilao + "')";
+                            "('" + inverted_data_ocorreu + "','" + value.valor + "','" + value.email_participante + "','" + value.id_leilao + "')";
+
+            string s_cmd_2 = "UPDATE dbo.Leilao SET licitacao_atual = " + value.valor + " WHERE id_leilao =" + value.id_leilao;
+
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
@@ -148,6 +214,19 @@ namespace LeiloesOnline.Data.DAOS
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_2, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Console.WriteLine("Licitação atual atualizada com sucesso");
+                            }
+                        }
+                        con.Close();
                     }
                 }
             }

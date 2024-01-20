@@ -43,7 +43,7 @@
         @foreach (var item in todosLeiloes)
         {
             <tr>
-                <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS: @item.Value.aprovado </td>
+                <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS-APROVAÇÃO: @item.Value.aprovado </td>
             </tr>
         }
     </table>
@@ -68,7 +68,7 @@
     private int id_leilao_escolhido;
     private int id_leilao_escolhido_aprovar;
 
-    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "");
+    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "", 2);
 
     void eliminar_leilao()
     {
@@ -76,6 +76,7 @@
         if (todosLeiloes.ContainsKey(id_leilao_escolhido))
         {
             if_leiloes.eliminarLeilao(id_leilao_escolhido);
+            NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
             Console.WriteLine("Leilao eliminado");
         }
         else
@@ -90,6 +91,7 @@
         if (if_leiloes.eliminarParticipante(test_e_mail) == true)
         {
             Console.WriteLine("Participante eliminado");
+            NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
         }
         else
         {
@@ -103,6 +105,7 @@
         if (todosLeiloes.ContainsKey(id_leilao_escolhido_aprovar))
         {
             if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar);
+            NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
             Console.WriteLine("Leilao aprovado");
         }
         else

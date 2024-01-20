@@ -17,10 +17,12 @@ namespace LeiloesOnline.Business.Objects
         public float licitacao_atual { get; set; }
         public bool aprovado { get; set; }
 
+        public string email_quem_propos { get; set; }
+
         public Dictionary<string, Licitacao> licitacoes;  //  map com as licitaçoes do leilao
         public LoteArtigos lote_artigos;  // lote de artigos do leilão
 
-        public string email_quem_propos { get; set; }
+
 
     public Leilao()
         {
@@ -49,9 +51,10 @@ namespace LeiloesOnline.Business.Objects
             valor_minimo_licitacao = min_lic;
             licitacao_atual = lic_atual;
             aprovado = apro;
+            this.email_quem_propos = email_quem_propos;
             this.licitacoes = licitacoes;
             this.lote_artigos = lote_artigos;
-            this.email_quem_propos = email_quem_propos;
+            
         }
 
         public Leilao(Leilao l)
@@ -65,9 +68,9 @@ namespace LeiloesOnline.Business.Objects
             valor_minimo_licitacao = l.valor_minimo_licitacao;
             licitacao_atual = l.licitacao_atual;
             aprovado = l.aprovado;
+            email_quem_propos = l.email_quem_propos;
             licitacoes = l.licitacoes;
             lote_artigos = l.lote_artigos;
-            email_quem_propos = l.email_quem_propos;
         }
 
         public Leilao Clone()
@@ -88,39 +91,17 @@ namespace LeiloesOnline.Business.Objects
             string res = "";
 
             res = "--------------------\n" +
-                this.id_leilao + "\n" +
-                this.categoria + "\n" +
-                this.nome + "\n" +
-                this.data_inicio + "\n" +
-                this.data_fim + "\n" +
-                this.preco_base + "\n" +
-                this.valor_minimo_licitacao + "\n" +
-                this.licitacao_atual + "\n" +
-                this.aprovado + "\n" +
-                this.email_quem_propos + "\n" +
+                "Leilao: " + id_leilao + "\n" +
+                nome + "\n" +
+                categoria + "\n" +
+                email_quem_propos + "\n" +
+                data_inicio + "\n" +
+                data_fim + "\n" +
+                preco_base + "\n" +
+                valor_minimo_licitacao + "\n" +
                 "--------------------\n";
             return res;
         }
 
     }
 }
-
-
-
-
-/*
- CREATE TABLE Leilao(
-	id_leilao INTEGER NOT NULL,
-	categoria VARCHAR(45),
-	nome VARCHAR(45),
-	data_inicio DATE,
-	data_fim DATE,
-	preco_base FLOAT,
-	valor_minimo_licitacao FLOAT,
-	licitacao_atual FLOAT,
-	aprovado BIT,
-	fk_email_participante_propos VARCHAR(45) NOT NULL,
-	PRIMARY KEY(id_leilao),
-	FOREIGN KEY (fk_email_participante_propos) REFERENCES Participante(email_participante),
-);
- */

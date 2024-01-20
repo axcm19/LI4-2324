@@ -59,15 +59,14 @@ namespace LeiloesOnline.Business
             return this.db.getParticipanteLeiloes(email);
         }
 
-        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria, int quais)
         {
-            return this.db.getTodosLeiloes(criterioDeOrdenacao, categoria);
+            return this.db.getTodosLeiloes(criterioDeOrdenacao, categoria, quais);
         }
 
         public Leilao getLeilao(int leilaoID)
         {
-            Console.WriteLine("...");
-            return new Leilao();
+            return this.db.getLeilao(leilaoID);
         }
 
 

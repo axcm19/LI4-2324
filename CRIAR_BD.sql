@@ -22,8 +22,8 @@ CREATE TABLE Leilao(
 	id_leilao INTEGER NOT NULL,
 	categoria VARCHAR(45),
 	nome VARCHAR(45),
-	data_inicio DATE,
-	data_fim DATE,
+	data_inicio DATETIME,
+	data_fim DATETIME,
 	preco_base FLOAT,
 	valor_minimo_licitacao FLOAT,
 	licitacao_atual FLOAT,
@@ -35,7 +35,7 @@ CREATE TABLE Leilao(
 
 
 CREATE TABLE Licitacao(
-	data_ocorreu DATE,
+	data_ocorreu DATETIME,
 	valor FLOAT,
 	fk_email_participante VARCHAR(45) NOT NULL,
 	fk_id_leilao INTEGER NOT NULL,

@@ -49,21 +49,13 @@
 
                 </td>
                 <td style="width: 20px; height: 20px; padding: 10px; margin: 10px;">
-                    <!-- <a @align="center" class="btn btn-primary" href="/leilaopagina">Entrar</a> -->
-                    <button onclick="handleButtonClick(@item.Value.id_leilao)" type="button" class="btn btn-primary">Entrar</button>
+                    <button @onclick="() => criaCurrentLeilao(item.Value.id_leilao)" type="button" class="btn btn-primary">Entrar</button>
                 </td>
             </tr>
         }
     </table>
 
     <a class="botao-esq btn btn-primary" href="/HomepageLogged">Voltar</a>
-
-    <script>
-        function handleButtonClick(leilaoId) {
-            id_leilao_escolhido = leilaoId;
-            criaCurrentLeilao();
-        }
-    </script>
 
 </body>
 
@@ -73,15 +65,13 @@
 
     private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-    private string filtro_escolhido = "";
+    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "", 1);
 
-    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "");
-
-    private int id_leilao_escolhido = 0;
-
-    private void criaCurrentLeilao()
+    private void criaCurrentLeilao(int id)
     {
-        Leilao l = if_leiloes.getLeilao(id_leilao_escolhido);
+        Leilao l = if_leiloes.getLeilao(id);
+        Console.WriteLine(l.printLeilao());
+
         CurrentLeilao.setCurrentLeilao(l);
         Console.WriteLine(CurrentLeilao.printCurrentLeilaoInfo());
         NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);

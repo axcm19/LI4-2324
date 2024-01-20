@@ -42,7 +42,7 @@ namespace LeiloesOnline.Business.Objects
             string ar = printArtigos();
 
             res = "--------------------\n" +
-                CurrentLeilao.current.id_leilao + "\n" +
+                "Leilao Atual: " + CurrentLeilao.current.id_leilao + "\n" +
                 CurrentLeilao.current.nome+ "\n" +
                 CurrentLeilao.current.categoria+ "\n" +
                 CurrentLeilao.current.email_quem_propos + "\n" +

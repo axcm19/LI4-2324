@@ -35,7 +35,7 @@ namespace LeiloesOnline.Data
 
         public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos);
 
-        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria);
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria, int quais);
 
         public bool eliminarLeilao(int id_leilao);
 
@@ -48,6 +48,8 @@ namespace LeiloesOnline.Data
         public Dictionary<int, Licitacao> getLicitacoes(int leilaoID, string email);
 
         public bool addLicitacao(Licitacao newLicitacao);
+
+        public Leilao getLeilao(int leilaoID);
 
     }
 }

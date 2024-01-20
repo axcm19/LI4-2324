@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using Dapper;
 using System.Globalization;
+using System;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -56,14 +57,50 @@ namespace LeiloesOnline.Data.DAOS
         public Leilao get(int key)
         {
             Leilao? leilao = null;
-            string s_cmd = $"SELECT * FROM dbo.Leilao where id_leilao = '{key}'";
+            string s_cmd = "SELECT * FROM dbo.Leilao where id_leilao = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                    leilao = aux;
+
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            int id_leilao = 0;
+                            string categoria;
+                            string nome;
+                            DateTime data_inicio;
+                            DateTime data_fim;
+                            float preco_base = 0;
+                            float valor_minimo_licitacao = 0;
+                            float licitacao_atual = 0;
+                            bool aprovado;
+                            string fk_email_participante_propos;
+
+                            Dictionary<string, Licitacao> licitacoes = new Dictionary<string, Licitacao>();
+                            LoteArtigos lote_artigos = new LoteArtigos();
+
+
+                            while (reader.Read())
+                            {
+                                id_leilao = reader.GetInt32(reader.GetOrdinal("id_leilao"));
+                                categoria = reader.GetString(reader.GetOrdinal("categoria"));
+                                nome = reader.GetString(reader.GetOrdinal("nome"));
+                                data_inicio = reader.GetDateTime(reader.GetOrdinal("data_inicio"));
+                                data_fim = reader.GetDateTime(reader.GetOrdinal("data_fim"));
+                                preco_base = (float)reader.GetDouble(reader.GetOrdinal("preco_base"));
+                                valor_minimo_licitacao = (float)reader.GetDouble(reader.GetOrdinal("valor_minimo_licitacao"));
+                                licitacao_atual = (float)reader.GetDouble(reader.GetOrdinal("licitacao_atual"));
+                                aprovado = reader.GetBoolean(reader.GetOrdinal("aprovado"));
+                                fk_email_participante_propos = reader.GetString(reader.GetOrdinal("fk_email_participante_propos"));
+
+                                Leilao aux = new Leilao(id_leilao, categoria, nome, data_inicio, data_fim, preco_base, valor_minimo_licitacao, licitacao_atual, aprovado, fk_email_participante_propos, licitacoes, lote_artigos);
+                                leilao = aux;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -102,7 +139,7 @@ namespace LeiloesOnline.Data.DAOS
             return leiloes;
         }
 
-        public Dictionary<int, Leilao> getAllLeiloes(string criterioDeOrdenacao, string categoria)
+        public Dictionary<int, Leilao> getAllLeiloesAprovados(string criterioDeOrdenacao, string categoria)
         {
             Dictionary<int, Leilao> result = new Dictionary<int, Leilao>();
 
@@ -110,14 +147,20 @@ namespace LeiloesOnline.Data.DAOS
             if (categoria.Equals("") && criterioDeOrdenacao.Equals(""))
             {
                 // ir buscar todos os leiloes
-                string s_cmd = "SELECT * FROM dbo.Leilao";
+                string s_cmd = "SELECT * FROM dbo.Leilao where aprovado = 1";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                        result.Add(aux.id_leilao, aux);
+
+                        IEnumerable<Leilao> leiloes = con.Query<Leilao>(s_cmd);
+
+                        // Itera sobre a coleção e adiciona ao dicionário
+                        foreach (Leilao leilao in leiloes)
+                        {
+                            result.Add(leilao.id_leilao, leilao);
+                        }
                     }
                 }
                 catch (InvalidOperationException)
@@ -134,14 +177,20 @@ namespace LeiloesOnline.Data.DAOS
             if(categoria.Equals("joias") && criterioDeOrdenacao.Equals(""))
             {
                 // ir buscar todos os leiloes de joias
-                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Joias'";
+                string s_cmd = "SELECT * FROM dbo.Leilao where aprovado = 1 AND categoria = 'Joias'";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                        result.Add(aux.id_leilao, aux);
+
+                        IEnumerable<Leilao> leiloes = con.Query<Leilao>(s_cmd);
+
+                        // Itera sobre a coleção e adiciona ao dicionário
+                        foreach (Leilao leilao in leiloes)
+                        {
+                            result.Add(leilao.id_leilao, leilao);
+                        }
                     }
                 }
                 catch (InvalidOperationException)
@@ -158,14 +207,20 @@ namespace LeiloesOnline.Data.DAOS
             if (categoria.Equals("quadros") && criterioDeOrdenacao.Equals(""))
             {
                 // ir buscar todos os leiloes de quadros
-                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Quadros'";
+                string s_cmd = "SELECT * FROM dbo.Leilao where aprovado = 1 AND categoria = 'Quadros'";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                        result.Add(aux.id_leilao, aux);
+
+                        IEnumerable<Leilao> leiloes = con.Query<Leilao>(s_cmd);
+
+                        // Itera sobre a coleção e adiciona ao dicionário
+                        foreach (Leilao leilao in leiloes)
+                        {
+                            result.Add(leilao.id_leilao, leilao);
+                        }
                     }
                 }
                 catch (InvalidOperationException)
@@ -182,14 +237,20 @@ namespace LeiloesOnline.Data.DAOS
             if (categoria.Equals("livros") && criterioDeOrdenacao.Equals(""))
             {
                 // ir buscar todos os leiloes de livros
-                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Livros'";
+                string s_cmd = "SELECT * FROM dbo.Leilao where aprovado = 1 AND categoria = 'Livros'";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                        result.Add(aux.id_leilao, aux);
+
+                        IEnumerable<Leilao> leiloes = con.Query<Leilao>(s_cmd);
+
+                        // Itera sobre a coleção e adiciona ao dicionário
+                        foreach (Leilao leilao in leiloes)
+                        {
+                            result.Add(leilao.id_leilao, leilao);
+                        }
                     }
                 }
                 catch (InvalidOperationException)
@@ -206,14 +267,20 @@ namespace LeiloesOnline.Data.DAOS
             if (categoria.Equals("misto") && criterioDeOrdenacao.Equals(""))
             {
                 // ir buscar todos os leiloes de livros mistos
-                string s_cmd = "SELECT * FROM dbo.Leilao where categoria = 'Misto'";
+                string s_cmd = "SELECT * FROM dbo.Leilao where aprovado = 1 AND categoria = 'Misto'";
                 try
                 {
                     using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                     {
                         con.Open();
-                        Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                        result.Add(aux.id_leilao, aux);
+
+                        IEnumerable<Leilao> leiloes = con.Query<Leilao>(s_cmd);
+
+                        // Itera sobre a coleção e adiciona ao dicionário
+                        foreach (Leilao leilao in leiloes)
+                        {
+                            result.Add(leilao.id_leilao, leilao);
+                        }
                     }
                 }
                 catch (InvalidOperationException)
@@ -226,6 +293,39 @@ namespace LeiloesOnline.Data.DAOS
                     throw new DAOException(e.Message);
                 }
                 return result;
+            }
+            return result;
+        }
+
+        public Dictionary<int, Leilao> getAllLeiloes()
+        {
+            Dictionary<int, Leilao> result = new Dictionary<int, Leilao>();
+
+            // ir buscar todos os leiloes
+            string s_cmd = "SELECT * FROM dbo.Leilao";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    con.Open();
+
+                    IEnumerable<Leilao> leiloes = con.Query<Leilao>(s_cmd);
+
+                    // Itera sobre a coleção e adiciona ao dicionário
+                    foreach (Leilao leilao in leiloes)
+                    {
+                        result.Add(leilao.id_leilao, leilao);
+                    }
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                // Captura a exceção quando não há resultados e retorna um dicionário vazio
+                return new Dictionary<int, Leilao>();
+            }
+            catch (Exception e)
+            {
+                throw new DAOException(e.Message);
             }
             return result;
         }
@@ -265,7 +365,7 @@ namespace LeiloesOnline.Data.DAOS
                         Console.WriteLine(a.getIdArtigo());
                         Console.WriteLine(value.id_leilao);
 
-                        string s_cmd_2 = "INSERT INTO dbo.LLote_Artigos(fk_id_artigo, fk_id_leilao) VALUES" +
+                        string s_cmd_2 = "INSERT INTO dbo.Lote_Artigos(fk_id_artigo, fk_id_leilao) VALUES" +
                            "('" + a.getIdArtigo() + "','" + value.id_leilao + "')";
 
                         Console.WriteLine(s_cmd_2);
@@ -386,6 +486,43 @@ namespace LeiloesOnline.Data.DAOS
                 throw new DAOException("Erro no aprovar do LeilaoDAO");
             }
             return result;
+        }
+
+
+        public List<Artigo> getArtigos(int key)
+        {
+            List<Artigo> artigos = new List<Artigo>();
+
+            string s_cmd = "SELECT * FROM dbo.Lote_Artigos where fk_id_leilao = " + key;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            int id_artigo = 0;
+
+                            while (reader.Read())
+                            {
+                                id_artigo = reader.GetInt32(reader.GetOrdinal("fk_id_artigo"));
+                                Artigo a = ArtigoDAO.getInstance().get(id_artigo);
+                                artigos.Add(a);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                throw new DAOException(e.Message);
+            }
+            return artigos;
         }
 
 

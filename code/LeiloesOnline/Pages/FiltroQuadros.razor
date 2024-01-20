@@ -51,7 +51,7 @@
 
                 </td>
                 <td style="width: 20px; height: 20px; padding: 10px; margin: 10px;">
-                    <a align="center" class="btn btn-primary" href="/leilaopagina">Entrar</a>
+                    <button @onclick="() => criaCurrentLeilao(item.Value.id_leilao)" type="button" class="btn btn-primary">Entrar</button>
                 </td>
             </tr>
         }
@@ -62,12 +62,19 @@
 </body>
 
 
+
 @code {
 
     private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-    private string filtro_escolhido = "";
+    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "quadros", 1);
 
-    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "quadros");
+    private void criaCurrentLeilao(int id)
+    {
+        Leilao l = if_leiloes.getLeilao(id);
+        CurrentLeilao.setCurrentLeilao(l);
+        Console.WriteLine(CurrentLeilao.printCurrentLeilaoInfo());
+        NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+    }
 
 }

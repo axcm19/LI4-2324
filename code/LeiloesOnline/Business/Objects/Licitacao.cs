@@ -39,6 +39,19 @@ namespace LeiloesOnline.Business.Objects
             Licitacao result = new Licitacao(this);
             return result;
         }
+
+        public string imprimeLicitacao()
+        {
+            string res = "";
+
+            res = "--------------------\n" +
+                "Licitação: " + this.valor + "\n" +
+                this.data_ocorreu + "\n" +
+                this.email_participante + "\n" +
+                this.id_leilao + "\n" +
+                "--------------------\n";
+            return res;
+        }
     }
 }
 

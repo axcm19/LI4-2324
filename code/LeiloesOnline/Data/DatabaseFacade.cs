@@ -291,9 +291,22 @@ namespace LeiloesOnline.Data
             return result;
         }
 
-        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria)
+        public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria, int quais)
         {
-            return leilaoDAO.getAllLeiloes(criterioDeOrdenacao, categoria);
+            // quais = 1 --> vai buscar só os que estão aprovados
+            // quais = 2 --> vai buscar todos os leiloes à BD
+            if(quais == 1)
+            {
+                return leilaoDAO.getAllLeiloesAprovados(criterioDeOrdenacao, categoria);
+            }
+            if(quais == 2)
+            {
+                return leilaoDAO.getAllLeiloes();
+            }
+            else
+            {
+                return new Dictionary<int, Leilao>();
+            }
         }
 
         public bool aprovarLeilao(int leilaoID)
@@ -354,6 +367,13 @@ namespace LeiloesOnline.Data
                 result = true;
             }
 
+            return result;
+        }
+
+        public Leilao getLeilao(int leilaoID)
+        {
+            Leilao result = this.leilaoDAO.get(leilaoID);
+            result.lote_artigos.artigos = this.leilaoDAO.getArtigos(leilaoID);
             return result;
         }
 

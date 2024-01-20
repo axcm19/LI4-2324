@@ -71,9 +71,9 @@
 
 <p>
     <b>Duração:</b> 
-    <label for="fname">Data de Início (AAAA-MM-DD): </label>
+    <label for="fname">Data de Início (YYYY-MM-DD HH:MI:SS): </label>
     <input type="text" id="fname" name="fname" @bind="data_inicio">
-    <label for="fname">Data de Término (AAAA-MM-DD):</label>
+    <label for="fname">Data de Término (YYYY-MM-DD HH:MI:SS):</label>
     <input type="text" id="fname" name="fname" @bind="data_fim">
 </p>
 
@@ -180,8 +180,8 @@
         DateTime dateValue;
         CultureInfo pt = new CultureInfo("pt-PT");
 
-        if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd", pt, DateTimeStyles.None, out dateValue) == true && 
-            DateTime.TryParseExact(data_fim, "yyyy-MM-dd", pt, DateTimeStyles.None, out dateValue) == true)
+        if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd HH:mm:ss", pt, DateTimeStyles.None, out dateValue) == true &&
+            DateTime.TryParseExact(data_fim, "yyyy-MM-dd HH:mm:ss", pt, DateTimeStyles.None, out dateValue) == true)
         {
             //converter datas de string para Datetime
             data_i = DateTime.Parse(data_inicio);
@@ -193,15 +193,11 @@
             return;
         }
 
-
         // adicionar o lote de artigos
         foreach(Artigo a in artigosParaLeiloar.Values){
             loteartigos.adicionaArtigoAoLote(a);
             Console.WriteLine("Adicionado " +a.getNome()+ " ao lote de artigos");
         }
-
-
-
 
         // o valor de aprovado deverá ser false pra depois ser mudado para true pelo administrador
         if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, false, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))

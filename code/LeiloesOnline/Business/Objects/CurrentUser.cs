@@ -44,7 +44,7 @@ namespace LeiloesOnline.Business.Objects
             string ar = printArtigos();
 
             res = "--------------------\n" +
-                CurrentUser.current.email_participante + "\n" +
+                "Participante Atual: " + CurrentUser.current.email_participante + "\n" +
                 CurrentUser.current.username + "\n" +
                 CurrentUser.current.morada + "\n" +
                 CurrentUser.current.carteira + "\n" +
