@@ -54,10 +54,14 @@
         <a @onclick=@aprovarLeilao class="btn btn-primary btn-sm">Aprovar</a>
     </p>
 
+    <Popup @ref="popup" />
+
 </body>
 
 
 @code {
+
+    private Popup popup = new Popup();
 
     private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
@@ -78,10 +82,12 @@
             if_leiloes.eliminarLeilao(id_leilao_escolhido);
             NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
             Console.WriteLine("Leilao eliminado");
+            popup.Show("Leilao eliminado", "AVISO", "70%", "70%");
         }
         else
         {
             Console.WriteLine("Erro ao eliminar leilao");
+            popup.Show("Erro ao eliminar leilao", "AVISO", "70%", "70%");
         }
     }
 
@@ -91,11 +97,13 @@
         if (if_leiloes.eliminarParticipante(test_e_mail) == true)
         {
             Console.WriteLine("Participante eliminado");
+            popup.Show("Participante eliminado", "AVISO", "70%", "70%");
             NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
         }
         else
         {
             Console.WriteLine("Erro ao eliminar participante");
+            popup.Show("Erro ao eliminar participante", "AVISO", "70%", "70%");
         }
     }
 
@@ -107,10 +115,12 @@
             if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar);
             NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
             Console.WriteLine("Leilao aprovado");
+            popup.Show("Leilao aprovado", "AVISO", "70%", "70%");
         }
         else
         {
             Console.WriteLine("Erro ao aprovar leilao");
+            popup.Show("Erro ao aprovar leilao", "AVISO", "70%", "70%");
         }
     }
 

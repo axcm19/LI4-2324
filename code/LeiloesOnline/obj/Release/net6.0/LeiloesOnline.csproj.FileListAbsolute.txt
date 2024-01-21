@@ -77,3 +77,4 @@ D:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline\obj\Release\net6.0\L
 D:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline\obj\Release\net6.0\LeiloesOnline.genruntimeconfig.cache
 D:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline\obj\Release\net6.0\ref\LeiloesOnline.dll
 D:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline\bin\Release\net6.0\Dapper.dll
+D:\Users\Afonso Marques\Desktop\LI4-2324\code\LeiloesOnline\obj\Release\net6.0\LeiloesOnline.csproj.ResolveComReference.cache

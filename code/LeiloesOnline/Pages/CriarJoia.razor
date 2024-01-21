@@ -57,30 +57,41 @@
 <center> <a class="botao-esq btn btn-primary" href="/criarartigo">Voltar</a> </center>
 <center><button @onclick=@criar_artigo>Submeter</button></center>
 
-
+<Popup @ref="popup" />
 
 
 @code {
 
-    private string aname;
-    private string desc;
-    private string comp;
-    private string mat;
-    private string tipo;
-    private float pureza;
+    private Popup popup = new Popup();
+
+    private string aname = "";
+    private string desc = "";
+    private string comp = "";
+    private string mat = "";
+    private string tipo = "";
+    private float pureza = 0;
 
     void criar_artigo()
     {
-        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-
-
-        if (if_leiloes.criaJoia(aname, desc, comp, mat, tipo, pureza))
+        if (aname.Equals("") && desc.Equals("") && comp.Equals("") && mat.Equals("") && tipo.Equals(""))
         {
-            Console.WriteLine("Joia criada com sucesso");
+            popup.Show("O formulário não foi completamente preenchido", "AVISO", "70%", "70%");
+            return;
         }
         else
         {
-            Console.WriteLine("Erro a criar joia");
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+            if (if_leiloes.criaJoia(aname, desc, comp, mat, tipo, pureza))
+            {
+                Console.WriteLine("Joia criada com sucesso");
+                popup.Show("Joia criada com sucesso", "AVISO", "70%", "70%");
+            }
+            else
+            {
+                Console.WriteLine("Erro a criar joia");
+                popup.Show("Erro a criar joia", "AVISO", "70%", "70%");
+            }
         }
     }
 

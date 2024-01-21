@@ -67,32 +67,46 @@
     </form>
 </p>
 
+<Popup @ref="popup" />
 
 <center> <a class="botao-esq btn btn-primary" href="/criarartigo">Voltar</a> </center>
 <center><button @onclick=@criar_artigo>Submeter</button></center>
 
 @code {
 
-    private string aname;
-    private string desc;
-    private string comp;
-    private string titulo;
-    private string nome_autor;
-    private int ano_edicao;
-    private string editora;
-    private int nr_paginas;
+    private Popup popup = new Popup();
+
+    private string aname = "";
+    private string desc = "";
+    private string comp = "";
+    private string titulo = "";
+    private string nome_autor = "";
+    private int ano_edicao = 0;
+    private string editora = "";
+    private int nr_paginas = 0;
 
     void criar_artigo()
     {
-        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-        if (if_leiloes.criaLivro(aname, desc, comp, titulo, nome_autor, ano_edicao, editora, nr_paginas))
+        if (aname.Equals("") && desc.Equals("") && comp.Equals("") && titulo.Equals("") && nome_autor.Equals("") && ano_edicao == 0 && editora.Equals("") && nr_paginas == 0)
         {
-            Console.WriteLine("Livro criado com sucesso");
+            popup.Show("O formulário não foi completamente preenchido", "AVISO", "70%", "70%");
+            return;
         }
         else
         {
-            Console.WriteLine("Erro a criar livro");
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+            if (if_leiloes.criaLivro(aname, desc, comp, titulo, nome_autor, ano_edicao, editora, nr_paginas))
+            {
+                Console.WriteLine("Livro criado com sucesso");
+                popup.Show("Livro criado com sucesso", "AVISO", "70%", "70%");
+            }
+            else
+            {
+                Console.WriteLine("Erro a criar livro");
+                popup.Show("Erro a criar livro", "AVISO", "70%", "70%");
+            }
         }
     }
 

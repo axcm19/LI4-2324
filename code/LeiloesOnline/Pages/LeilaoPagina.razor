@@ -24,6 +24,7 @@
 <body>
     <p><b> Nome do leilão: </b> @leilao.nome </p>
 
+
     <p></p>
 
     <table align="center">
@@ -74,7 +75,7 @@
     </table>
 
     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px;">
-        <a @onclick=@setCurrentLeilaoToNull class="btn btn-primary" style="margin-right: 1px;" href="/HomepageLogged">Sair</a>
+        <a @onclick=@setCurrentLeilaoToNull class="btn btn-primary" style="margin-right: 1px;" href="/todos">Sair</a>
 
         <div style="margin-left: 1px;">
             <p>
@@ -83,6 +84,8 @@
             </p>
         </div>
     </div>
+
+    <Popup @ref="popup" />
 
 </body>
 
@@ -98,6 +101,8 @@
 
     private float valor_licitacao = 0;
     private Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(CurrentLeilao.getCurrentLeilao().id_leilao, "");
+
+    private Popup popup = new Popup();
 
 
     void fazLicitacao()
@@ -117,6 +122,7 @@
             if (valor_licitacao > carteira)
             {
                 Console.WriteLine("Valor de licitação ultrapassa o seu saldo atual!");
+                popup.Show("Valor de licitação ultrapassa o seu saldo atual!", "AVISO", "70%", "70%");
             }
             else
             {
@@ -124,6 +130,7 @@
                 if (valor_licitacao < leilao.preco_base)
                 {
                     Console.WriteLine("Valor de licitação abaixo do preço base");
+                    popup.Show("Valor de licitação abaixo do preço base", "AVISO", "70%", "70%");
                 }
                 else
                 {
@@ -138,16 +145,19 @@
                         if (if_leiloes.addLicitacao(l) == true)
                         {
                             Console.WriteLine("Licitação concluida");
+                            popup.Show("Licitação concluida", "AVISO", "70%", "70%");
                             NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
                         }
                         else
                         {
                             Console.WriteLine("Licitação falhou");
+                            popup.Show("Licitação falhou", "AVISO", "70%", "70%");
                         }
                     }
                     else
                     {
                         Console.WriteLine("Valor de licitação demasiado baixo");
+                        popup.Show("Valor de licitação demasiado baixo", "AVISO", "70%", "70%");
                     }
                 }
             }
@@ -155,6 +165,7 @@
         else
         {
             Console.WriteLine("A data atual está fora do intervalo.");
+            popup.Show("A data atual está fora do intervalo.\n Este leilão ainda não começou!", "AVISO", "70%", "70%");
         }
     }
 

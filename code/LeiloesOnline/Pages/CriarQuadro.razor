@@ -63,9 +63,12 @@
 <center> <a class="botao-esq btn btn-primary" href="/criarartigo">Voltar</a> </center>
 <center><button @onclick=@criar_artigo>Submeter</button></center>
 
+<Popup @ref="popup" />
 
 
 @code {
+
+    private Popup popup = new Popup();
 
     private string aname = "";
     private string desc = "";
@@ -79,16 +82,24 @@
     void criar_artigo()
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-
         
-        if (if_leiloes.criaQuadro(aname, desc, comp, titulo, nome_autor, ano, dimensoes))
+        if (aname.Equals("") && desc.Equals("") && comp.Equals("") && titulo.Equals("") && nome_autor.Equals("") && ano == 0 && dimensoes.Equals(""))
         {
-            Console.WriteLine("Quadro criado com sucesso");
+            popup.Show("O formulário não foi completamente preenchido", "AVISO", "70%", "70%");
+            return;
         }
         else
         {
-            Console.WriteLine("Erro a criar quadro");
+            if (if_leiloes.criaQuadro(aname, desc, comp, titulo, nome_autor, ano, dimensoes))
+            {
+                Console.WriteLine("Quadro criado com sucesso");
+                popup.Show("Quadro criado com sucesso", "AVISO", "70%", "70%");
+            }
+            else
+            {
+                Console.WriteLine("Erro a criar quadro");
+                popup.Show("Erro a criar quadro", "AVISO", "70%", "70%");
+            }
         }
     }
-
 }

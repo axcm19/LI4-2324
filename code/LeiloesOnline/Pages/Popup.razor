@@ -2,7 +2,7 @@
     var showClass = IsVisible ? "d-block" : "d-none";
 }
 
-<div class="toast-container p-3 @showClass" style="position: absolute; top:@top; left: @left; border-radius: 35px;" data-bs-autohide="true" data-bs-delay="5000">
+<div class="toast-container p-3 @showClass" style="position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); border-radius: 35px;" data-bs-autohide="true" data-bs-delay="5000">
     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <strong class="me-auto">@HeaderText</strong>
@@ -52,3 +52,4 @@
         StateHasChanged();
     }
 }
+

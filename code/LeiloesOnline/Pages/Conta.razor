@@ -128,8 +128,12 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<Popup @ref="popup" />
+
 
 @code {
+
+    private Popup popup = new Popup();
 
     private string e_mail = CurrentUser.getCurrentUser().email_participante;
     private string username = CurrentUser.getCurrentUser().username;
@@ -160,6 +164,7 @@
         else
         {
             Console.WriteLine("Carregamento falhou");
+            popup.Show("Carregamento falhou", "AVISO", "70%", "70%");
         }
     }
 

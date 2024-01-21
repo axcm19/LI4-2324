@@ -95,15 +95,19 @@
     }
 </script>
 
+<Popup @ref="popup" />
+
 
 @code {
 
-    private string categoria;
-    private string nome_leilao;
-    private float preco_base;
-    private float valor_diferenca;
-    private string data_inicio;
-    private string data_fim;
+    private string categoria = "";
+    private string nome_leilao = "";
+    private float preco_base = 0;
+    private float valor_diferenca = 0;
+    private string data_inicio = "";
+    private string data_fim = "";
+
+    private Popup popup = new Popup();
 
     private Dictionary<int, Artigo> artigosParaLeiloar = new Dictionary<int, Artigo>();
 
@@ -113,18 +117,22 @@
     void mudaCategoriaMisto()
     {
         categoria = "Misto";
+        popup.Show("Categoria alterada para 'Misto'", "AVISO", "70%", "70%");
     }
     void mudaCategoriaLivros()
     {
         categoria = "Livros";
+        popup.Show("Categoria alterada para 'Livros'", "AVISO", "70%", "70%");
     }
     void mudaCategoriaQuadros()
     {
         categoria = "Quadros";
+        popup.Show("Categoria alterada para 'Quadros'", "AVISO", "70%", "70%");
     }
     void mudaCategoriaJoias()
     {
         categoria = "Joias";
+        popup.Show("Categoria alterada para 'Joias'", "AVISO", "70%", "70%");
     }
 
 
@@ -139,13 +147,17 @@
             Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
 
             artigosParaLeiloar.Add(id_artigo_escolhido, a);
-            Console.WriteLine("Adicionado artigo para leiloar");
+
+            Console.WriteLine("Adicionado artigo ao lote");
+            popup.Show("Adicionado artigo ao lote", "AVISO", "70%", "70%");
+
             Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
 
         }
         else
         {
-            Console.WriteLine("Erro ao adicionar artigo para leiloar");
+            Console.WriteLine("Erro ao adicionar artigo ao lote");
+            popup.Show("Erro ao adicionar artigo ao lote", "AVISO", "70%", "70%");
             Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
     }
@@ -156,12 +168,14 @@
         if (artigosParaLeiloar.ContainsKey(id_artigo_escolhido))
         {
             artigosParaLeiloar.Remove(id_artigo_escolhido);
-            Console.WriteLine("Removido artigo para leiloar");
+            Console.WriteLine("Artigo removido do lote");
+            popup.Show("Artigo removido do lote", "AVISO", "70%", "70%");
             Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
         else
         {
             Console.WriteLine("Erro ao remover artigo para leiloar");
+            popup.Show("Erro ao adicionar artigo para leiloar", "AVISO", "70%", "70%");
             Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
     }
@@ -169,44 +183,56 @@
 
     void proporLeilao()
     {
-        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-        Dictionary<string, Licitacao> licitacoes = new Dictionary<string, Licitacao>();
-        LoteArtigos loteartigos = new LoteArtigos();
-
-        DateTime data_i = new DateTime();
-        DateTime data_f = new DateTime();
-
-        // se o formato inserido de data for válido prosegue com a proposta
-        DateTime dateValue;
-        CultureInfo pt = new CultureInfo("pt-PT");
-
-        if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd HH:mm:ss", pt, DateTimeStyles.None, out dateValue) == true &&
-            DateTime.TryParseExact(data_fim, "yyyy-MM-dd HH:mm:ss", pt, DateTimeStyles.None, out dateValue) == true)
+        if (categoria.Equals("") && nome_leilao.Equals("") && data_inicio.Equals("") && data_fim.Equals("") && artigosParaLeiloar.Count() == 0)
         {
-            //converter datas de string para Datetime
-            data_i = DateTime.Parse(data_inicio);
-            data_f = DateTime.Parse(data_fim);
-        }
-        else
-        {
-            Console.WriteLine("O formato inserido numa das datas não é válido!");
+            popup.Show("O formulário não foi completamente preenchido", "AVISO", "70%", "70%");
             return;
         }
-
-        // adicionar o lote de artigos
-        foreach(Artigo a in artigosParaLeiloar.Values){
-            loteartigos.adicionaArtigoAoLote(a);
-            Console.WriteLine("Adicionado " +a.getNome()+ " ao lote de artigos");
-        }
-
-        // o valor de aprovado deverá ser false pra depois ser mudado para true pelo administrador
-        if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, false, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
-        {
-            Console.WriteLine("Leilão proposto com sucesso");
-        }
         else
         {
-            Console.WriteLine("Erro a propor leilão");
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            Dictionary<string, Licitacao> licitacoes = new Dictionary<string, Licitacao>();
+            LoteArtigos loteartigos = new LoteArtigos();
+
+            DateTime data_i = new DateTime();
+            DateTime data_f = new DateTime();
+
+            // se o formato inserido de data for válido prosegue com a proposta
+            DateTime dateValue;
+            CultureInfo pt = new CultureInfo("pt-PT");
+
+            if (DateTime.TryParseExact(data_inicio, "yyyy-MM-dd HH:mm:ss", pt, DateTimeStyles.None, out dateValue) == true &&
+                DateTime.TryParseExact(data_fim, "yyyy-MM-dd HH:mm:ss", pt, DateTimeStyles.None, out dateValue) == true)
+            {
+                //converter datas de string para Datetime
+                data_i = DateTime.Parse(data_inicio);
+                data_f = DateTime.Parse(data_fim);
+            }
+            else
+            {
+                Console.WriteLine("O formato inserido numa das datas não é válido!");
+                popup.Show("O formato inserido numa das datas não é válido!", "AVISO", "70%", "70%");
+                return;
+            }
+
+            // adicionar o lote de artigos
+            foreach (Artigo a in artigosParaLeiloar.Values)
+            {
+                loteartigos.adicionaArtigoAoLote(a);
+                Console.WriteLine("Adicionado " + a.getNome() + " ao lote de artigos");
+            }
+
+            // o valor de aprovado deverá ser false pra depois ser mudado para true pelo administrador
+            if (if_leiloes.proporLeilao(categoria, nome_leilao, data_i, data_f, preco_base, valor_diferenca, 0, false, CurrentUser.getCurrentUser().email_participante, licitacoes, loteartigos))
+            {
+                Console.WriteLine("Leilão proposto com sucesso");
+                popup.Show("Leilão proposto com sucesso", "AVISO", "70%", "70%");
+            }
+            else
+            {
+                Console.WriteLine("Erro a propor leilão");
+                popup.Show("Erro a propor leilão", "AVISO", "70%", "70%");
+            }
         }
     }
 

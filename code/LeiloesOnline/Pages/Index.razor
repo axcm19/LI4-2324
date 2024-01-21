@@ -146,6 +146,8 @@
     <!-- Inclua os scripts JavaScript do Bootstrap no final do seu arquivo HTML -->
     <script suppress-error="BL9992" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script suppress-error="BL9992" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <Popup @ref="popup" />
     
     
 </body>
@@ -154,7 +156,7 @@
 @code {
 
 
-    private Popup popupRef;
+    private Popup popup = new Popup();
     private string e_mail = "";
     private string password = "";
     private string registerEmail = "";
@@ -188,6 +190,7 @@
             {
                 //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
                 Console.WriteLine("Esta conta não existe");
+                popup.Show("Esta conta não existe", "AVISO", "70%", "70%");
             }
         }
         // caso seja um participante
@@ -208,6 +211,7 @@
             {
                 //popupRef.Show("Esta conta não existe", "Credenciais inválidas", "35%", "35%");
                 Console.WriteLine("Esta conta não existe");
+                popup.Show("Esta conta não existe", "AVISO", "70%", "70%");
             }
         }
     } 
@@ -219,9 +223,11 @@
         if (if_leiloes.register(registerEmail, registerUsername, registerMorada, registerCarteira, registerPassword, int.Parse(registerCC), int.Parse(registerNIF)))
         {
             Console.WriteLine("Registo concluido");
+            popup.Show("Registo concluido", "AVISO", "70%", "70%");
         }
         else{
             Console.WriteLine("Registo falhou");
+            popup.Show("Registo falhou", "AVISO", "70%", "70%");
         }
     }
 
