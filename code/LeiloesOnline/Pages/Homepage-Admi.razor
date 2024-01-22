@@ -112,7 +112,7 @@
         // se o leilao não existir na lista
         if (todosLeiloes.ContainsKey(id_leilao_escolhido_aprovar))
         {
-            if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar);
+            if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar, 1);
             NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
             Console.WriteLine("Leilao aprovado");
             popup.Show("Leilao aprovado", "AVISO", "70%", "70%");

@@ -40,10 +40,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JpYXJRdWFkcm8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FetchData.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/FiltroJoias.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsdHJvSm9pYXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,6 +82,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/ShowAllLeiloes.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvd0FsbExlaWxvZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Pages/ShowAllLeiloes_Unlogged.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvd0FsbExlaWxvZXNfVW5sb2dnZWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Users/Afonso Marques/Desktop/LI4-2324/code/LeiloesOnline/Shared/SurveyPrompt.razor]

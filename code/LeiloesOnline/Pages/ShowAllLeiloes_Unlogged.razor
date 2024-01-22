@@ -1,0 +1,71 @@
+@using LeiloesOnline.Business;
+@using LeiloesOnline.Business.Objects;
+@inject NavigationManager NavigationManager
+
+@page "/todos_unlogged"
+
+<PageTitle>Show all leiloes</PageTitle>
+<nav class="navbar navbar-light bg-light">
+    <a href="/">
+        <img class="foto-header" src="images/favicon.png" alt="favicon.png" />
+    </a>
+    <h3 class="titulo"><b>Leiloaria Bracarense Lda.</b></h3>
+</nav>
+
+<body>
+
+
+    <p> </p>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <table>
+        <tr>
+            <th>Histórico de leilões:</th>
+        </tr>
+        @foreach (var item in todosLeiloes)
+        {
+            <tr>
+                <td style="width: 500px; height: 100px; padding: 10px; margin: 10px;">
+                    <p>
+                        NOME: @item.Value.nome      <br>
+                        CATEGORIA: @item.Value.categoria            <br>
+                        LICITAÇÃO ATUAL: @item.Value.licitacao_atual   <br>
+                        DATA DE TÉRMINO: @item.Value.data_fim.ToString()        <br>
+                    </p>
+
+                </td>
+                <td style="width: 20px; height: 20px; padding: 10px; margin: 10px;">
+                    <button @onclick="lançaAviso" type="button" class="btn btn-primary">Entrar</button>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <a class="botao-esq btn btn-primary" href="/">Voltar</a>
+
+    <Popup @ref="popup" />
+
+</body>
+
+
+
+@code {
+
+    private Popup popup = new Popup();
+
+    private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
+    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "", 1);
+
+    private void lançaAviso()
+    {
+        Console.WriteLine("Antes de entrar num leilão deve estar autenticado. Retorne à página principal para iniciar sessão ou fazer o registo.");
+        popup.Show("Antes de entrar num leilão deve estar autenticado. Retorne à página principal para iniciar sessão ou fazer o registo.", "AVISO", "70%", "70%");
+    }
+
+}

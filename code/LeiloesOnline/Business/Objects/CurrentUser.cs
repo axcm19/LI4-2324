@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace LeiloesOnline.Business.Objects
 
@@ -11,16 +12,52 @@ namespace LeiloesOnline.Business.Objects
 
 
         private static Participante? current = null;
+        private static float dividaAcumulada = 0;
         private CurrentUser() { }
+
+        public static float calculaDivida()
+        {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            float res = 0;
+
+            string test_e_mail = "'" + current.email_participante + "'";
+            Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(0, test_e_mail);
+
+            if (licitacoes.Count != 0)
+            {
+                foreach (var item in licitacoes)
+                {
+                    // só contam as licitaçoes para leiloes que estejam ativos
+                    if (if_leiloes.getLeilao(item.Value.id_leilao).aprovado == true)
+                    {
+                        res += item.Value.valor;
+                    }
+                }
+            }
+            return res;
+        }
+
 
         public static void setCurrentUser(Participante user)
         {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
             CurrentUser.current = user;
+            CurrentUser.dividaAcumulada = calculaDivida();
+        }
+
+        public static void setDivida(float valor)
+        {
+            CurrentUser.dividaAcumulada = valor;
         }
 
         public static Participante getCurrentUser()
         {
             return CurrentUser.current;
+        }
+
+        public static float getDivida()
+        {
+            return CurrentUser.dividaAcumulada;
         }
 
         public static string printArtigos()

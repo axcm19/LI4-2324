@@ -59,6 +59,8 @@
 
     <a class="botao-esq btn btn-primary" href="/HomepageLogged">Voltar</a>
 
+    <Popup @ref="popup" />
+
 </body>
 
 
@@ -68,6 +70,36 @@
     private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
     private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "quadros", 1);
+
+    private Popup popup = new Popup();
+
+    //-----------------------------------------------------------------------------------------------------
+    // Este pedaço de codigo verifica se há leilões que já tenham terminado e anuncia o vencedor caso
+    // haja algum. Tem de ser implementado em todas as paginas porque não se conseguiu por um event handler
+    // a funcionar.
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            VerificaEstadoLeiloes check = new VerificaEstadoLeiloes();
+            string aviso = check.verifica();
+            if (!aviso.Equals(""))
+            {
+                Console.WriteLine(aviso);
+                lança_aviso(aviso);
+                await Task.Delay(5000);
+                NavigationManager.NavigateTo("/filtroquadros", forceLoad: true);
+            }
+        }
+    }
+
+    public async Task lança_aviso(string aviso)
+    {
+        await InvokeAsync(() => popup.Show(aviso, "AVISO", "70%", "70%"));
+    }
+
+    //-----------------------------------------------------------------------------------------------------
 
     private void criaCurrentLeilao(int id)
     {

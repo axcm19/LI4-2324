@@ -41,9 +41,9 @@ namespace LeiloesOnline.Business
 
         public Leilao getLeilao(int leilaoID);
 
-        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos);
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<int, Licitacao> licitacoes, LoteArtigos lote_artigos);
 
-        public bool aprovarLeilao(int leilaoID);
+        public bool aprovarLeilao(int leilaoID, int valor);
 
         public bool addLicitacao(Licitacao newLicitacao); // adiciona uma licitação a uma leilao 
 

@@ -30,7 +30,8 @@
 
 <p><b>Morada: </b> @morada </p>
 
-<p><b>Saldo: </b> @carteira <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupModal">Carregar Saldo</button> </p>
+<p><b>Divida Acumulada Nas Licitações Ativas: </b> @dividaAcumulada € </p>
+<p><b>Saldo: </b> @carteira € <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupModal">Carregar Saldo</button> </p>
 
 <!-- Popup Modal para Carregar Saldo-->
 <div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
@@ -143,10 +144,41 @@
     private float carteira = CurrentUser.getCurrentUser().carteira;
     private Dictionary<int, Artigo> artigosCurrent = CurrentUser.getCurrentUser().meusArtigos;
 
+    private float dividaAcumulada = CurrentUser.getDivida();
+
     private Dictionary<int, Licitacao> licitacoes = CurrentUser.getMyLicitacoes();
     private Dictionary<int, Leilao> leiloes = CurrentUser.getMyLeiloes();
 
     private float saldo_acrescentar;
+
+
+    //-----------------------------------------------------------------------------------------------------
+    // Este pedaço de codigo verifica se há leilões que já tenham terminado e anuncia o vencedor caso
+    // haja algum. Tem de ser implementado em todas as paginas porque não se conseguiu por um event handler
+    // a funcionar.
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            VerificaEstadoLeiloes check = new VerificaEstadoLeiloes();
+            string aviso = check.verifica();
+            if (!aviso.Equals(""))
+            {
+                Console.WriteLine(aviso);
+                lança_aviso(aviso);
+                await Task.Delay(5000);
+                NavigationManager.NavigateTo("/conta", forceLoad: true);
+            }
+        }
+    }
+
+    public async Task lança_aviso(string aviso)
+    {
+        await InvokeAsync(() => popup.Show(aviso, "AVISO", "70%", "70%"));
+    }
+
+    //-----------------------------------------------------------------------------------------------------
 
     void setCurrentUserToNull()
     {

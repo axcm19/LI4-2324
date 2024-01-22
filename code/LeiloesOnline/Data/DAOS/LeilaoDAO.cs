@@ -79,7 +79,7 @@ namespace LeiloesOnline.Data.DAOS
                             bool aprovado;
                             string fk_email_participante_propos;
 
-                            Dictionary<string, Licitacao> licitacoes = new Dictionary<string, Licitacao>();
+                            Dictionary<int, Licitacao> licitacoes = new Dictionary<int, Licitacao>();
                             LoteArtigos lote_artigos = new LoteArtigos();
 
 
@@ -95,6 +95,10 @@ namespace LeiloesOnline.Data.DAOS
                                 licitacao_atual = (float)reader.GetDouble(reader.GetOrdinal("licitacao_atual"));
                                 aprovado = reader.GetBoolean(reader.GetOrdinal("aprovado"));
                                 fk_email_participante_propos = reader.GetString(reader.GetOrdinal("fk_email_participante_propos"));
+
+                                licitacoes = LicitacaoDAO.getInstance().getAllLicitacoes(id_leilao, "");
+                                lote_artigos.artigos = getArtigos(id_leilao);
+
 
                                 Leilao aux = new Leilao(id_leilao, categoria, nome, data_inicio, data_fim, preco_base, valor_minimo_licitacao, licitacao_atual, aprovado, fk_email_participante_propos, licitacoes, lote_artigos);
                                 leilao = aux;
@@ -460,10 +464,11 @@ namespace LeiloesOnline.Data.DAOS
             return result;
         }
 
-        public bool aprovar(int key)
+
+        public bool aprovar(int key, int valor)
         {
             bool result = false;
-            string s_cmd = "UPDATE dbo.Leilao SET aprovado = '1' WHERE id_leilao = " + key;
+            string s_cmd = "UPDATE dbo.Leilao SET aprovado = " + valor + " WHERE id_leilao = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))

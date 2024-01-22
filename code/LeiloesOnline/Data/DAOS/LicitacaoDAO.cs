@@ -189,6 +189,11 @@ namespace LeiloesOnline.Data.DAOS
             return licitacoes;
         }
 
+
+
+
+
+
         public bool isEmpty()
         {
             return size() == 0;

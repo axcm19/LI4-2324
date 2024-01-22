@@ -107,7 +107,7 @@
 </header>
 <body>
     <p><center>Pretende desfazer-se de algum artigo colecionável? Proponha o seu leilão.<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#loginModal">Propor Leilão</a></center></p>
-    <p><center>Alguma peça em falta? Selecione a sua categoria favorita ou <a data-target="#loginModal"> veja todos os leilões que se encontram disponíveis.</a> </center></p>
+    <p><center>Alguma peça em falta? Selecione a sua categoria favorita ou <a href="/todos_unlogged"> veja todos os leilões que se encontram disponíveis.</a> </center></p>
 
     <table align="center">
         <tr>
@@ -167,10 +167,11 @@
     private string registerNIF = "";
     private string registerPassword = "";
 
+    private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+
 
     void fazer_login()
     {
-        I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
         // caso seja o administrador
         if (e_mail.Equals("alcino@mail.com"))
@@ -216,6 +217,8 @@
         }
     } 
 
+    
+
 
     void fazer_registo(){
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
@@ -229,7 +232,5 @@
             Console.WriteLine("Registo falhou");
             popup.Show("Registo falhou", "AVISO", "70%", "70%");
         }
-    }
-
-        
+    }   
 }

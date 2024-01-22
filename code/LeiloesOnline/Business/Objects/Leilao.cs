@@ -19,7 +19,7 @@ namespace LeiloesOnline.Business.Objects
 
         public string email_quem_propos { get; set; }
 
-        public Dictionary<string, Licitacao> licitacoes;  //  map com as licitaçoes do leilao
+        public Dictionary<int, Licitacao> licitacoes;  //  map com as licitaçoes do leilao
         public LoteArtigos lote_artigos;  // lote de artigos do leilão
 
 
@@ -36,11 +36,11 @@ namespace LeiloesOnline.Business.Objects
             licitacao_atual = 0;
             aprovado = false;
             email_quem_propos = "";
-            licitacoes = new Dictionary<string, Licitacao>();
+            licitacoes = new Dictionary<int, Licitacao>();
             lote_artigos = new LoteArtigos();
         }
 
-        public Leilao(int id, string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos, Dictionary<string, Licitacao> licitacoes, LoteArtigos lote_artigos)
+        public Leilao(int id, string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos, Dictionary<int, Licitacao> licitacoes, LoteArtigos lote_artigos)
         {
             id_leilao = id;
             this.categoria = categoria;

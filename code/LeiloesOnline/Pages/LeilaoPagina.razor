@@ -104,69 +104,113 @@
 
     private Popup popup = new Popup();
 
+    //-----------------------------------------------------------------------------------------------------
+    // Este pedaço de codigo verifica se há leilões que já tenham terminado e anuncia o vencedor caso
+    // haja algum. Tem de ser implementado em todas as paginas porque não se conseguiu por um event handler
+    // a funcionar.
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            VerificaEstadoLeiloes check = new VerificaEstadoLeiloes();
+            string aviso = check.verifica();
+            if (!aviso.Equals(""))
+            {
+                Console.WriteLine(aviso);
+                lança_aviso(aviso);
+                await Task.Delay(5000);
+                NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+            }
+        }
+    }
+
+    public async Task lança_aviso(string aviso)
+    {
+        await InvokeAsync(() => popup.Show(aviso, "AVISO", "70%", "70%"));
+    }
+
+    //-----------------------------------------------------------------------------------------------------
+
 
     void fazLicitacao()
     {
         DateTime dataAtual = DateTime.Now;
-
-        // Definir uma data específica para comparação (por exemplo, 1 de janeiro de 2023)
         DateTime dataInferior = leilao.data_inicio;
         DateTime dataSuperior = leilao.data_fim;
 
         // verifica se a data atual está dentro do limite de datas do leilão
-        if (dataAtual >= dataInferior && dataAtual <= dataSuperior)
+        if(leilao.email_quem_propos.Equals(CurrentUser.getCurrentUser().email_participante))
         {
-            Console.WriteLine("A data atual está dentro do intervalo.");
-
-            // verifica se tem dinheiro suficiente para licitar
-            if (valor_licitacao > carteira)
-            {
-                Console.WriteLine("Valor de licitação ultrapassa o seu saldo atual!");
-                popup.Show("Valor de licitação ultrapassa o seu saldo atual!", "AVISO", "70%", "70%");
-            }
-            else
-            {
-                // verifica se a licitação pelo menos igual ao preço base 
-                if (valor_licitacao < leilao.preco_base)
-                {
-                    Console.WriteLine("Valor de licitação abaixo do preço base");
-                    popup.Show("Valor de licitação abaixo do preço base", "AVISO", "70%", "70%");
-                }
-                else
-                {
-                    // verifica se a licitação respeita a regra da diferença minima
-                    if (valor_licitacao >= leilao.licitacao_atual + leilao.valor_minimo_licitacao)
-                    {
-
-                        Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, leilao.id_leilao);
-
-                        Console.WriteLine(l.imprimeLicitacao());
-
-                        if (if_leiloes.addLicitacao(l) == true)
-                        {
-                            Console.WriteLine("Licitação concluida");
-                            popup.Show("Licitação concluida", "AVISO", "70%", "70%");
-                            NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Licitação falhou");
-                            popup.Show("Licitação falhou", "AVISO", "70%", "70%");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Valor de licitação demasiado baixo");
-                        popup.Show("Valor de licitação demasiado baixo", "AVISO", "70%", "70%");
-                    }
-                }
-            }
+            Console.WriteLine("Não pode licitar no seu próprio leilão");
+            popup.Show("Não pode licitar no seu próprio leilão!", "AVISO", "70%", "70%");
         }
         else
         {
-            Console.WriteLine("A data atual está fora do intervalo.");
-            popup.Show("A data atual está fora do intervalo.\n Este leilão ainda não começou!", "AVISO", "70%", "70%");
+            if (dataAtual >= dataInferior && dataAtual <= dataSuperior)
+            {
+                Console.WriteLine("A data atual está dentro do intervalo.");
+
+
+                // verifica se tem dinheiro suficiente para licitar
+                if (valor_licitacao > carteira)
+                {
+                    Console.WriteLine("Valor de licitação ultrapassa o seu saldo atual!");
+                    popup.Show("Valor de licitação ultrapassa o seu saldo atual!", "AVISO", "70%", "70%");
+                }
+                else
+                {
+                    if (CurrentUser.getDivida() > carteira)
+                    {
+                        Console.WriteLine("Se fizer essa licitação vai acumular uma divida maior que o seu saldo atual");
+                        popup.Show("Se fizer essa licitação vai acumular uma divida maior que o seu saldo atual", "AVISO", "70%", "70%");
+                    }
+                    else
+                    {
+                        // verifica se a licitação pelo menos igual ao preço base
+                        if (valor_licitacao < leilao.preco_base)
+                        {
+                            Console.WriteLine("Valor de licitação abaixo do preço base");
+                            popup.Show("Valor de licitação abaixo do preço base", "AVISO", "70%", "70%");
+                        }
+                        else
+                        {
+                            // verifica se a licitação respeita a regra da diferença minima
+                            if (valor_licitacao >= leilao.licitacao_atual + leilao.valor_minimo_licitacao)
+                            {
+
+                                Licitacao l = new Licitacao(DateTime.Now, valor_licitacao, CurrentUser.getCurrentUser().email_participante, leilao.id_leilao);
+
+                                Console.WriteLine(l.imprimeLicitacao());
+
+                                if (if_leiloes.addLicitacao(l) == true)
+                                {
+                                    Console.WriteLine("Licitação concluida");
+                                    popup.Show("Licitação concluida", "AVISO", "70%", "70%");
+                                    NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Licitação falhou");
+                                    popup.Show("Licitação falhou", "AVISO", "70%", "70%");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Valor de licitação demasiado baixo");
+                                popup.Show("Valor de licitação demasiado baixo", "AVISO", "70%", "70%");
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("A data atual está fora do intervalo.");
+                popup.Show("A data atual está fora do intervalo.\n Este leilão ainda não começou!", "AVISO", "70%", "70%");
+            }
         }
+        
     }
 
     void setCurrentLeilaoToNull()
