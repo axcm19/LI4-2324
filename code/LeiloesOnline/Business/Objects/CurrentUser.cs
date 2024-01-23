@@ -21,16 +21,16 @@ namespace LeiloesOnline.Business.Objects
             float res = 0;
 
             string test_e_mail = "'" + current.email_participante + "'";
-            Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(0, test_e_mail);
+            List<Licitacao> licitacoes = if_leiloes.getLicitacoes(0, test_e_mail);
 
             if (licitacoes.Count != 0)
             {
                 foreach (var item in licitacoes)
                 {
                     // só contam as licitaçoes para leiloes que estejam ativos
-                    if (if_leiloes.getLeilao(item.Value.id_leilao).aprovado == true)
+                    if (if_leiloes.getLeilao(item.id_leilao).aprovado == true)
                     {
-                        res += item.Value.valor;
+                        res += item.valor;
                     }
                 }
             }
@@ -101,7 +101,7 @@ namespace LeiloesOnline.Business.Objects
             return if_leiloes.getParticipanteLeiloes(test_e_mail);
         }
 
-        public static Dictionary<int, Licitacao> getMyLicitacoes()
+        public static List<Licitacao> getMyLicitacoes()
         {
             I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
             string test_e_mail = "'" + current.email_participante + "'";

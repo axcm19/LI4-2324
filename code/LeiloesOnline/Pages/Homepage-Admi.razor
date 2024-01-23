@@ -80,15 +80,33 @@
         if (todosLeiloes.ContainsKey(id_leilao_escolhido))
         {
             if_leiloes.eliminarLeilao(id_leilao_escolhido);
-            NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
             Console.WriteLine("Leilao eliminado");
             popup.Show("Leilao eliminado", "AVISO", "70%", "70%");
+            Task.Delay(5000);
+            NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
         }
         else
         {
             Console.WriteLine("Erro ao eliminar leilao");
             popup.Show("Erro ao eliminar leilao", "AVISO", "70%", "70%");
         }
+    }
+
+    static Dictionary<int, Leilao> ir_buscar_leiloes_BD()
+    {
+        Dictionary<int, Leilao> resultado = if_leiloes.getTodosLeiloes("", "", 2);
+        Dictionary<int, Leilao> resultado2 = new Dictionary<int, Leilao>();
+
+        DateTime atual = DateTime.Now;
+
+        foreach(Leilao l in resultado.Values)
+        {
+            if (atual <= l.data_fim)
+            {
+                resultado2.Add(l.id_leilao, l);
+            }
+        }
+        return resultado2;
     }
 
     void eliminar_participante()
@@ -98,6 +116,7 @@
         {
             Console.WriteLine("Participante eliminado");
             popup.Show("Participante eliminado", "AVISO", "70%", "70%");
+            Task.Delay(5000);
             NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
         }
         else
@@ -109,18 +128,28 @@
 
     void aprovarLeilao()
     {
-        // se o leilao não existir na lista
-        if (todosLeiloes.ContainsKey(id_leilao_escolhido_aprovar))
+        DateTime atual = DateTime.Now;
+        if (todosLeiloes[id_leilao_escolhido_aprovar].data_fim < atual)
         {
-            if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar, 1);
-            NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
-            Console.WriteLine("Leilao aprovado");
-            popup.Show("Leilao aprovado", "AVISO", "70%", "70%");
+            Console.WriteLine("O leilão escolhido já terminou e não pode ser aprovado");
+            popup.Show("O leilão escolhido já terminou e não pode ser aprovado", "AVISO", "70%", "70%");
         }
         else
         {
-            Console.WriteLine("Erro ao aprovar leilao");
-            popup.Show("Erro ao aprovar leilao", "AVISO", "70%", "70%");
+            // se o leilao não existir na lista
+            if (todosLeiloes.ContainsKey(id_leilao_escolhido_aprovar))
+            {
+                if_leiloes.aprovarLeilao(id_leilao_escolhido_aprovar, 1);
+                Console.WriteLine("Leilao aprovado");
+                popup.Show("Leilao aprovado", "AVISO", "70%", "70%");
+                Task.Delay(5000);
+                NavigationManager.NavigateTo("/HomepageAdmi", forceLoad: true);
+            }
+            else
+            {
+                Console.WriteLine("Erro ao aprovar leilao");
+                popup.Show("Erro ao aprovar leilao", "AVISO", "70%", "70%");
+            }
         }
     }
 

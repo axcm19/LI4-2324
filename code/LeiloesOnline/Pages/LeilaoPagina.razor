@@ -65,7 +65,7 @@
                     <p><center><b>Histórico de licitações:</b></center></p>
                     @foreach (var item in licitacoes)
                     {
-                        <p> UTILIZADOR: @item.Value.email_participante | VALOR: @item.Value.valor</p>
+                        <p> UTILIZADOR: @item.email_participante | VALOR: @item.valor</p>
 
                     }
                     <p></p>
@@ -100,7 +100,7 @@
     private float carteira = CurrentUser.getCurrentUser().carteira;
 
     private float valor_licitacao = 0;
-    private Dictionary<int, Licitacao> licitacoes = if_leiloes.getLicitacoes(CurrentLeilao.getCurrentLeilao().id_leilao, "");
+    private List<Licitacao> licitacoes = if_leiloes.getLicitacoes(CurrentLeilao.getCurrentLeilao().id_leilao, "");
 
     private Popup popup = new Popup();
 

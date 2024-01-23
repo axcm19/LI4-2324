@@ -77,7 +77,7 @@ namespace LeiloesOnline.Data
             return result;
         }
 
-        public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email)
+        public List<Licitacao> getLicitacoes(int id_leilao, string email)
         {
             return this.licitacaoDAO.getAllLicitacoes(id_leilao, email);
         }
@@ -234,7 +234,7 @@ namespace LeiloesOnline.Data
         }
 
 
-        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<int, Licitacao> licitacoes, LoteArtigos lote_artigos)
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, List<Licitacao> licitacoes, LoteArtigos lote_artigos)
         {
 
             bool result = false;

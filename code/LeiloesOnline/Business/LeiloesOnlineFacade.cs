@@ -49,7 +49,7 @@ namespace LeiloesOnline.Business
         // ---------------------------------------------------- Leiloes ----------------------------------------------------
 
 
-        public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email)
+        public List<Licitacao> getLicitacoes(int id_leilao, string email)
         {
             return this.db.getLicitacoes(id_leilao, email);
         }
@@ -70,7 +70,7 @@ namespace LeiloesOnline.Business
         }
 
 
-        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<int, Licitacao> licitacoes, LoteArtigos lote_artigos)
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, List<Licitacao> licitacoes, LoteArtigos lote_artigos)
         {
             return this.db.proporLeilao(categoria, nome, di, df, preco_base, min_lic, lic_atual, apro, email_quem_propos_,licitacoes, lote_artigos);
         }

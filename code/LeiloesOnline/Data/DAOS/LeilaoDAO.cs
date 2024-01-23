@@ -79,7 +79,7 @@ namespace LeiloesOnline.Data.DAOS
                             bool aprovado;
                             string fk_email_participante_propos;
 
-                            Dictionary<int, Licitacao> licitacoes = new Dictionary<int, Licitacao>();
+                            List<Licitacao> licitacoes = new List<Licitacao>();
                             LoteArtigos lote_artigos = new LoteArtigos();
 
 
@@ -391,18 +391,32 @@ namespace LeiloesOnline.Data.DAOS
             }
         }
 
-        public Leilao remove(int key)
+        public void remove(int key)
         {
-            Leilao result = get(key);
-            string s_cmd = "DELETE FROM dbo.Leilao WHERE id_leilao = " + key;
+            string s_cmd_1 = "DELETE FROM dbo.Licitacao WHERE fk_id_leilao = " + key;
+            string s_cmd_2 = "DELETE FROM dbo.Lote_Artigos WHERE fk_id_leilao = " + key;
+            string s_cmd_3 = "DELETE FROM dbo.Leilao WHERE id_leilao = " + key;
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
-                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_1, con))
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_2, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_3, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
                     }
                 }
             }
@@ -410,7 +424,6 @@ namespace LeiloesOnline.Data.DAOS
             {
                 throw new DAOException("Erro no remove do LeilaoDAO");
             }
-            return result;
         }
 
         public int size()

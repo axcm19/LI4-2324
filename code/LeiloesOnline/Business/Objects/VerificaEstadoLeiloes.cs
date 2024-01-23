@@ -29,7 +29,7 @@ namespace LeiloesOnline.Business.Objects
                     string vencedor = "";
 
                     // ir buscar o email do vencedor
-                    foreach (Licitacao l in if_leiloes.getLicitacoes(leilao.id_leilao, "").Values)
+                    foreach (Licitacao l in if_leiloes.getLicitacoes(leilao.id_leilao, ""))
                     {
                         if (l.valor == valorVencedor)
                         {

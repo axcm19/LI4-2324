@@ -23,7 +23,13 @@
         <a class="btn btn-secondary" href="/filtroquadros">Quadros</a>
         <a class="btn btn-secondary" href="/filtrojoias">Joias</a>
     </p>
-
+    <!--
+    <p>
+        <b>Ordenação de datas: </b>
+        <button @onclick="filtroAscendente" type="button" class="btn btn-secondary">Ascendente</button>
+        <button @onclick="filtroDescendente" type="button" class="btn btn-secondary">Descendente</button>
+    </p>
+    -->
     <p> </p>
 
     <style>
@@ -67,7 +73,8 @@
 
     private static I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
 
-    private Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "", 1);
+    private static Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "", 1);
+    private List<Leilao> todosLeiloesLista = converteParaLista(todosLeiloes);
 
     Popup popup = new Popup();
 
@@ -92,7 +99,7 @@
             }
         }
     }
-    
+
     public async Task lança_aviso(string aviso)
     {
         await InvokeAsync(() => popup.Show(aviso, "AVISO", "70%", "70%"));
@@ -108,6 +115,28 @@
         CurrentLeilao.setCurrentLeilao(l);
         Console.WriteLine(CurrentLeilao.printCurrentLeilaoInfo());
         NavigationManager.NavigateTo("/leilaopagina", forceLoad: true);
+    }
+
+    private static List<Leilao> converteParaLista(Dictionary<int, Leilao> leiloes)
+    {
+        List<Leilao> res = new List<Leilao>();
+        foreach(Leilao l in leiloes.Values)
+        {
+            res.Add(l);
+        }
+        return res;
+    }
+
+    private void filtroAscendente()
+    {
+        todosLeiloesLista = todosLeiloesLista.OrderBy(leilao => leilao.data_fim).ToList();
+        NavigationManager.NavigateTo("/todos", forceLoad: true);
+    }
+
+    private void filtroDescendente()
+    {
+        todosLeiloesLista = todosLeiloesLista.OrderByDescending(leilao => leilao.data_fim).ToList();
+        NavigationManager.NavigateTo("/todos", forceLoad: true);
     }
 
 }

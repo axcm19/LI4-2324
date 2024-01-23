@@ -95,10 +95,10 @@ namespace LeiloesOnline.Data.DAOS
             return li;
         }
 
-        public Dictionary<int, Licitacao> getAllLicitacoes(int id_leilao, string keyParticipante)
+        public List<Licitacao> getAllLicitacoes(int id_leilao, string keyParticipante)
         {
 
-            Dictionary<int, Licitacao> licitacoes = new Dictionary<int, Licitacao>();
+            List<Licitacao> licitacoes = new List<Licitacao>();
 
             if (id_leilao == 0 && !keyParticipante.Equals(""))
             {
@@ -126,7 +126,7 @@ namespace LeiloesOnline.Data.DAOS
                                     fk_id_leilao = reader.GetInt32(reader.GetOrdinal("fk_id_leilao"));
 
                                     Licitacao aux = new Licitacao(data_ocorreu, valor, fk_email_participante, fk_id_leilao);
-                                    licitacoes.Add(aux.id_leilao, aux);
+                                    licitacoes.Add(aux);
                                 }
                             }
                         }
@@ -136,7 +136,7 @@ namespace LeiloesOnline.Data.DAOS
                 catch (InvalidOperationException)
                 {
                     // Captura a exceção quando não há resultados e retorna um dicionário vazio
-                    return new Dictionary<int, Licitacao>();
+                    return new List<Licitacao>();
                 }
                 catch (Exception e)
                 {
@@ -169,7 +169,7 @@ namespace LeiloesOnline.Data.DAOS
                                     fk_id_leilao = reader.GetInt32(reader.GetOrdinal("fk_id_leilao"));
 
                                     Licitacao aux = new Licitacao(data_ocorreu, valor, fk_email_participante, fk_id_leilao);
-                                    licitacoes.Add(aux.id_leilao, aux);
+                                    licitacoes.Add(aux);
                                 }
                             }
                         }
@@ -179,7 +179,7 @@ namespace LeiloesOnline.Data.DAOS
                 catch (InvalidOperationException)
                 {
                     // Captura a exceção quando não há resultados e retorna um dicionário vazio
-                    return new Dictionary<int, Licitacao>();
+                    return new List<Licitacao>();
                 }
                 catch (Exception e)
                 {

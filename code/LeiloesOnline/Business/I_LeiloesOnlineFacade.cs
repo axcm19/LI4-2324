@@ -36,12 +36,12 @@ namespace LeiloesOnline.Business
 
         public Dictionary<int, Leilao> getTodosLeiloes(string criterioDeOrdenacao, string categoria, int quais); // criterio e categoria podem ser opcionais
 
-        public Dictionary<int, Licitacao> getLicitacoes(int id_leilao, string email);
+        public List<Licitacao> getLicitacoes(int id_leilao, string email);
 
 
         public Leilao getLeilao(int leilaoID);
 
-        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, Dictionary<int, Licitacao> licitacoes, LoteArtigos lote_artigos);
+        public bool proporLeilao(string categoria, string nome, DateTime di, DateTime df, float preco_base, float min_lic, float lic_atual, bool apro, string email_quem_propos_, List<Licitacao> licitacoes, LoteArtigos lote_artigos);
 
         public bool aprovarLeilao(int leilaoID, int valor);
 

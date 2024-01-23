@@ -66,7 +66,7 @@
     }
 </style>
 
-<table style="width:40%">
+<table style="width:60%">
     <tr>
         <th>Lista de artigos:</th>
     </tr>
@@ -88,14 +88,14 @@
     }
 </style>
 
-<table style="width:40%">
+<table style="width:60%">
     <tr>
         <th>Histórico de licitações:</th>
     </tr>
     @foreach (var item in licitacoes)
     {
         <tr>
-            <td>ID: @item.Value.id_leilao | DATA: @item.Value.data_ocorreu | VALOR: @item.Value.valor </td>
+            <td>ID-LEILÃO: @item.id_leilao | DATA: @item.data_ocorreu | VALOR: @item.valor </td>
         </tr>
     }
 </table>
@@ -108,14 +108,16 @@
     }
 </style>
 
-<table style="width:40%">
+<table style="width:60%">
     <tr>
         <th>Histórico de leilões:</th>
     </tr>
     @foreach (var item in leiloes)
     {
         <tr>
-            <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS-APROVAÇÃO: @item.Value.aprovado </td>
+            <td>
+                ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | LICITAÇÃO-ATUAL: @item.Value.licitacao_atual | DATA-DE-TÉRMINO: @item.Value.data_fim.ToString() |STATUS-APROVAÇÃO: @item.Value.aprovado
+            </td>
         </tr>
     }
 </table>
@@ -146,7 +148,7 @@
 
     private float dividaAcumulada = CurrentUser.getDivida();
 
-    private Dictionary<int, Licitacao> licitacoes = CurrentUser.getMyLicitacoes();
+    private List<Licitacao> licitacoes = CurrentUser.getMyLicitacoes();
     private Dictionary<int, Leilao> leiloes = CurrentUser.getMyLeiloes();
 
     private float saldo_acrescentar;

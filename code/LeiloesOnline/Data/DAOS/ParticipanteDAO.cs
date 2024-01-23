@@ -197,18 +197,43 @@ namespace LeiloesOnline.Data.DAOS
             }
         }
 
-        public Participante remove(string key)
+        public void remove(string key)
         {
-            Participante result = get(key);
-            string s_cmd = "DELETE FROM dbo.Participante WHERE email_participante = " + key;
+            string s_cmd_1 = "DELETE FROM dbo.Licitacao WHERE fk_email_participante = " + key;
+
+            string s_cmd_2 = "DELETE FROM dbo.Artigo WHERE fk_email_participante_dono = " + key;
+
+            string s_cmd_3 = "DELETE FROM dbo.Leilao WHERE fk_email_participante_propos = " + key;
+
+            string s_cmd_4 = "DELETE FROM dbo.Participante WHERE email_participante = " + key;
+
             try
             {
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
-                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_1, con))
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_2, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_3, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_4, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
                     }
                 }
             }
@@ -216,7 +241,6 @@ namespace LeiloesOnline.Data.DAOS
             {
                 throw new DAOException("Erro no remove do ParticipanteDAO");
             }
-            return result;
         }
 
         public int size()

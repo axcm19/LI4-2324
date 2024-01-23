@@ -56,7 +56,7 @@ namespace LeiloesOnline.Business.Objects
             return res;
         }
 
-        public static Dictionary<int, Licitacao> getMyLicitacoes()
+        public static List<Licitacao> getMyLicitacoes()
         {
             I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
             return if_leiloes.getLicitacoes(CurrentLeilao.getCurrentLeilao().id_leilao, "");
