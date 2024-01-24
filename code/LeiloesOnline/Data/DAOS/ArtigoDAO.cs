@@ -2,6 +2,9 @@ using LeiloesOnline.Business.Objects;
 using System.Data.SqlClient;
 using Dapper;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.Drawing;
+using Microsoft.VisualBasic;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -614,6 +617,39 @@ namespace LeiloesOnline.Data.DAOS
             catch (Exception e)
             {
                 throw new DAOException(e.Message);
+            }
+            return result;
+        }
+
+        //##########################################################################################################################################################################
+
+        public bool atualizarDono(int key, string novoDono)
+        {
+            bool result = false;
+            string s_cmd = "UPDATE dbo.Artigo SET fk_email_participante_dono = " + novoDono + " WHERE id_artigo = " + key;
+
+            Console.WriteLine(s_cmd);
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new DAOException("Erro ao atualizar o dono no ArtigoDAO");
             }
             return result;
         }

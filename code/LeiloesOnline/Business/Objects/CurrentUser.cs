@@ -50,6 +50,13 @@ namespace LeiloesOnline.Business.Objects
             CurrentUser.dividaAcumulada = valor;
         }
 
+        public static Dictionary<int, Artigo> getArtigos()
+        {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            string current_email_test = "'" + current.email_participante + "'";
+            return if_leiloes.getParticipanteArtigos(current_email_test);
+        }
+
         public static Participante getCurrentUser()
         {
             return CurrentUser.current;

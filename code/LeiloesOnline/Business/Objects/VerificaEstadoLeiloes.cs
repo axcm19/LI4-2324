@@ -59,9 +59,29 @@ namespace LeiloesOnline.Business.Objects
                                 CurrentUser.carregaSaldo(CurrentUser.getCurrentUser().carteira + valorVencedor);
                             }
 
-                            /*
-                             * falta transferir os artigos de um participante para outro
-                            */
+
+                            // transferir os artigos do inventário do proponente para o inventário do vencedor
+                            Leilao copia = if_leiloes.getLeilao(leilao.id_leilao);  // tive de ir mesmo buscar à BD senão ele não sabia quais eram os artigos
+                            foreach (Artigo a in copia.lote_artigos.artigos)
+                            {
+                                Console.WriteLine(a.getIdArtigo());
+
+                                if (if_leiloes.transfereArtigo(if_leiloes.getLeilao(leilao.id_leilao).email_quem_propos, vencedor, a) == true)
+                                {
+                                    Console.WriteLine("Artigo transferido com sucesso");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Erro a transferir artigo");
+                                }
+                            }
+
+                            // caso o currentUser seja o proponente ou vencedor do leilão, deve atualizar o seu inventário
+                            if (CurrentUser.getCurrentUser().email_participante.Equals(vencedor))
+                            {
+                                CurrentUser.getCurrentUser().meusArtigos = CurrentUser.getArtigos();
+                            }
+
 
                             return "O leilão " + leilao.id_leilao + " terminou com o vencedor " + vencedor + " -> Licitação vencedora = " + valorVencedor;
                         }

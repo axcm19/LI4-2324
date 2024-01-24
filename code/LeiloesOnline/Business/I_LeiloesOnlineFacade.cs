@@ -24,6 +24,8 @@ namespace LeiloesOnline.Business
 
         public Participante getParticipanteWithEmail(string email);
 
+        public Dictionary<int, Artigo> getParticipanteArtigos(string email);
+
         public Administrador getAdministradorWithEmail(string email);
 
         public bool carregaSaldo(string e_mail, float valor);

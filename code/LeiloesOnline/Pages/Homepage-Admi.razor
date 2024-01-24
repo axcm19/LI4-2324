@@ -92,22 +92,6 @@
         }
     }
 
-    static Dictionary<int, Leilao> ir_buscar_leiloes_BD()
-    {
-        Dictionary<int, Leilao> resultado = if_leiloes.getTodosLeiloes("", "", 2);
-        Dictionary<int, Leilao> resultado2 = new Dictionary<int, Leilao>();
-
-        DateTime atual = DateTime.Now;
-
-        foreach(Leilao l in resultado.Values)
-        {
-            if (atual <= l.data_fim)
-            {
-                resultado2.Add(l.id_leilao, l);
-            }
-        }
-        return resultado2;
-    }
 
     void eliminar_participante()
     {

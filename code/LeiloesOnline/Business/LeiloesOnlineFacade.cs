@@ -3,6 +3,7 @@ using LeiloesOnline.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 namespace LeiloesOnline.Business
 {
@@ -33,6 +34,11 @@ namespace LeiloesOnline.Business
         public Participante getParticipanteWithEmail(string email)
         {
             return this.db.getParticipanteWithEmail(email);
+        }
+
+        public Dictionary<int, Artigo> getParticipanteArtigos(string email)
+        {
+            return this.db.getParticipanteArtigos(email);
         }
 
         public Administrador getAdministradorWithEmail(string email)
@@ -119,8 +125,7 @@ namespace LeiloesOnline.Business
 
         public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir)
         {
-            Console.WriteLine("...");
-            return false;
+            return this.db.transfereArtigo(email_vendedor, email_comprador, artigoParaTransferir);
         }
     }
     

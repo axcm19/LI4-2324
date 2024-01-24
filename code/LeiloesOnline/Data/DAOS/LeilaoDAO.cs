@@ -125,11 +125,16 @@ namespace LeiloesOnline.Data.DAOS
                 using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
                 {
                     con.Open();
-                    Leilao aux = con.QueryFirst<Leilao>(s_cmd);
-                    leiloes.Add(aux.id_leilao, aux);
-                    
+
+                    IEnumerable<Leilao> res = con.Query<Leilao>(s_cmd);
+
+                    // Itera sobre a coleção e adiciona ao dicionário
+                    foreach (Leilao leilao in res)
+                    {
+                        leiloes.Add(leilao.id_leilao, leilao);
+                    }
                 }
-                
+
             }
             catch (InvalidOperationException)
             {

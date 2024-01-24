@@ -158,8 +158,6 @@ namespace LeiloesOnline.Data.DAOS
                         }
                     }
                 }
-
-
             }
             catch (Exception e)
             {

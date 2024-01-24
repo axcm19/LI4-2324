@@ -1,6 +1,7 @@
 ﻿using LeiloesOnline.Business.Objects;
 using LeiloesOnline.Data.DAOS;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Drawing;
 
 namespace LeiloesOnline.Data
 {
@@ -75,6 +76,12 @@ namespace LeiloesOnline.Data
             Participante result = this.participanteDAO.get(email);
             result.meusArtigos = this.participanteDAO.getArtigos(email);
             return result;
+        }
+
+        public Dictionary<int, Artigo> getParticipanteArtigos(string email)
+        {
+            Dictionary<int, Artigo> meusArtigos = this.participanteDAO.getArtigos(email);
+            return meusArtigos;
         }
 
         public List<Licitacao> getLicitacoes(int id_leilao, string email)
@@ -230,7 +237,21 @@ namespace LeiloesOnline.Data
 
         public bool transfereArtigo(string email_vendedor, string email_comprador, Artigo artigoParaTransferir)
         {
-            return false;    
+            string test_e_mail_comprador = "'" + email_comprador + "'";
+
+            bool result = false;
+
+            if (artigoDAO.containsKey(artigoParaTransferir.getIdArtigo()))
+            {
+                artigoDAO.atualizarDono(artigoParaTransferir.getIdArtigo(), test_e_mail_comprador);
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result; 
         }
 
 
