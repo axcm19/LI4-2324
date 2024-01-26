@@ -76,16 +76,43 @@ namespace LeiloesOnline.Business.Objects
                                 }
                             }
 
-                            // caso o currentUser seja o proponente ou vencedor do leilão, deve atualizar o seu inventário
-                            if (CurrentUser.getCurrentUser().email_participante.Equals(vencedor))
-                            {
-                                CurrentUser.getCurrentUser().meusArtigos = CurrentUser.getArtigos();
-                            }
+                            // após a transferência de artigos, o currentUser (seja o proponente ou vencedor do leilão) deve atualizar o seu inventário
+                            CurrentUser.getCurrentUser().meusArtigos = CurrentUser.getArtigos();
 
 
                             return "O leilão " + leilao.id_leilao + " terminou com o vencedor " + vencedor + " -> Licitação vencedora = " + valorVencedor;
                         }
 
+                    }
+                }
+            }
+            return aviso;
+        }
+
+
+        public bool verificaLoteArtigos(int id_artigo)
+        {
+            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+            Dictionary<int, Leilao> todosLeiloes = if_leiloes.getTodosLeiloes("", "", 2);
+            Artigo a = if_leiloes.getArtigo(id_artigo);
+
+            bool aviso = false;
+
+            foreach (Leilao leilao in todosLeiloes.Values)
+            {
+                DateTime dataAtual = DateTime.Now;
+                DateTime dataTérmino = leilao.data_fim;
+                Leilao l = if_leiloes.getLeilao(leilao.id_leilao);
+
+                if (dataAtual <= dataTérmino)
+                {
+                    foreach(Artigo ar in l.lote_artigos.artigos)
+                    {
+                        if(ar.getIdArtigo() == id_artigo)
+                        {
+                            aviso = true;
+                            break;
+                        }
                     }
                 }
             }

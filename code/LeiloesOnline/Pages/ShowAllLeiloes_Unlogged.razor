@@ -29,20 +29,23 @@
         </tr>
         @foreach (var item in todosLeiloes)
         {
-            <tr>
-                <td style="width: 500px; height: 100px; padding: 10px; margin: 10px;">
-                    <p>
-                        NOME: @item.Value.nome      <br>
-                        CATEGORIA: @item.Value.categoria            <br>
-                        LICITAÇÃO ATUAL: @item.Value.licitacao_atual €  <br>
-                        DATA DE TÉRMINO: @item.Value.data_fim.ToString()        <br>
-                    </p>
+            if (item.Value.data_fim > DateTime.Now)
+            {
+                <tr>
+                    <td style="width: 500px; height: 100px; padding: 10px; margin: 10px;">
+                        <p>
+                            NOME: @item.Value.nome      <br>
+                            CATEGORIA: @item.Value.categoria            <br>
+                            LICITAÇÃO ATUAL: @item.Value.licitacao_atual €  <br>
+                            DATA DE TÉRMINO: @item.Value.data_fim.ToString()        <br>
+                        </p>
 
-                </td>
-                <td style="width: 20px; height: 20px; padding: 10px; margin: 10px;">
-                    <button @onclick="lançaAviso" type="button" class="btn btn-primary">Entrar</button>
-                </td>
-            </tr>
+                    </td>
+                    <td style="width: 20px; height: 20px; padding: 10px; margin: 10px;">
+                        <button @onclick="lançaAviso" type="button" class="btn btn-primary">Entrar</button>
+                    </td>
+                </tr>
+            }
         }
     </table>
 

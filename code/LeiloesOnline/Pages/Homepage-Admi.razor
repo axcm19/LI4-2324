@@ -42,9 +42,18 @@
         </tr>
         @foreach (var item in todosLeiloes)
         {
-            <tr>
-                <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS-APROVAÇÃO: @item.Value.aprovado </td>
-            </tr>
+            if (DateTime.Now > item.Value.data_fim)
+            {
+                <tr>
+                    <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS: TERMINADO </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>ID: @item.Value.id_leilao | NOME: @item.Value.nome | CATEGORIA: @item.Value.categoria | STATUS-APROVAÇÃO: @item.Value.aprovado </td>
+                </tr>
+            }
         }
     </table>
 

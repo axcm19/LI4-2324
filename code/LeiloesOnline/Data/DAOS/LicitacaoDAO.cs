@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Dapper;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.Drawing;
+using Microsoft.VisualBasic;
 
 namespace LeiloesOnline.Data.DAOS
 {
@@ -314,7 +315,46 @@ namespace LeiloesOnline.Data.DAOS
             return result;
         }
 
+        public void atualizaLicitacao(Licitacao value)
+        {
+            //inverter formato das datas porque o SQL é esquisito para caralho!
+            string inverted_data_ocorreu = value.data_ocorreu.ToString("yyyy/MM/dd HH:mm:ss");
 
+            string s_cmd = "UPDATE Licitacao set valor = " + value.valor + " , data_ocorreu = '" + inverted_data_ocorreu + "' where fk_email_participante = '" + value.email_participante + "' and fk_id_leilao = " + value.id_leilao;
+
+            Console.WriteLine(s_cmd);
+
+            string s_cmd_2 = "UPDATE dbo.Leilao SET licitacao_atual = " + value.valor + " WHERE id_leilao =" + value.id_leilao;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(DAOconfig.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand(s_cmd, con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(s_cmd_2, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Console.WriteLine("Licitação atual atualizada com sucesso");
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new DAOException("Erro no atualizaLicitação do LicitacaoDAO");
+            }
+        }
 
     }
 

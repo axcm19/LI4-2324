@@ -374,20 +374,21 @@ namespace LeiloesOnline.Data
         public bool addLicitacao(Licitacao newLicitacao)
         {
             bool result = false;
+            
             Licitacao copy_l = newLicitacao.Clone();
 
             string test_e_mail = "'" + copy_l.email_participante + "'";
 
             if (licitacaoDAO.containsKeys(test_e_mail, copy_l.id_leilao))
             {
-                result = false;
+                licitacaoDAO.atualizaLicitacao(copy_l);
+                result = true;
             }
             else
             {
                 licitacaoDAO.put(copy_l);
                 result = true;
             }
-
             return result;
         }
 

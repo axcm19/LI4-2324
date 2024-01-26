@@ -170,27 +170,26 @@
 
     void adicionaArtigoAoLote()
     {
+        VerificaEstadoLeiloes vel = new VerificaEstadoLeiloes();
 
-        // se o artigo ainda não existir no dicionario 
-        if (!artigosParaLeiloar.ContainsKey(id_artigo_escolhido))
+        Console.WriteLine(vel.verificaLoteArtigos(id_artigo_escolhido));
+
+        if (vel.verificaLoteArtigos(id_artigo_escolhido) == true)
         {
-            I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
-            Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
-
-            string compara = a.GetType().Name + "s";
-
-            if (categoria.Equals("Misto"))
+            Console.WriteLine("Esse artigo já pertence a outro leilão!");
+            popup.Show("Esse artigo já pertence a outro leilão!", "AVISO", "70%", "70%");
+        }
+        else
+        {
+            // se o artigo ainda não existir no dicionario
+            if (!artigosParaLeiloar.ContainsKey(id_artigo_escolhido))
             {
-                artigosParaLeiloar.Add(id_artigo_escolhido, a);
+                I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
+                Artigo a = if_leiloes.getArtigo(id_artigo_escolhido);
 
-                Console.WriteLine("Adicionado artigo ao lote");
-                popup.Show("Adicionado artigo ao lote", "AVISO", "70%", "70%");
+                string compara = a.GetType().Name + "s";
 
-                Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
-            }
-            else
-            {
-                if (compara.Equals(categoria))
+                if (categoria.Equals("Misto"))
                 {
                     artigosParaLeiloar.Add(id_artigo_escolhido, a);
 
@@ -201,17 +200,29 @@
                 }
                 else
                 {
-                    Console.WriteLine("O artigo escolhido não corresponde à categoria de leilão estipulada");
-                    popup.Show("O artigo escolhido não corresponde à categoria de leilão estipulada", "AVISO", "70%", "70%");
-                    Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
+                    if (compara.Equals(categoria))
+                    {
+                        artigosParaLeiloar.Add(id_artigo_escolhido, a);
+
+                        Console.WriteLine("Adicionado artigo ao lote");
+                        popup.Show("Adicionado artigo ao lote", "AVISO", "70%", "70%");
+
+                        Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
+                    }
+                    else
+                    {
+                        Console.WriteLine("O artigo escolhido não corresponde à categoria de leilão estipulada");
+                        popup.Show("O artigo escolhido não corresponde à categoria de leilão estipulada", "AVISO", "70%", "70%");
+                        Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
+                    }
                 }
             }
-        }
-        else
-        {
-            Console.WriteLine("Erro ao adicionar artigo ao lote");
-            popup.Show("Erro ao adicionar artigo ao lote", "AVISO", "70%", "70%");
-            Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
+            else
+            {
+                Console.WriteLine("Erro ao adicionar artigo ao lote");
+                popup.Show("Erro ao adicionar artigo ao lote", "AVISO", "70%", "70%");
+                Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
+            }
         }
     }
 
@@ -228,7 +239,7 @@
         else
         {
             Console.WriteLine("Erro ao remover artigo para leiloar");
-            popup.Show("Erro ao adicionar artigo para leiloar", "AVISO", "70%", "70%");
+            popup.Show("Erro ao remover artigo para leiloar", "AVISO", "70%", "70%");
             Console.WriteLine(listaArtigosParaLeiloar(artigosParaLeiloar));
         }
     }
