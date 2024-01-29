@@ -1,6 +1,7 @@
 ﻿@using LeiloesOnline.Business;
 @using LeiloesOnline.Business.Objects;
 @inject NavigationManager NavigationManager
+@using System.Diagnostics;
 
 @page "/conta"
 
@@ -67,13 +68,27 @@
 </style>
 
 <table style="width:60%">
+    <style>
+        /* Estilo para o botão sublinhado */
+        .underline-button {
+            background: none;
+            border: none;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+            position: relative;
+        }
+    </style>
     <tr>
         <th>Lista de artigos:</th>
     </tr>
     @foreach (var item in artigosCurrent)
     {
         <tr>
-            <td>ID: @item.Value.getIdArtigo() | TIPO: @item.Value.GetType().Name | NOME: @item.Value.getNome() | DESCRIÇÃO: @item.Value.getDescricao() </td>
+            <td>ID: @item.Value.getIdArtigo() | TIPO: @item.Value.GetType().Name | NOME: @item.Value.getNome() | DESCRIÇÃO: @item.Value.getDescricao()
+                <a class="underline-button" @onclick="() => verComprovativo(item.Value.getComprovativo())"> Ver Comprovativo</a>
+                
+            </td>
         </tr>
     }
 
@@ -222,6 +237,25 @@
     {
         I_LeiloesOnlineFacade if_leiloes = new LeiloesOnlineFacade();
         return if_leiloes.getParticipanteLeiloes(CurrentUser.getCurrentUser().email_participante);
+    }
+
+    void verComprovativo(string res)
+    {
+        string path = "comprovativos\\" + res;
+        try
+        {
+            string fullPath = Path.Combine(Environment.CurrentDirectory, path);
+            string fileUrl = "file://" + fullPath.Replace("\\", "/");
+
+            // Abrir o pdf usando o programa predefinido pelo sistema
+            Process.Start(new ProcessStartInfo(fileUrl) { UseShellExecute = true });
+        }
+        catch (Exception)
+        {
+            string aviso = "Erro ao abrir o ficheiro " + res;
+            Console.WriteLine(aviso);
+            popup.Show(aviso, "AVISO", "70%", "70%");
+        }
     }
 
 }
