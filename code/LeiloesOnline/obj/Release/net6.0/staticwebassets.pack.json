@@ -61,6 +61,34 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\HamletComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\HamletComprovativo.pdf.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\LusiadasComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\LusiadasComprovativo.pdf.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\MonaLisaComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\MonaLisaComprovativo.pdf.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\PandoraMomentsComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\PandoraMomentsComprovativo.pdf.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\PanteraCorRosaComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\PanteraCorRosaComprovativo.pdf.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\PersistenciaMemoriaComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\PersistenciaMemoriaComprovativo.pdf.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\TheStarryNightComprovativo.pdf.jpg",
+      "PackagePath": "staticwebassets\\images\\TheStarryNightComprovativo.pdf.jpg"
+    },
+    {
       "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\favicon.png",
       "PackagePath": "staticwebassets\\images\\favicon.png"
     },
@@ -71,6 +99,10 @@
     {
       "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\livros.jpg",
       "PackagePath": "staticwebassets\\images\\livros.jpg"
+    },
+    {
+      "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\noimage.jpg",
+      "PackagePath": "staticwebassets\\images\\noimage.jpg"
     },
     {
       "Id": "D:\\Users\\Afonso Marques\\Desktop\\LI4-2324\\code\\LeiloesOnline\\wwwroot\\images\\quadro.png",

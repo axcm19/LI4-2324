@@ -1,12 +1,14 @@
-﻿using System;
+﻿using LeiloesOnline.Data.DAOS;
+using System;
 using System.Reflection.Metadata.Ecma335;
 
 namespace LeiloesOnline.Business.Objects
 
 {
+    
     public class CurrentUser
     {
-        /*
+        /*    
          * Esta é uma classe de uma única instância cujo objectivo é armazenar o utilizador com sessão iniciada
          */
 
