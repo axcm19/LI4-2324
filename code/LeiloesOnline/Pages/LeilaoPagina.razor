@@ -166,7 +166,7 @@
                 }
                 else
                 {
-                    if (CurrentUser.getDivida() > carteira)
+                    if (carteira - CurrentUser.getDivida() < 0)
                     {
                         Console.WriteLine("Se fizer essa licitação vai acumular uma divida maior que o seu saldo atual");
                         popup.Show("Se fizer essa licitação vai acumular uma divida maior que o seu saldo atual", "AVISO", "70%", "70%");
